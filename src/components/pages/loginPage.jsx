@@ -7,6 +7,7 @@ import "react-toastify/dist/ReactToastify.css"
 import { setUserName } from "../store/task"
 
 const LoginPage = () => {
+  localStorage.clear()
   let navigate = useNavigate()
   const dispatch = useDispatch()
   const userName = useSelector((state) => state.user.userName)

@@ -15,7 +15,9 @@ const Message = ({ message, user, time }) => {
     >
       <Text style={{ fontStyle: "italic", fontWeight: "bold" }}>{user}</Text>
       <Text>{message}</Text>
-      <Text>{time}</Text>
+      <Text fontSize='xs' color='#2d4812f3'>
+        {time}
+      </Text>
     </Box>
   )
 }

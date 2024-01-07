@@ -3,7 +3,6 @@ import { Box } from "@chakra-ui/react"
 import Message from "./message"
 
 const DialogScreen = ({ displayState }) => {
-  console.log(typeof displayState, displayState)
   const boxRef = useRef()
 
   useEffect(() => {
