@@ -15,13 +15,20 @@ const Chat = () => {
     setDisplayState((prevState) => prevState + inputState + "\n")
     setInputState("")
   }
+  const handleClearScreen = () => {
+    setDisplayState("")
+  }
 
   return (
     <>
-      <DialogScreen displayState={displayState} />
+      <DialogScreen
+        displayState={displayState}
+        onClearScreen={handleClearScreen}
+      />
       <ChatInput
         onInputChange={handleInputChange}
         onSendMessage={handleSendMessage}
+        onClearScreen={handleClearScreen}
         inputState={inputState}
       />
       <Box>Hello, {userName}</Box>

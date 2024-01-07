@@ -1,7 +1,12 @@
 import React from "react"
 import { Button, Input } from "@chakra-ui/react"
 
-const ChatInput = ({ onInputChange, inputState, onSendMessage }) => {
+const ChatInput = ({
+  onInputChange,
+  inputState,
+  onSendMessage,
+  onClearScreen
+}) => {
   return (
     <>
       <Input
@@ -13,7 +18,9 @@ const ChatInput = ({ onInputChange, inputState, onSendMessage }) => {
       <Button colorScheme='blue' onClick={onSendMessage}>
         Send
       </Button>
-      <Button colorScheme='red'>Clear</Button>
+      <Button colorScheme='red' onClick={onClearScreen}>
+        Clear
+      </Button>
     </>
   )
 }

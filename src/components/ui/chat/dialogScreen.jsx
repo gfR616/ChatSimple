@@ -2,6 +2,7 @@ import React from "react"
 import { Box, Text } from "@chakra-ui/react"
 
 const DialogScreen = ({ displayState }) => {
+  console.log(typeof displayState, displayState)
   return (
     <Box bg='grey' w='100%' h='400px' p={4} color='white'>
       {displayState.split("\n").map((message, index) => (
