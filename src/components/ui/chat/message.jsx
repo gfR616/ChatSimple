@@ -1,8 +1,23 @@
-import { Box } from "@chakra-ui/react"
+import { Box, Text } from "@chakra-ui/react"
 import React from "react"
 
-const Message = () => {
-  return <Box>текст</Box>
+const Message = ({ message, user, time }) => {
+  return (
+    <Box
+      p={3}
+      m={5}
+      color='black'
+      bg='tomato'
+      minH='fit-content'
+      minW='fit-content'
+      w='40vh'
+      borderRadius={10}
+    >
+      <Text style={{ fontStyle: "italic", fontWeight: "bold" }}>{user}</Text>
+      <Text>{message}</Text>
+      <Text>{time}</Text>
+    </Box>
+  )
 }
 
 export default Message

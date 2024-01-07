@@ -7,11 +7,11 @@ import { useNavigate } from "react-router-dom"
 const ChatPage = () => {
   const navigate = useNavigate()
   const userName = useSelector((state) => state.user.userName)
-  useEffect(() => {
-    if (!userName) {
-      navigate("/auth")
-    }
-  }, [navigate, userName])
+  // useEffect(() => {
+  //   if (!userName) {
+  //     navigate("/auth")
+  //   }
+  // }, [navigate, userName])
   return (
     <Box>
       <Chat />

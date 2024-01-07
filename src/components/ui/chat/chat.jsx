@@ -6,17 +6,25 @@ import { Box } from "@chakra-ui/react"
 
 const Chat = () => {
   const userName = useSelector((state) => state.user.userName)
+
   const [inputState, setInputState] = useState("")
-  const [displayState, setDisplayState] = useState("")
+
+  const [displayState, setDisplayState] = useState([])
+
   const handleInputChange = (event) => {
     setInputState(event.target.value)
   }
   const handleSendMessage = () => {
-    setDisplayState((prevState) => prevState + inputState + "\n")
+    const addDisplayElement = {
+      userName: userName,
+      message: inputState,
+      time: new Date().toLocaleTimeString()
+    }
+    setDisplayState([...displayState, addDisplayElement])
     setInputState("")
   }
   const handleClearScreen = () => {
-    setDisplayState("")
+    setDisplayState([])
   }
 
   return (
