@@ -1,15 +1,26 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useMemo, useState } from "react"
 import ChatInput from "./chatInput"
 import DialogScreen from "./dialogScreen"
 import { useDispatch, useSelector } from "react-redux"
 import { Box } from "@chakra-ui/react"
 import { setUserName } from "../../store/task"
+import { getDatabase, ref, onValue, push } from "firebase/database"
+import app from "../../../base/fireBaseConfig"
 
 const Chat = () => {
+  const dbRef = useMemo(() => ref(getDatabase(app)), [])
   const dispatch = useDispatch()
   const userName = useSelector((state) => state.user.userName)
   const [inputState, setInputState] = useState("")
   const [displayState, setDisplayState] = useState([])
+
+  useEffect(() => {
+    onValue(dbRef, (snapshot) => {
+      snapshot.forEach((childSnapshot) => {
+        console.log(childSnapshot.val())
+      })
+    })
+  }, [dbRef])
 
   useEffect(() => {
     let storedUserName = localStorage.getItem("userName")
@@ -35,10 +46,15 @@ const Chat = () => {
       message: inputState,
       time: new Date().toLocaleTimeString()
     }
+
     setDisplayState((prevState) => {
       const newState = [...prevState, addDisplayElement]
       localStorage.setItem("displayState", JSON.stringify(newState))
       return newState
+    })
+
+    push(dbRef, {
+      addDisplayElement
     })
     setInputState("")
   }
@@ -48,7 +64,6 @@ const Chat = () => {
     localStorage.removeItem("displayState")
   }
 
-  console.log(localStorage)
   return (
     <>
       <DialogScreen
