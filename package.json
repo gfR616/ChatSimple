@@ -20,7 +20,7 @@
     "react-toastify": "^9.1.3",
     "web-vitals": "^2.1.4"
   },
-  "homepage": "http://{username}.github.io/{repo-name}",
+  "homepage": "https://gfr616.github.io/ChatSimple/",
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
