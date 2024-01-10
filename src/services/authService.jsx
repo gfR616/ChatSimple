@@ -2,6 +2,7 @@ import {
 	createUserWithEmailAndPassword,
 	getAuth,
 	signInWithEmailAndPassword,
+	updateProfile,
 } from 'firebase/auth'
 
 const auth = getAuth()
@@ -9,11 +10,8 @@ const auth = getAuth()
 export const signIn = async (email, password, navigate) => {
 	try {
 		const userCredential = await signInWithEmailAndPassword(auth, email, password)
-		console.log(userCredential)
-		const user = userCredential.user
-		console.log(user)
-		localStorage.setItem('user', JSON.stringify(user))
-		// navigate('/chat')
+		const user = userCredential.user.displayName
+		navigate('/chat')
 	} catch (error) {
 		const errorCode = error.code
 		const errorMessage = error.message
@@ -23,16 +21,10 @@ export const signIn = async (email, password, navigate) => {
 
 export const register = async (email, password, displayName, navigate) => {
 	try {
-		const userCredential = await createUserWithEmailAndPassword(
-			auth,
-			email,
-			password,
-			displayName,
-		)
-		console.log(userCredential.user)
+		const userCredential = await createUserWithEmailAndPassword(auth, email, password)
 		const user = userCredential.user
-		console.log(user)
-		localStorage.setItem('user', JSON.stringify(user))
+		await updateProfile(user, { displayName: displayName })
+		navigate('/chat')
 	} catch (error) {
 		const errorCode = error.code
 		const errorMessage = error.message

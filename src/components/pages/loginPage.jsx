@@ -52,7 +52,6 @@ const LoginPage = () => {
 		signIn(email, password, navigate)
 	}
 
-	const o = { email: 'ghostb1313@gmail.com', password: '2777288' }
 	return (
 		<Box
 			backgroundImage="/loginBg.jpg"

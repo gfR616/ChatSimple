@@ -34,6 +34,7 @@ const RegistrationPage = () => {
 
 	const handleRegister = () => {
 		if (firstEnterPassword === repeatPassword) {
+			console.log(displayName)
 			register(email, repeatPassword, displayName, navigate)
 		}
 	}
