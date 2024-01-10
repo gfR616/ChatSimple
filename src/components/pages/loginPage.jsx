@@ -14,7 +14,7 @@ import {
 	Text,
 } from '@chakra-ui/react'
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -48,8 +48,14 @@ const LoginPage = () => {
 		navigate('/chat')
 	}
 
-	const handleLogin = (email, password) => {
-		signIn(email, password, navigate)
+	const handleLogin = async () => {
+		try {
+			const user = await signIn(email, password, navigate)
+			dispatch(setUserName(user.displayName))
+		} catch (error) {
+			alert('Заполните данные!')
+			console.log(error.message)
+		}
 	}
 
 	return (

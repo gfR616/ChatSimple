@@ -10,8 +10,9 @@ const auth = getAuth()
 export const signIn = async (email, password, navigate) => {
 	try {
 		const userCredential = await signInWithEmailAndPassword(auth, email, password)
-		const user = userCredential.user.displayName
+		const user = userCredential.user
 		navigate('/chat')
+		return user
 	} catch (error) {
 		const errorCode = error.code
 		const errorMessage = error.message
@@ -25,6 +26,7 @@ export const register = async (email, password, displayName, navigate) => {
 		const user = userCredential.user
 		await updateProfile(user, { displayName: displayName })
 		navigate('/chat')
+		return user
 	} catch (error) {
 		const errorCode = error.code
 		const errorMessage = error.message

@@ -1,4 +1,5 @@
 import { register } from '../../services/authService'
+import { setUserName } from '../../store/task'
 import {
 	Box,
 	Button,
@@ -13,16 +14,19 @@ import {
 	Text,
 } from '@chakra-ui/react'
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { useLocation, useNavigate } from 'react-router-dom'
 import 'react-toastify/dist/ReactToastify.css'
 
 const RegistrationPage = () => {
 	const location = useLocation()
+	const dispatch = useDispatch()
 	const [show, setShow] = useState(false)
 	const [email, setEmail] = useState('')
 	const [firstEnterPassword, setFirstEnterPassword] = useState('')
 	const [repeatPassword, setRepeatPasswordl] = useState('')
 	const [displayName, setDisplayName] = useState('')
+	const [chekApprove, setChekApprove] = useState(false)
 	const showPassword = () => setShow(!show)
 	const navigate = useNavigate()
 
@@ -32,10 +36,20 @@ const RegistrationPage = () => {
 		}
 	}
 
-	const handleRegister = () => {
-		if (firstEnterPassword === repeatPassword) {
-			console.log(displayName)
-			register(email, repeatPassword, displayName, navigate)
+	const handleRegister = async () => {
+		if (!firstEnterPassword || !repeatPassword || !displayName || !chekApprove) {
+			alert('Заполните данные!')
+			return
+		} else if (firstEnterPassword !== repeatPassword) {
+			alert('Пароли не совпадают!')
+			return
+		}
+		try {
+			const user = await register(email, repeatPassword, displayName, navigate)
+			dispatch(setUserName(user.displayName))
+		} catch (error) {
+			alert('Регистрация не удалась, проверьте данные')
+			console.log(error.message)
 		}
 	}
 
@@ -50,6 +64,9 @@ const RegistrationPage = () => {
 	}
 	const handleDisplayName = (event) => {
 		setDisplayName(event.target.value)
+	}
+	const handleSetApprove = () => {
+		setChekApprove(!chekApprove)
 	}
 	return (
 		<Box
@@ -82,7 +99,7 @@ const RegistrationPage = () => {
 
 				<Box m={2} color="#fafafafa">
 					<form>
-						<FormControl>
+						<FormControl isRequired>
 							<FormLabel m={1}>Введите вашу почту:</FormLabel>
 							<Input
 								placeholder="Enter e-mail"
@@ -94,7 +111,7 @@ const RegistrationPage = () => {
 
 						<Box h="2rem" w="10px"></Box>
 
-						<FormControl>
+						<FormControl isRequired>
 							<FormLabel m={1}>Введите пароль:</FormLabel>
 							<InputGroup size="md">
 								<Input
@@ -112,7 +129,7 @@ const RegistrationPage = () => {
 							</InputGroup>
 						</FormControl>
 
-						<FormControl>
+						<FormControl isRequired>
 							<FormLabel m={1}>Повторите пароль:</FormLabel>
 							<InputGroup size="md">
 								<Input
@@ -132,7 +149,7 @@ const RegistrationPage = () => {
 
 						<Box h="2rem" w="10px"></Box>
 
-						<FormControl>
+						<FormControl isRequired>
 							<FormLabel m={1}>Укажите ваш никнейм:</FormLabel>
 							<InputGroup size="md">
 								<Input
@@ -145,7 +162,9 @@ const RegistrationPage = () => {
 						</FormControl>
 					</form>
 
-					<Checkbox mt={3}>Я согласен(на) на все. Не бойся, жми! ; )</Checkbox>
+					<Checkbox mt={3} onChange={handleSetApprove}>
+						Я согласен(на) на все. Не бойся, жми! ; )
+					</Checkbox>
 
 					<Grid templateColumns="repeat(5, 1fr)" gap={2} m={5} mr={0} ml={0}>
 						<GridItem colStart={1}>
