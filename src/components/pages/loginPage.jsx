@@ -24,7 +24,7 @@ const LoginPage = () => {
   }
 
   const [show, setShow] = useState(false)
-  const handleClick = () => setShow(!show)
+  const showPassword = () => setShow(!show)
 
   return (
     <Box
@@ -75,7 +75,7 @@ const LoginPage = () => {
               placeholder='Enter password'
             />
             <InputRightElement width='4.5rem'>
-              <Button h='1.75rem' size='sm' onClick={handleClick}>
+              <Button h='1.75rem' size='sm' onClick={showPassword}>
                 {show ? "Hide" : "Show"}
               </Button>
             </InputRightElement>

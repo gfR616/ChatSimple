@@ -10,15 +10,12 @@ import {
   InputRightElement,
   Checkbox
 } from "@chakra-ui/react"
-import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
-import { setUserName } from "../store/task"
 
 const RegistrationPage = () => {
   const [show, setShow] = useState(false)
-  const handleClick = () => setShow(!show)
+  const showPassword = () => setShow(!show)
   const navigate = useNavigate()
   const goBack = () => {
     navigate("/auth")
@@ -74,7 +71,7 @@ const RegistrationPage = () => {
               placeholder='Введите пароль:'
             />
             <InputRightElement width='4.5rem'>
-              <Button h='1.75rem' size='sm' onClick={handleClick}>
+              <Button h='1.75rem' size='sm' onClick={showPassword}>
                 {show ? "Hide" : "Show"}
               </Button>
             </InputRightElement>
@@ -88,7 +85,7 @@ const RegistrationPage = () => {
               placeholder='Repeat password'
             />
             <InputRightElement width='4.5rem'>
-              <Button h='1.75rem' size='sm' onClick={handleClick}>
+              <Button h='1.75rem' size='sm' onClick={showPassword}>
                 {show ? "Hide" : "Show"}
               </Button>
             </InputRightElement>
