@@ -15,6 +15,8 @@ import { useNavigate } from "react-router-dom"
 import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import { setUserName } from "../store/task"
+import fakeNames from "../../utils/fakeNames"
+
 
 const LoginPage = () => {
   localStorage.clear()
@@ -22,9 +24,19 @@ const LoginPage = () => {
   const goRegisterPage = () => {
     navigate("/register")
   }
-
+  const dispatch = useDispatch()
   const [show, setShow] = useState(false)
   const showPassword = () => setShow(!show)
+
+  const beGuest = () => {
+    const randomNumber = () =>  {
+      return Math.floor(Math.random() * 50) + 1;
+    }
+    let randomName = fakeNames[randomNumber()].name
+    dispatch(setUserName(randomName))
+    navigate("/chat")
+
+  }
 
   return (
     <Box
@@ -88,7 +100,7 @@ const LoginPage = () => {
               </Button>
             </GridItem>
             <GridItem>
-              <Button w='110px' h='40px'>
+              <Button w='110px' h='40px' onClick={beGuest}>
                 be a guest
               </Button>
             </GridItem>
