@@ -7,7 +7,7 @@ const Message = ({ message, user, time }) => {
 			p={3}
 			m={5}
 			color="black"
-			bg="tomato"
+			bg="white"
 			minH="fit-content"
 			minW="fit-content"
 			w="40vh"

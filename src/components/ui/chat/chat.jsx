@@ -57,14 +57,17 @@ const Chat = () => {
 
 	return (
 		<>
-			<DialogScreen displayState={displayState} onClearScreen={handleClearScreen} />
-			<ChatInput
-				onInputChange={handleInputChange}
-				onSendMessage={handleSendMessage}
-				onClearScreen={handleClearScreen}
-				inputState={inputState}
-			/>
-			<Box>Hello, {userName}</Box>
+			<Box display="flex" justifyContent="center" alignItems="center">
+				<DialogScreen displayState={displayState} onClearScreen={handleClearScreen} />
+			</Box>
+			<Box display="flex" justifyContent="center" alignItems="center">
+				<ChatInput
+					onInputChange={handleInputChange}
+					onSendMessage={handleSendMessage}
+					onClearScreen={handleClearScreen}
+					inputState={inputState}
+				/>
+			</Box>
 		</>
 	)
 }
