@@ -4,6 +4,8 @@ import fakeNames from '../../utils/fakeNames'
 import {
 	Box,
 	Button,
+	FormControl,
+	FormLabel,
 	Grid,
 	GridItem,
 	Input,
@@ -12,9 +14,8 @@ import {
 	Text,
 } from '@chakra-ui/react'
 import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 const LoginPage = () => {
@@ -22,6 +23,15 @@ const LoginPage = () => {
 	let navigate = useNavigate()
 	const dispatch = useDispatch()
 	const [show, setShow] = useState(false)
+	const [email, setEmail] = useState('')
+	const [password, setPassword] = useState('')
+
+	const handleSetEmail = (event) => {
+		setEmail(event.target.value)
+	}
+	const handleSetPassword = (event) => {
+		setPassword(event.target.value)
+	}
 
 	const showPassword = () => setShow(!show)
 
@@ -38,6 +48,11 @@ const LoginPage = () => {
 		navigate('/chat')
 	}
 
+	const handleLogin = (email, password) => {
+		signIn(email, password, navigate)
+	}
+
+	const o = { email: 'ghostb1313@gmail.com', password: '2777288' }
 	return (
 		<Box
 			backgroundImage="/loginBg.jpg"
@@ -47,10 +62,6 @@ const LoginPage = () => {
 			overflow="hidden"
 		>
 			<Box
-				position="absolute"
-				top="50%"
-				left="50%"
-				transform="translate(-50%, -126%)"
 				borderRadius="5px"
 				border="1px solid black"
 				w="500px"
@@ -72,30 +83,45 @@ const LoginPage = () => {
 				</Box>
 
 				<Box m={2} color="#fafafafa">
-					<Text m={1}>Введите вашу почту:</Text>
-					<Input
-						// onChange={handleChange}
-						placeholder="Enter e-mail"
-						pr="4.5rem"
-					/>
+					<form>
+						<FormControl>
+							<FormLabel m={1}>Введите вашу почту:</FormLabel>
+							<Input
+								type="email"
+								placeholder="Enter e-mail"
+								pr="4.5rem"
+								onChange={handleSetEmail}
+								autoComplete="email"
+							/>
+						</FormControl>
 
-					<Text m={1}>Введите пароль:</Text>
-					<InputGroup size="md">
-						<Input
-							pr="4.5rem"
-							type={show ? 'text' : 'password'}
-							placeholder="Enter password"
-						/>
-						<InputRightElement width="4.5rem">
-							<Button h="1.75rem" size="sm" onClick={showPassword}>
-								{show ? 'Hide' : 'Show'}
-							</Button>
-						</InputRightElement>
-					</InputGroup>
+						<FormControl>
+							<FormLabel m={1}>Введите пароль:</FormLabel>
+							<InputGroup size="md">
+								<Input
+									pr="4.5rem"
+									type={show ? 'text' : 'password'}
+									placeholder="Enter password"
+									onChange={handleSetPassword}
+									autoComplete="current-password"
+								/>
 
+								<InputRightElement width="4.5rem">
+									<Button h="1.75rem" size="sm" onClick={showPassword}>
+										{show ? 'Hide' : 'Show'}
+									</Button>
+								</InputRightElement>
+							</InputGroup>
+						</FormControl>
+					</form>
 					<Grid templateColumns="repeat(5, 1fr)" gap={2} m={5} mr={0} ml={0}>
 						<GridItem>
-							<Button w="110px" h="40px" colorScheme="green" type="submit">
+							<Button
+								w="110px"
+								h="40px"
+								colorScheme="green"
+								onClick={() => handleLogin(email, password)}
+							>
 								Login
 							</Button>
 						</GridItem>

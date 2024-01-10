@@ -1,7 +1,10 @@
+import { register } from '../../services/authService'
 import {
 	Box,
 	Button,
 	Checkbox,
+	FormControl,
+	FormLabel,
 	Grid,
 	GridItem,
 	Input,
@@ -10,17 +13,43 @@ import {
 	Text,
 } from '@chakra-ui/react'
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import 'react-toastify/dist/ReactToastify.css'
 
 const RegistrationPage = () => {
+	const location = useLocation()
 	const [show, setShow] = useState(false)
+	const [email, setEmail] = useState('')
+	const [firstEnterPassword, setFirstEnterPassword] = useState('')
+	const [repeatPassword, setRepeatPasswordl] = useState('')
+	const [displayName, setDisplayName] = useState('')
 	const showPassword = () => setShow(!show)
 	const navigate = useNavigate()
+
 	const goBack = () => {
-		navigate('/auth')
+		if (location.pathname !== '/auth') {
+			navigate('/auth')
+		}
 	}
 
+	const handleRegister = () => {
+		if (firstEnterPassword === repeatPassword) {
+			register(email, repeatPassword, displayName, navigate)
+		}
+	}
+
+	const handleSetFirstEnterPassword = (event) => {
+		setFirstEnterPassword(event.target.value)
+	}
+	const handleSetRepeatPassword = (event) => {
+		setRepeatPasswordl(event.target.value)
+	}
+	const handleSetEmail = (event) => {
+		setEmail(event.target.value)
+	}
+	const handleDisplayName = (event) => {
+		setDisplayName(event.target.value)
+	}
 	return (
 		<Box
 			backgroundImage="/loginBg.jpg"
@@ -30,10 +59,6 @@ const RegistrationPage = () => {
 			overflow="hidden"
 		>
 			<Box
-				position="absolute"
-				top="50%"
-				left="50%"
-				transform="translate(-50%, -70%)"
 				borderRadius="5px"
 				border="1px solid black"
 				w="500px"
@@ -55,49 +80,69 @@ const RegistrationPage = () => {
 				</Box>
 
 				<Box m={2} color="#fafafafa">
-					<Text m={1}>Введите вашу почту:</Text>
-					<Input
-						// onChange={handleChange}
-						placeholder="Enter e-mail"
-						pr="4.5rem"
-					/>
-					<Box h="2rem" w="10px"></Box>
+					<form>
+						<FormControl>
+							<FormLabel m={1}>Введите вашу почту:</FormLabel>
+							<Input
+								placeholder="Enter e-mail"
+								pr="4.5rem"
+								autoComplete="off"
+								onChange={handleSetEmail}
+							/>
+						</FormControl>
 
-					<Text m={1}>Введите пароль:</Text>
-					<InputGroup size="md">
-						<Input
-							pr="4.5rem"
-							type={show ? 'text' : 'password'}
-							placeholder="Введите пароль:"
-						/>
-						<InputRightElement width="4.5rem">
-							<Button h="1.75rem" size="sm" onClick={showPassword}>
-								{show ? 'Hide' : 'Show'}
-							</Button>
-						</InputRightElement>
-					</InputGroup>
+						<Box h="2rem" w="10px"></Box>
 
-					<Text m={1}>Повторите пароль:</Text>
-					<InputGroup size="md">
-						<Input
-							pr="4.5rem"
-							type={show ? 'text' : 'password'}
-							placeholder="Repeat password"
-						/>
-						<InputRightElement width="4.5rem">
-							<Button h="1.75rem" size="sm" onClick={showPassword}>
-								{show ? 'Hide' : 'Show'}
-							</Button>
-						</InputRightElement>
-					</InputGroup>
+						<FormControl>
+							<FormLabel m={1}>Введите пароль:</FormLabel>
+							<InputGroup size="md">
+								<Input
+									pr="4.5rem"
+									type={show ? 'text' : 'password'}
+									placeholder="Введите пароль:"
+									autoComplete="off"
+									onChange={handleSetFirstEnterPassword}
+								/>
+								<InputRightElement width="4.5rem">
+									<Button h="1.75rem" size="sm" onClick={showPassword}>
+										{show ? 'Hide' : 'Show'}
+									</Button>
+								</InputRightElement>
+							</InputGroup>
+						</FormControl>
 
-					<Box h="2rem" w="10px"></Box>
+						<FormControl>
+							<FormLabel m={1}>Повторите пароль:</FormLabel>
+							<InputGroup size="md">
+								<Input
+									pr="4.5rem"
+									type={show ? 'text' : 'password'}
+									placeholder="Repeat password"
+									autoComplete="off"
+									onChange={handleSetRepeatPassword}
+								/>
+								<InputRightElement width="4.5rem">
+									<Button h="1.75rem" size="sm" onClick={showPassword}>
+										{show ? 'Hide' : 'Show'}
+									</Button>
+								</InputRightElement>
+							</InputGroup>
+						</FormControl>
 
-					<Text m={1}>Укажите ваш никнейм:</Text>
-					<InputGroup size="md">
-						<Input pr="4.5rem" placeholder="Your nickname" />
-						<InputRightElement width="4.5rem"></InputRightElement>
-					</InputGroup>
+						<Box h="2rem" w="10px"></Box>
+
+						<FormControl>
+							<FormLabel m={1}>Укажите ваш никнейм:</FormLabel>
+							<InputGroup size="md">
+								<Input
+									pr="4.5rem"
+									placeholder="Your nickname"
+									onChange={handleDisplayName}
+								/>
+								<InputRightElement width="4.5rem"></InputRightElement>
+							</InputGroup>
+						</FormControl>
+					</form>
 
 					<Checkbox mt={3}>Я согласен(на) на все. Не бойся, жми! ; )</Checkbox>
 
@@ -108,7 +153,7 @@ const RegistrationPage = () => {
 							</Button>
 						</GridItem>
 						<GridItem colStart={5}>
-							<Button w="110px" h="40px" colorScheme="green">
+							<Button w="110px" h="40px" colorScheme="green" onClick={handleRegister}>
 								Register!
 							</Button>
 						</GridItem>
