@@ -1,5 +1,6 @@
 import { register } from '../../services/authService'
 import { setUserName } from '../../store/task'
+import RepoLink from '../ui/repoLink'
 import {
 	Box,
 	Button,
@@ -70,7 +71,7 @@ const RegistrationPage = () => {
 	}
 	return (
 		<Box
-			backgroundImage="/loginBg.jpg"
+			backgroundImage="loginBg.webp"
 			bgSize="cover"
 			w="100vw"
 			h="100vh"
@@ -82,7 +83,7 @@ const RegistrationPage = () => {
 				w="500px"
 				h="auto"
 				margin="auto"
-				mt={10}
+				mt="100px"
 				overflow="hidden"
 				bgColor="#2b312d"
 				opacity={0.9}
@@ -180,6 +181,7 @@ const RegistrationPage = () => {
 					</Grid>
 				</Box>
 			</Box>
+			<RepoLink />
 		</Box>
 	)
 }

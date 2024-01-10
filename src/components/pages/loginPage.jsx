@@ -1,6 +1,7 @@
 import { signIn } from '../../services/authService'
 import { setUserName } from '../../store/task'
 import fakeNames from '../../utils/fakeNames'
+import RepoLink from '../ui/repoLink'
 import {
 	Box,
 	Button,
@@ -11,10 +12,11 @@ import {
 	Input,
 	InputGroup,
 	InputRightElement,
+	Link,
 	Text,
 } from '@chakra-ui/react'
 import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -60,7 +62,7 @@ const LoginPage = () => {
 
 	return (
 		<Box
-			backgroundImage="/loginBg.jpg"
+			backgroundImage="loginBg.webp"
 			bgSize="cover"
 			w="100vw"
 			h="100vh"
@@ -72,7 +74,7 @@ const LoginPage = () => {
 				w="500px"
 				h="auto"
 				margin="auto"
-				mt={10}
+				mt="100px"
 				overflow="hidden"
 				bgColor="#2b312d"
 				opacity={0.9}
@@ -148,6 +150,7 @@ const LoginPage = () => {
 					</Grid>
 				</Box>
 			</Box>
+			<RepoLink />
 		</Box>
 	)
 }
