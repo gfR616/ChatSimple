@@ -6,6 +6,7 @@ const ChatInput = ({ onInputChange, inputState, onSendMessage, onClearScreen }) 
 		<Grid templateColumns="repeat(10, 1fr)" gap={1} m="2">
 			<GridItem colSpan={8}>
 				<Input
+					borderColor="#946d25"
 					minH="4vh"
 					value={inputState}
 					onChange={onInputChange}
