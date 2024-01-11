@@ -12,10 +12,20 @@ const Message = ({ message, user, time }) => {
 			minW="fit-content"
 			w="40vh"
 			borderRadius={10}
+			position="relative"
 		>
-			<Text style={{ fontStyle: 'italic', fontWeight: 'bold' }}>{user}</Text>
+			<Text as="b" style={{ fontStyle: 'italic' }} color="#03841ceb">
+				{user}
+			</Text>
+
 			<Text>{message}</Text>
-			<Text fontSize="xs" color="#2d4812f3">
+			<Text
+				fontSize="xs"
+				color="#2d4812f3"
+				position="absolute"
+				bottom={1} // Добавьте это свойство
+				right={5}
+			>
 				{time}
 			</Text>
 		</Box>

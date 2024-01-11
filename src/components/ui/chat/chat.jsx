@@ -56,7 +56,7 @@ const Chat = () => {
 	}
 
 	return (
-		<Box border="1px solid black" maxH="100vh" minH="100vh">
+		<Box border="1px solid black" maxH="100vh" minH="100vh" borderRadius={5}>
 			<Box>
 				<DialogScreen displayState={displayState} onClearScreen={handleClearScreen} />
 			</Box>
