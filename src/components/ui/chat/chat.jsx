@@ -1,36 +1,55 @@
 import messageBase from '../../../base/fireBaseConfig'
+import {
+	clearAllMeassages,
+	fetchAllMessages,
+	fetchLatestMessage,
+	initializeMessagesNode,
+	sendMessage,
+} from '../../../services/messageService'
 import { setUserName } from '../../../store/task'
 import ChatInput from './chatInput'
 import DialogScreen from './dialogScreen'
 import { Box } from '@chakra-ui/react'
 import { getDatabase, onValue, push, ref, remove } from 'firebase/database'
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 const Chat = () => {
-	const dbRef = useMemo(() => ref(getDatabase(messageBase)), [])
 	const dispatch = useDispatch()
 	const userName = useSelector((state) => state.user.userName)
 	const [inputState, setInputState] = useState('')
 	const [displayState, setDisplayState] = useState([])
 	const [isIncomingMessage, setIsIncomingMessage] = useState(false)
 
+	//получаем и отображаем все сообщения разово
 	useEffect(() => {
-		onValue(dbRef, (snapshot) => {
+		fetchAllMessages((snapshot) => {
 			const data = snapshot.val()
 			if (data !== null) {
 				const messages = Object.values(data).flat()
-				const lastMessageUserName = messages[messages.length - 1].userName
 				messages ? setDisplayState(messages) : setDisplayState([])
-				if (lastMessageUserName !== userName) {
-					setIsIncomingMessage(!isIncomingMessage)
-				}
+				console.log('Все сообщения получены:', messages)
 			} else {
 				setDisplayState([])
 			}
 		})
-	}, [dbRef])
-
+	}, [])
+	// получаем и отображаем последнее сообщение
+	useEffect(() => {
+		fetchLatestMessage((snapshot) => {
+			const data = snapshot.val()
+			if (data) {
+				const message = Object.values(data)[0]
+				setDisplayState((prevState) => {
+					const newState = [...prevState, message]
+					console.log('Последнее сообщение:', message)
+					console.log('стейт после добавления', newState)
+					return newState
+				})
+			}
+		})
+	}, [])
+	//Получаем userName из lockalStorage
 	useEffect(() => {
 		let storedUserName = localStorage.getItem('userName')
 		if (!userName && storedUserName) {
@@ -39,11 +58,11 @@ const Chat = () => {
 			localStorage.setItem('userName', userName)
 		}
 	}, [dispatch, userName])
-
+	//
 	const handleInputChange = (event) => {
 		setInputState(event.target.value)
 	}
-
+	// отправляем сообщение
 	const handleSendMessage = () => {
 		if (inputState === '') return
 		const addDisplayElement = {
@@ -51,16 +70,16 @@ const Chat = () => {
 			message: inputState,
 			time: new Date().toLocaleTimeString(),
 		}
-		push(dbRef, addDisplayElement)
+		sendMessage(addDisplayElement)
 		setInputState('')
 	}
-
+	// удаляем все сообщения
 	const handleClearScreen = () => {
-		remove(dbRef)
+		clearAllMeassages()
 	}
 
 	return (
-		<Box border="1px solid black" h="100vh" borderRadius={5}>
+		<Box border="1px solid black" h="100vh" borderRadius={5} bgColor="#1d0b49">
 			<Box>
 				<DialogScreen
 					displayState={displayState}

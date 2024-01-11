@@ -13,12 +13,13 @@ const DialogScreen = ({ displayState, isIncomingMessage }) => {
 	return (
 		<Box
 			ref={boxRef}
-			bg="#05145e47"
+			bg="#3b093c"
 			color="white"
 			h="94vh"
 			p={3}
 			borderRadius={5}
 			overflow="auto"
+			opacity="0.95"
 		>
 			{displayState.map((messageObj, index) => (
 				<Message

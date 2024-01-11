@@ -7,6 +7,7 @@ const ChatInput = ({ onInputChange, inputState, onSendMessage, onClearScreen }) 
 			<GridItem colSpan={8}>
 				<Input
 					borderColor="#946d25"
+					bgColor="#c0bcbc"
 					minH="4vh"
 					value={inputState}
 					onChange={onInputChange}

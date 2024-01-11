@@ -15,13 +15,16 @@ import {
 	Link,
 	Text,
 } from '@chakra-ui/react'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import 'react-toastify/dist/ReactToastify.css'
 
 const LoginPage = () => {
-	localStorage.clear()
+	useEffect(() => {
+		localStorage.clear()
+	}, [])
+
 	let navigate = useNavigate()
 	const dispatch = useDispatch()
 	const [show, setShow] = useState(false)
