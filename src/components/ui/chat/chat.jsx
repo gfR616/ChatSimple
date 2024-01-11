@@ -1,4 +1,4 @@
-import base from '../../../base/fireBaseConfig'
+import messageBase from '../../../base/fireBaseConfig'
 import { setUserName } from '../../../store/task'
 import ChatInput from './chatInput'
 import DialogScreen from './dialogScreen'
@@ -8,18 +8,23 @@ import React, { useEffect, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 const Chat = () => {
-	const dbRef = useMemo(() => ref(getDatabase(base)), [])
+	const dbRef = useMemo(() => ref(getDatabase(messageBase)), [])
 	const dispatch = useDispatch()
 	const userName = useSelector((state) => state.user.userName)
 	const [inputState, setInputState] = useState('')
 	const [displayState, setDisplayState] = useState([])
+	const [isIncomingMessage, setIsIncomingMessage] = useState(false)
 
 	useEffect(() => {
 		onValue(dbRef, (snapshot) => {
 			const data = snapshot.val()
 			if (data !== null) {
 				const messages = Object.values(data).flat()
+				const lastMessageUserName = messages[messages.length - 1].userName
 				messages ? setDisplayState(messages) : setDisplayState([])
+				if (lastMessageUserName !== userName) {
+					setIsIncomingMessage(!isIncomingMessage)
+				}
 			} else {
 				setDisplayState([])
 			}
@@ -40,25 +45,28 @@ const Chat = () => {
 	}
 
 	const handleSendMessage = () => {
+		if (inputState === '') return
 		const addDisplayElement = {
 			userName: userName,
 			message: inputState,
 			time: new Date().toLocaleTimeString(),
 		}
-
 		push(dbRef, addDisplayElement)
 		setInputState('')
 	}
 
 	const handleClearScreen = () => {
-		localStorage.removeItem('displayState')
 		remove(dbRef)
 	}
 
 	return (
-		<Box border="1px solid black" maxH="100vh" minH="100vh" borderRadius={5}>
+		<Box border="1px solid black" h="100vh" borderRadius={5}>
 			<Box>
-				<DialogScreen displayState={displayState} onClearScreen={handleClearScreen} />
+				<DialogScreen
+					displayState={displayState}
+					onClearScreen={handleClearScreen}
+					isIncomingMessage={isIncomingMessage}
+				/>
 			</Box>
 			<Box>
 				<ChatInput

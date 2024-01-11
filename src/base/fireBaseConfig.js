@@ -10,6 +10,6 @@ const firebaseConfig = {
 	appId: '1:239869217140:web:e6b18b63a860cc7a5e4421',
 }
 
-const base = initializeApp(firebaseConfig)
+const messageBase = initializeApp(firebaseConfig)
 
-export default base
+export default messageBase

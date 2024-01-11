@@ -5,7 +5,7 @@ const RepoLink = () => {
 	return (
 		<Link
 			color="#fffefe"
-			href="https://gfr616.github.io/ChatSimple/"
+			href="https://github.com/gfR616/ChatSimple"
 			position="absolute"
 			right={10}
 			bottom={5}

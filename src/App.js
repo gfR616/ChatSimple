@@ -1,6 +1,7 @@
 import ChatPage from './components/pages/chatPage'
 import LoginPage from './components/pages/loginPage'
 import RegistrationPage from './components/pages/registrationPage'
+import './scrollBar.css'
 import { ChakraProvider } from '@chakra-ui/react'
 import React from 'react'
 import { Navigate, Route, BrowserRouter as Router, Routes } from 'react-router-dom'
