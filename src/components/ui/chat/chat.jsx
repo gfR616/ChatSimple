@@ -56,11 +56,11 @@ const Chat = () => {
 	}
 
 	return (
-		<>
-			<Box display="flex" justifyContent="center" alignItems="center">
+		<Box border="1px solid black" maxH="100vh" minH="100vh">
+			<Box>
 				<DialogScreen displayState={displayState} onClearScreen={handleClearScreen} />
 			</Box>
-			<Box display="flex" justifyContent="center" alignItems="center">
+			<Box>
 				<ChatInput
 					onInputChange={handleInputChange}
 					onSendMessage={handleSendMessage}
@@ -68,7 +68,7 @@ const Chat = () => {
 					inputState={inputState}
 				/>
 			</Box>
-		</>
+		</Box>
 	)
 }
 

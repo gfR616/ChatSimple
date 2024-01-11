@@ -1,27 +1,33 @@
-import { Box, Button, Input } from '@chakra-ui/react'
+import { Box, Button, Grid, GridItem, Input } from '@chakra-ui/react'
 import React from 'react'
 
 const ChatInput = ({ onInputChange, inputState, onSendMessage, onClearScreen }) => {
 	return (
-		<Box h="80vh" w="auto">
-			<Input
-				h="10vh"
-				width="30vw"
-				value={inputState}
-				onChange={onInputChange}
-				onKeyDown={(e) => {
-					if (e.key === 'Enter') {
-						onSendMessage()
-					}
-				}}
-			/>
-			<Button colorScheme="blue" onClick={onSendMessage}>
-				Send
-			</Button>
-			<Button colorScheme="red" onClick={onClearScreen}>
-				Clear
-			</Button>
-		</Box>
+		<Grid templateColumns="repeat(10, 1fr)" gap={1} m="2">
+			<GridItem colSpan={8}>
+				<Input
+					minH="4vh"
+					value={inputState}
+					onChange={onInputChange}
+					placeholder="Написать сообщение..."
+					onKeyDown={(e) => {
+						if (e.key === 'Enter') {
+							onSendMessage()
+						}
+					}}
+				/>
+			</GridItem>
+			<GridItem colSpan={1}>
+				<Button minH="4vh" w="100%" colorScheme="blue" onClick={onSendMessage}>
+					Send
+				</Button>
+			</GridItem>
+			<GridItem>
+				<Button minH="4vh" w="100%" colorScheme="red" onClick={onClearScreen} colSpan={1}>
+					Clear
+				</Button>
+			</GridItem>
+		</Grid>
 	)
 }
 

@@ -5,7 +5,7 @@ const Message = ({ message, user, time }) => {
 	return (
 		<Box
 			p={3}
-			m={5}
+			m={1}
 			color="black"
 			bg="white"
 			minH="fit-content"

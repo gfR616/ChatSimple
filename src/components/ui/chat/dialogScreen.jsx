@@ -11,7 +11,7 @@ const DialogScreen = ({ displayState }) => {
 		}
 	}, [displayState])
 	return (
-		<Box ref={boxRef} bg="#80c20452" w="60%" h="80vh" overflow="auto" p={4} color="white">
+		<Box ref={boxRef} bg="#020510b4" color="white" minH="94vh" p={3}>
 			{displayState.map((messageObj, index) => (
 				<Message
 					key={index}
