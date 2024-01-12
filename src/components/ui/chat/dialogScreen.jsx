@@ -15,7 +15,7 @@ const DialogScreen = ({ displayState }) => {
 			ref={boxRef}
 			bg="#3b093c"
 			color="white"
-			h="94vh"
+			h="90vh"
 			p={3}
 			borderRadius={5}
 			overflow="auto"
