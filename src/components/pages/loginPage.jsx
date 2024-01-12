@@ -50,7 +50,7 @@ const LoginPage = () => {
 		}
 		let randomName = fakeNames[randomNumber()].name
 		dispatch(setUserName(randomName))
-		navigate('/chat')
+		navigate('/chat', { replace: true })
 	}
 
 	const handleLogin = async () => {
