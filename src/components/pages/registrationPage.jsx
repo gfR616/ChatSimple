@@ -20,16 +20,19 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import 'react-toastify/dist/ReactToastify.css'
 
 const RegistrationPage = () => {
+	const navigate = useNavigate()
 	const location = useLocation()
 	const dispatch = useDispatch()
-	const [show, setShow] = useState(false)
+	const [showOnePassword, setShowOnePassword] = useState(false)
+	const [showSecondPassword, setShowSecondPassword] = useState(false)
 	const [email, setEmail] = useState('')
 	const [firstEnterPassword, setFirstEnterPassword] = useState('')
 	const [repeatPassword, setRepeatPasswordl] = useState('')
 	const [displayName, setDisplayName] = useState('')
 	const [chekApprove, setChekApprove] = useState(false)
-	const showPassword = () => setShow(!show)
-	const navigate = useNavigate()
+
+	const handleShowPasswordOne = () => setShowOnePassword(!showOnePassword)
+	const handlehowPasswordTwo = () => setShowSecondPassword(!showSecondPassword)
 
 	const goBack = () => {
 		if (location.pathname !== '/auth') {
@@ -117,14 +120,14 @@ const RegistrationPage = () => {
 							<InputGroup size="md">
 								<Input
 									pr="4.5rem"
-									type={show ? 'text' : 'password'}
+									type={showOnePassword ? 'text' : 'password'}
 									placeholder="Введите пароль:"
 									autoComplete="off"
 									onChange={handleSetFirstEnterPassword}
 								/>
 								<InputRightElement width="4.5rem">
-									<Button h="1.75rem" size="sm" onClick={showPassword}>
-										{show ? 'Hide' : 'Show'}
+									<Button h="1.75rem" size="sm" onClick={handleShowPasswordOne}>
+										{showOnePassword ? 'Hide' : 'Show'}
 									</Button>
 								</InputRightElement>
 							</InputGroup>
@@ -135,14 +138,14 @@ const RegistrationPage = () => {
 							<InputGroup size="md">
 								<Input
 									pr="4.5rem"
-									type={show ? 'text' : 'password'}
+									type={showSecondPassword ? 'text' : 'password'}
 									placeholder="Repeat password"
 									autoComplete="off"
 									onChange={handleSetRepeatPassword}
 								/>
 								<InputRightElement width="4.5rem">
-									<Button h="1.75rem" size="sm" onClick={showPassword}>
-										{show ? 'Hide' : 'Show'}
+									<Button h="1.75rem" size="sm" onClick={handlehowPasswordTwo}>
+										{showSecondPassword ? 'Hide' : 'Show'}
 									</Button>
 								</InputRightElement>
 							</InputGroup>
