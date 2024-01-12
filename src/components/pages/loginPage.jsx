@@ -12,7 +12,6 @@ import {
 	Input,
 	InputGroup,
 	InputRightElement,
-	Link,
 	Text,
 } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
@@ -65,7 +64,7 @@ const LoginPage = () => {
 
 	return (
 		<Box
-			backgroundImage="loginBg.webp"
+			// backgroundImage="loginBg.webp"
 			bgSize="cover"
 			w="100vw"
 			h="100vh"
