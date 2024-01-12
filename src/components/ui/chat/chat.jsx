@@ -8,7 +8,8 @@ import { setUserName } from '../../../store/task'
 import ChatInput from './chatInput'
 import DialogScreen from './dialogScreen'
 import { Box } from '@chakra-ui/react'
-import { customAlphabet, nanoid } from 'nanoid'
+import { getAuth } from 'firebase/auth'
+import { customAlphabet } from 'nanoid'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -17,7 +18,18 @@ const Chat = () => {
 	const userName = useSelector((state) => state.user.userName)
 	const [inputState, setInputState] = useState('')
 	const [displayState, setDisplayState] = useState([])
-	const [isIncomingMessage, setIsIncomingMessage] = useState({})
+	const user = getAuth().currentUser
+	console.log(user)
+
+	// Находим userName
+	useEffect(() => {
+		let storedUserName = localStorage.getItem('userName')
+		if (!userName && storedUserName) {
+			dispatch(setUserName(storedUserName))
+		} else if (userName) {
+			localStorage.setItem('userName', userName)
+		}
+	}, [dispatch, userName])
 
 	//получаем и отображаем все сообщения разово + определяем направленность
 	useEffect(() => {
@@ -27,10 +39,10 @@ const Chat = () => {
 				const messages = Object.values(data)
 					.flat()
 					.map((message) => {
-						const isIncoming = message.userName !== userName
+						const isIncoming = message.userName === userName
 						return {
 							...message,
-							isIncoming: message.userName !== userName,
+							isIncoming: isIncoming,
 						}
 					})
 				messages ? setDisplayState(messages) : setDisplayState([])
@@ -44,12 +56,14 @@ const Chat = () => {
 	useEffect(() => {
 		fetchLatestMessage((snapshot) => {
 			const snapshotVal = snapshot.val()
-			console.log(snapshotVal)
 			if (snapshotVal !== null) {
-				const data = Object.values(snapshotVal).map((message) => ({
-					...message,
-					isIncoming: message.userName !== userName,
-				}))
+				const data = Object.values(snapshotVal).map((message) => {
+					const isIncoming = message.userName == userName
+					return {
+						...message,
+						isIncoming: isIncoming,
+					}
+				})
 				if (data !== null) {
 					const message = Object.values(data)[0]
 					setDisplayState((prevState) => {
@@ -61,15 +75,7 @@ const Chat = () => {
 			}
 		})
 	}, [])
-	// Находим userName
-	useEffect(() => {
-		let storedUserName = localStorage.getItem('userName')
-		if (!userName && storedUserName) {
-			dispatch(setUserName(storedUserName))
-		} else if (userName) {
-			localStorage.setItem('userName', userName)
-		}
-	}, [dispatch, userName])
+
 	//
 	const handleInputChange = (event) => {
 		setInputState(event.target.value)
@@ -83,11 +89,11 @@ const Chat = () => {
 			_id: id,
 			userName: userName,
 			message: inputState,
-			time: new Date().toLocaleTimeString(),
-			date: new Date().toISOString(),
+			displayTime: new Date().toLocaleTimeString(),
+			// fullDate: new Date().toISOString(),
+			displayDate: new Date().toLocaleDateString(),
 			isIncoming: false,
 		}
-
 		sendMessage(addDisplayElement)
 		setInputState('')
 	}
@@ -100,11 +106,7 @@ const Chat = () => {
 	return (
 		<Box border="1px solid black" h="100vh" borderRadius={5} bgColor="#1d0b49">
 			<Box>
-				<DialogScreen
-					displayState={displayState}
-					onClearScreen={handleClearScreen}
-					isIncomingMessage={isIncomingMessage}
-				/>
+				<DialogScreen displayState={displayState} onClearScreen={handleClearScreen} />
 			</Box>
 			<Box>
 				<ChatInput
