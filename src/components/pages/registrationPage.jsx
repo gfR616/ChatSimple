@@ -74,7 +74,7 @@ const RegistrationPage = () => {
 	}
 	return (
 		<Box
-			backgroundImage="loginBg.webp"
+			// backgroundImage="loginBg.webp"
 			bgSize="cover"
 			w="100vw"
 			h="100vh"
