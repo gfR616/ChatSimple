@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app'
 
-const firebaseConfig = {
+export const firebaseConfig = {
 	apiKey: 'AIzaSyCQfZ-4mrkpgJHgFLqbOh4c0_KuLT04tho',
 	authDomain: 'chat-1eaa8.firebaseapp.com',
 	databaseURL: 'https://chat-1eaa8-default-rtdb.europe-west1.firebasedatabase.app',
