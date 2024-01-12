@@ -51,9 +51,8 @@ const Chat = () => {
 				setDisplayState([])
 			}
 		})
-	}, [])
-	// получаем и отображаем последнее сообщение
-	useEffect(() => {
+
+		// получаем и отображаем последнее сообщение
 		fetchLatestMessage((snapshot) => {
 			const snapshotVal = snapshot.val()
 			if (snapshotVal !== null) {
