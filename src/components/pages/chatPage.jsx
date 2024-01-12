@@ -1,12 +1,15 @@
-import { initializeMessagesNode } from '../../services/messageService'
+import { firebaseConfig } from '../../base/fireBaseConfig'
 import Chat from '../ui/chat/chat'
 import ContactsPannel from '../ui/contactsPannel/contactsPannel'
 import SomePannel from '../ui/somePannel'
 import { Box, Grid, GridItem } from '@chakra-ui/react'
-import { getDatabase } from 'firebase/database'
+import { initializeApp } from 'firebase/app'
 import React, { useEffect } from 'react'
 
 const ChatPage = () => {
+	useEffect(() => {
+		initializeApp(firebaseConfig)
+	}, [])
 	return (
 		<Box bgImage="loginBg.webp" opacity={5}>
 			<Box>
