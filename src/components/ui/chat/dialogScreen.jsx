@@ -2,7 +2,7 @@ import Message from './message'
 import { Box } from '@chakra-ui/react'
 import React, { useEffect, useRef } from 'react'
 
-const DialogScreen = ({ displayState, isIncomingMessage }) => {
+const DialogScreen = ({ displayState }) => {
 	const boxRef = useRef()
 
 	useEffect(() => {
@@ -21,14 +21,20 @@ const DialogScreen = ({ displayState, isIncomingMessage }) => {
 			overflow="auto"
 			opacity="0.95"
 		>
-			{displayState.map((messageObj, index) => (
-				<Message
-					isIncomingMessage={isIncomingMessage}
-					key={index}
-					message={messageObj.message}
-					user={messageObj.userName}
-					time={messageObj.time}
-				/>
+			{displayState.map((messageObj) => (
+				<Box
+					key={messageObj._id}
+					display="flex"
+					justifyContent={messageObj.isIncoming ? 'flex-start' : 'flex-end'}
+				>
+					<Message
+						isIncomingMessage={messageObj.isIncoming}
+						message={messageObj.message}
+						user={messageObj.userName}
+						time={messageObj.displayTime}
+						date={messageObj.displayDate}
+					/>
+				</Box>
 			))}
 		</Box>
 	)
