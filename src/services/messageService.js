@@ -19,7 +19,7 @@ export const getMessagesBase = () => {
 	}
 }
 
-export const sendMessage = (message) => {
+export const pushMessage = (message) => {
 	const messagesRef = getMessagesBase()
 	push(messagesRef, message)
 	console.log('Сообщение отправлено:', message)
