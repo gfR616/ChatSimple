@@ -1,3 +1,4 @@
+import { userSignOut } from '../../services/authService'
 import { Box, Button, Text } from '@chakra-ui/react'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -6,6 +7,10 @@ const UserPannel = () => {
 	const navigate = useNavigate()
 	const goToUserSettings = () => {
 		navigate('/userSettings')
+	}
+	const handleSignOut = () => {
+		userSignOut()
+		navigate('/auth', { replace: true })
 	}
 	return (
 		<Box border="2px solid black" display="flex" justifyContent="space-between" h="4vh">
@@ -17,7 +22,7 @@ const UserPannel = () => {
 				<Button colorScheme="blue" size="xs" m={1} onClick={goToUserSettings}>
 					Настройки
 				</Button>
-				<Button colorScheme="red" size="xs" m={1}>
+				<Button onClick={handleSignOut} colorScheme="red" size="xs" m={1}>
 					Выход
 				</Button>
 			</Box>
