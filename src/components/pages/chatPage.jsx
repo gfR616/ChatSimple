@@ -1,8 +1,9 @@
 import { firebaseConfig } from '../../base/fireBaseConfig'
-import { MessageProvider } from '../../hooks/useMessage'
+import SomePannel from '../../hooks/somePannel'
+import { MessagesProvider } from '../../hooks/useMessages'
+import { UsersProvider } from '../../hooks/useUsers'
 import Chat from '../ui/chat/chat'
 import ContactsPannel from '../ui/contactsPannel/contactsPannel'
-import SomePannel from '../ui/somePannel'
 import UserPannel from '../ui/userPannel'
 import { Box, Grid, GridItem } from '@chakra-ui/react'
 import { initializeApp } from 'firebase/app'
@@ -16,16 +17,18 @@ const ChatPage = () => {
 		<Box opacity={5}>
 			<Box h="100vh">
 				<Box>
-					<UserPannel />
+					<UsersProvider>
+						<UserPannel />
+					</UsersProvider>
 				</Box>
 				<Grid templateColumns="repeat(9, 1fr)" alignItems="stretch">
 					<GridItem colSpan={2}>
 						<ContactsPannel />
 					</GridItem>
 					<GridItem colSpan={5}>
-						<MessageProvider>
+						<MessagesProvider>
 							<Chat />
-						</MessageProvider>
+						</MessagesProvider>
 					</GridItem>
 					<GridItem colSpan={2}>
 						<SomePannel />
