@@ -54,8 +54,7 @@ const LoginPage = () => {
 
 	const handleLogin = async () => {
 		try {
-			const user = await signIn(email, password, navigate)
-			dispatch(setUserName(user.displayName))
+			await signIn(email, password, navigate)
 		} catch (error) {
 			alert('Заполните данные!')
 			console.log(error.message)
@@ -97,6 +96,7 @@ const LoginPage = () => {
 							<FormLabel m={1}>Введите вашу почту:</FormLabel>
 							<Input
 								type="email"
+								name="email"
 								placeholder="Enter e-mail"
 								pr="4.5rem"
 								onChange={handleSetEmail}
@@ -108,6 +108,7 @@ const LoginPage = () => {
 							<FormLabel m={1}>Введите пароль:</FormLabel>
 							<InputGroup size="md">
 								<Input
+									name="password"
 									pr="4.5rem"
 									type={show ? 'text' : 'password'}
 									placeholder="Enter password"
@@ -122,34 +123,35 @@ const LoginPage = () => {
 								</InputRightElement>
 							</InputGroup>
 						</FormControl>
+
+						<Grid templateColumns="repeat(5, 1fr)" gap={2} m={5} mr={0} ml={0}>
+							<GridItem>
+								<Button
+									w="110px"
+									h="40px"
+									colorScheme="green"
+									onClick={() => handleLogin(email, password)}
+								>
+									Login
+								</Button>
+							</GridItem>
+							<GridItem>
+								<Button w="110px" h="40px" onClick={beGuest}>
+									be a guest
+								</Button>
+							</GridItem>
+							<GridItem colStart={5}>
+								<Button
+									w="110px"
+									h="40px"
+									colorScheme="whiteAlpha"
+									onClick={goRegisterPage}
+								>
+									Register
+								</Button>
+							</GridItem>
+						</Grid>
 					</form>
-					<Grid templateColumns="repeat(5, 1fr)" gap={2} m={5} mr={0} ml={0}>
-						<GridItem>
-							<Button
-								w="110px"
-								h="40px"
-								colorScheme="green"
-								onClick={() => handleLogin(email, password)}
-							>
-								Login
-							</Button>
-						</GridItem>
-						<GridItem>
-							<Button w="110px" h="40px" onClick={beGuest}>
-								be a guest
-							</Button>
-						</GridItem>
-						<GridItem colStart={5}>
-							<Button
-								w="110px"
-								h="40px"
-								colorScheme="whiteAlpha"
-								onClick={goRegisterPage}
-							>
-								Register
-							</Button>
-						</GridItem>
-					</Grid>
 				</Box>
 			</Box>
 			<RepoLink />
