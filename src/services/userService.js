@@ -21,7 +21,6 @@ export async function addNewUser(displayName, email, uid) {
 export const getUserData = async (uid) => {
 	const userDoc = doc(firestore, 'users', uid)
 	const userSnapshot = await getDoc(userDoc)
-
 	if (userSnapshot.exists()) {
 		console.log('User data: ', userSnapshot.data())
 		return userSnapshot.data()
