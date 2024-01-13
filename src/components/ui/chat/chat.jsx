@@ -4,7 +4,6 @@ import { setUserName } from '../../../store/task'
 import ChatInput from './chatInput'
 import DialogScreen from './dialogScreen'
 import { Box } from '@chakra-ui/react'
-import { getAuth } from 'firebase/auth'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -44,7 +43,7 @@ const Chat = () => {
 	}
 
 	return (
-		<Box border="1px solid black" h="96vh" borderRadius={5} bgColor="#1d0b49">
+		<Box border="1px solid black" h="96vh" borderRadius={5} bgColor="#776b93">
 			<Box>
 				<DialogScreen displayState={displayState} onClearScreen={handleClearScreen} />
 			</Box>
