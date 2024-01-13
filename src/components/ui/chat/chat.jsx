@@ -1,6 +1,7 @@
-import { useMessages } from '../../../hooks/useMessage'
+import { useMessages } from '../../../hooks/useMessages'
+import { useUsers } from '../../../hooks/useUsers'
 import { clearAllMeassages } from '../../../services/messageService'
-import { setUserName } from '../../../store/task'
+// import { setUserName } from '../../../store/task'
 import ChatInput from './chatInput'
 import DialogScreen from './dialogScreen'
 import { Box } from '@chakra-ui/react'
@@ -9,23 +10,18 @@ import { useDispatch, useSelector } from 'react-redux'
 
 const Chat = () => {
 	const dispatch = useDispatch()
-	const userName = useSelector((state) => state.user.userName)
+	// const userName = useSelector((state) => state.user.userName)
 	const [inputState, setInputState] = useState('')
 	const [displayState, setDisplayState] = useState([])
 
+	// Находим userName
+	const { user } = useUsers()
+	const userName = user ? user.displayName : ''
+	console.log('dawdadaw', userName)
+	//инициализируем получение сообщений
 	const { getAllMessages, getLastMessage, sendMessage } = useMessages()
 	getAllMessages(userName, setDisplayState)
 	getLastMessage(userName, setDisplayState)
-
-	// Находим userName
-	useEffect(() => {
-		let storedUserName = localStorage.getItem('userName')
-		if (!userName && storedUserName) {
-			dispatch(setUserName(storedUserName))
-		} else if (userName) {
-			localStorage.setItem('userName', userName)
-		}
-	}, [dispatch, userName])
 
 	//
 	const handleInputChange = (event) => {
