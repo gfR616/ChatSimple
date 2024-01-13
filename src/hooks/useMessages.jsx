@@ -6,13 +6,13 @@ import {
 import { customAlphabet } from 'nanoid'
 import React, { useContext, useEffect } from 'react'
 
-const MessageContext = React.createContext()
+const MessagesContext = React.createContext()
 
 export const useMessages = () => {
-	return useContext(MessageContext)
+	return useContext(MessagesContext)
 }
 
-export const MessageProvider = ({ children }) => {
+export const MessagesProvider = ({ children }) => {
 	//получаем и отображаем все сообщения разово + определяем направленность
 	function getAllMessages(userName, setDisplayState) {
 		useEffect(() => {
@@ -81,8 +81,8 @@ export const MessageProvider = ({ children }) => {
 	}
 
 	return (
-		<MessageContext.Provider value={{ getAllMessages, getLastMessage, sendMessage }}>
+		<MessagesContext.Provider value={{ getAllMessages, getLastMessage, sendMessage }}>
 			{children}
-		</MessageContext.Provider>
+		</MessagesContext.Provider>
 	)
 }
