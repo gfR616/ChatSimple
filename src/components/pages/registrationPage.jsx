@@ -1,5 +1,4 @@
 import { register } from '../../services/authService'
-import { setUserName } from '../../store/task'
 import RepoLink from '../ui/repoLink'
 import {
 	Box,
@@ -15,14 +14,11 @@ import {
 	Text,
 } from '@chakra-ui/react'
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import 'react-toastify/dist/ReactToastify.css'
 
 const RegistrationPage = () => {
 	const navigate = useNavigate()
-	const location = useLocation()
-	const dispatch = useDispatch()
 	const [showOnePassword, setShowOnePassword] = useState(false)
 	const [showSecondPassword, setShowSecondPassword] = useState(false)
 	const [email, setEmail] = useState('')
@@ -35,9 +31,7 @@ const RegistrationPage = () => {
 	const handlehowPasswordTwo = () => setShowSecondPassword(!showSecondPassword)
 
 	const goBack = () => {
-		if (location.pathname !== '/auth') {
-			navigate('/auth')
-		}
+		navigate('/auth')
 	}
 
 	const handleRegister = async () => {
@@ -49,8 +43,7 @@ const RegistrationPage = () => {
 			return
 		}
 		try {
-			const user = await register(email, repeatPassword, displayName, navigate)
-			dispatch(setUserName(user.displayName))
+			await register(email, repeatPassword, displayName, navigate)
 		} catch (error) {
 			alert('Регистрация не удалась, проверьте данные')
 			console.log(error.message)
