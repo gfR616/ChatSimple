@@ -12,7 +12,7 @@ const auth = getAuth()
 export const signIn = async (email, password, navigate) => {
 	try {
 		await signInWithEmailAndPassword(auth, email, password)
-		navigate('/chat')
+		navigate('/chat', { replace: true })
 	} catch (error) {
 		const errorCode = error.code
 		const errorMessage = error.message
@@ -26,7 +26,7 @@ export const register = async (email, password, displayName, navigate) => {
 		const user = userCredential.user
 		const uid = user.uid
 		await addNewUser(displayName, email, uid)
-		navigate('/chat')
+		navigate('/chat', { replace: true })
 		return user
 	} catch (error) {
 		const errorCode = error.code
@@ -36,8 +36,8 @@ export const register = async (email, password, displayName, navigate) => {
 	}
 }
 //выходим из логина
-export const userSignOut = () => {
-	signOut(auth)
+export const userSignOut = async () => {
+	await signOut(auth)
 		.then(() => {
 			console.log('Пользователь вышел из системы')
 		})
@@ -46,10 +46,6 @@ export const userSignOut = () => {
 		})
 }
 //слушаем статус юзера
-onAuthStateChanged(auth, (user) => {
-	if (user) {
-		console.log('User is signed in')
-	} else {
-		console.log('User is signed out')
-	}
-})
+export const userStatusListener = (callback) => {
+	return onAuthStateChanged(auth, callback)
+}
