@@ -13,7 +13,7 @@ const DialogScreen = ({ displayState }) => {
 	return (
 		<Box
 			ref={boxRef}
-			bg="#3b093c"
+			bg="#9ab092"
 			color="white"
 			h="90vh"
 			p={3}
