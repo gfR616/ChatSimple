@@ -3,8 +3,6 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 
 const ContactsPannel = () => {
-	const userName = useSelector((state) => state.user.userName)
-
 	return (
 		<Box w="100%" minH="96vh" border="1px solid black" borderRadius={5}>
 			<Box>ContactsPannel. В разработке...</Box>
