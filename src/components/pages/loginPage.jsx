@@ -1,5 +1,5 @@
 import { signIn } from '../../services/authService'
-import { setUserName } from '../../store/task'
+import { setGuestName } from '../../store/task'
 import fakeNames from '../../utils/fakeNames'
 import RepoLink from '../ui/repoLink'
 import {
@@ -15,7 +15,7 @@ import {
 	Text,
 } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -23,7 +23,6 @@ const LoginPage = () => {
 	useEffect(() => {
 		localStorage.clear()
 	}, [])
-
 	let navigate = useNavigate()
 	const dispatch = useDispatch()
 	const [show, setShow] = useState(false)
@@ -42,13 +41,13 @@ const LoginPage = () => {
 	const goRegisterPage = () => {
 		navigate('/register')
 	}
-
+	//быть гостем
 	const beGuest = () => {
 		const randomNumber = () => {
 			return Math.floor(Math.random() * 50) + 1
 		}
 		let randomName = fakeNames[randomNumber()].name
-		dispatch(setUserName(randomName))
+		dispatch(setGuestName(randomName))
 		navigate('/chat', { replace: true })
 	}
 

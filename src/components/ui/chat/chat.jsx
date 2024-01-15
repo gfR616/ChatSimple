@@ -8,16 +8,12 @@ import { Box } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-const Chat = () => {
+const Chat = ({ userName }) => {
 	const dispatch = useDispatch()
-	// const userName = useSelector((state) => state.user.userName)
+
 	const [inputState, setInputState] = useState('')
 	const [displayState, setDisplayState] = useState([])
 
-	// Находим userName
-	const { user } = useUsers()
-	const userName = user ? user.displayName : ''
-	console.log('dawdadaw', userName)
 	//инициализируем получение сообщений
 	const { getAllMessages, getLastMessage, sendMessage } = useMessages()
 	getAllMessages(userName, setDisplayState)
