@@ -1,4 +1,4 @@
-import { signIn } from '../../services/authService'
+import { signIn, userSignOut } from '../../services/authService'
 import { setGuestName } from '../../store/task'
 import fakeNames from '../../utils/fakeNames'
 import RepoLink from '../ui/repoLink'
@@ -22,6 +22,7 @@ import 'react-toastify/dist/ReactToastify.css'
 const LoginPage = () => {
 	useEffect(() => {
 		localStorage.clear()
+		userSignOut()
 	}, [])
 	let navigate = useNavigate()
 	const dispatch = useDispatch()
