@@ -6,9 +6,14 @@ const guestSlice = createSlice({
 	reducers: {
 		setGuestName: (state, action) => {
 			state.guestName = action.payload
+			console.log('ЗАСТОРИЛ имя')
+		},
+		setGuestId: (state, action) => {
+			state.guestId = action.payload
+			console.log('ЗАСТОРИЛ идэ')
 		},
 	},
 })
 
-export const { setGuestName } = guestSlice.actions
+export const { setGuestName, setGuestId } = guestSlice.actions
 export default guestSlice.reducer
