@@ -30,7 +30,7 @@ export const fetchAllMessages = (callback) => {
 	onValue(messagesRef, callback)
 	console.log('Сообщения запрошены:')
 }
-
+// пока не используем
 export const fetchLatestMessage = (callback) => {
 	const messagesRef = getMessagesBase()
 	const latestMessageQuery = query(messagesRef, orderByKey(), limitToLast(1))
