@@ -6,7 +6,7 @@ import { UsersProvider } from './hooks/useUsers'
 import './scrollBar.css'
 import { ChakraProvider } from '@chakra-ui/react'
 import React from 'react'
-import { Navigate, Route, BrowserRouter as Router, Routes } from 'react-router-dom'
+import { Navigate, Route, HashRouter as Router, Routes } from 'react-router-dom'
 
 function App() {
 	return (
