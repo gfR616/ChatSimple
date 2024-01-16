@@ -12,8 +12,11 @@ const guestSlice = createSlice({
 			state.guestId = action.payload
 			console.log('ЗАСТОРИЛ идэ')
 		},
+		displayState: (state, action) => {
+			state.displayState = action.payload
+		},
 	},
 })
 
-export const { setGuestName, setGuestId } = guestSlice.actions
+export const { setGuestName, setGuestId, displayState } = guestSlice.actions
 export default guestSlice.reducer
