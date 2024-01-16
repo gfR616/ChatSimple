@@ -27,7 +27,7 @@ export const pushMessage = (message) => {
 
 export const fetchAllMessages = (callback) => {
 	const messagesRef = getMessagesBase()
-	onValue(messagesRef, callback, { onlyOnce: true })
+	onValue(messagesRef, callback)
 	console.log('Сообщения запрошены:')
 }
 
