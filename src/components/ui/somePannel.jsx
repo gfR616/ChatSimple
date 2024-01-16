@@ -1,17 +1,19 @@
+import { clearAllMeassages } from '../../services/messageService'
 import { fetchUsers, getAllUsers, printUsers } from '../../services/userService'
 import { Box, Button } from '@chakra-ui/react'
 import React from 'react'
 
-const SomePannel = () => {
+const SomePannel = ({ setDisplayState }) => {
 	const playSound = () => {
 		const audio = new Audio('message.mp3')
 		audio.addEventListener('canplaythrough', (event) => {
 			audio.play()
 		})
 	}
-	const handleFetchUsers = async () => {
-		const users = await getAllUsers()
-		console.log(users)
+	// удаляем все сообщения
+	const handleClearScreen = () => {
+		clearAllMeassages()
+		setDisplayState([])
 	}
 	return (
 		<Box w="100%" minH="96vh" border="1px solid black" borderRadius={5}>
@@ -25,9 +27,10 @@ const SomePannel = () => {
 			<Button colorScheme="red" onClick={playSound}>
 				MessageSound
 			</Button>
+			<br></br>А эта кнопка удаляет все сообщения из базы.<br></br> Не жми, подумой!
 			<br></br>
-			<Button colorScheme="blue" onClick={handleFetchUsers}>
-				getAllUsers
+			<Button colorScheme="yellow" onClick={handleClearScreen}>
+				Clear
 			</Button>
 		</Box>
 	)
