@@ -17,8 +17,8 @@ const Message = ({ message, user, time, isIncomingMessage }) => {
 					borderRadius={10}
 					position="relative"
 				>
-					<Text as="b" style={{ fontStyle: 'italic' }} color="#03841ceb">
-						{user}
+					<Text as="b" style={{ fontStyle: 'italic' }} color="#840903eb">
+						→ {user}
 					</Text>
 
 					<Text>{message}</Text>
@@ -41,7 +41,7 @@ const Message = ({ message, user, time, isIncomingMessage }) => {
 					position="relative"
 				>
 					<Text as="b" style={{ fontStyle: 'italic' }} color="#160384eb">
-						{user}
+						← {user}
 					</Text>
 
 					<Text>{message}</Text>
