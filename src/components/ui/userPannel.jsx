@@ -13,6 +13,9 @@ const UserPannel = ({ userName }) => {
 		userSignOut()
 		navigate('/auth', { replace: true })
 	}
+	const handleRegister = () => {
+		navigate('/register', { replace: true })
+	}
 
 	return (
 		<Box border="2px solid black" display="flex" justifyContent="space-between" h="4vh">
@@ -26,7 +29,9 @@ const UserPannel = ({ userName }) => {
 						Настройки
 					</Button>
 				) : (
-					''
+					<Button colorScheme="green" size="xs" onClick={handleRegister}>
+						Регистрация
+					</Button>
 				)}
 
 				<Button onClick={handleSignOut} colorScheme="red" size="xs" m={1}>
