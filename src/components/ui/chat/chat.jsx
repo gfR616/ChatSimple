@@ -1,23 +1,17 @@
 import { useMessages } from '../../../hooks/useMessages'
-import { useUsers } from '../../../hooks/useUsers'
 import { clearAllMeassages } from '../../../services/messageService'
-// import { setUserName } from '../../../store/task'
 import ChatInput from './chatInput'
 import DialogScreen from './dialogScreen'
 import { Box } from '@chakra-ui/react'
-import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useState } from 'react'
 
-const Chat = ({ userName }) => {
-	const dispatch = useDispatch()
-
+const Chat = ({ userName, uid }) => {
 	const [inputState, setInputState] = useState('')
 	const [displayState, setDisplayState] = useState([])
 
 	//инициализируем получение сообщений
-	const { getAllMessages, getLastMessage, sendMessage } = useMessages()
-	getAllMessages(userName, setDisplayState)
-	getLastMessage(userName, setDisplayState)
+	const { getAllMessages, sendMessage } = useMessages()
+	getAllMessages(setDisplayState, uid)
 
 	//
 	const handleInputChange = (event) => {
@@ -26,7 +20,7 @@ const Chat = ({ userName }) => {
 	// отправляем сообщение
 	const handleSendMessage = () => {
 		if (inputState === '') return
-		sendMessage(userName, inputState, setInputState)
+		sendMessage(userName, inputState, setInputState, uid)
 	}
 	// удаляем все сообщения
 	const handleClearScreen = () => {
