@@ -15,7 +15,6 @@ const ContactsPannel = () => {
 	console.log('Юзеры запрошены:', users)
 	return (
 		<Box w="100%" minH="96vh" border="2px solid black" borderRadius={5}>
-			<Box border="1px black solid">ContactsPannel. В разработке...</Box>
 			<Box border="1px black solid">
 				All Users:
 				{users &&
