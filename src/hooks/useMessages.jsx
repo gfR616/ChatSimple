@@ -1,8 +1,4 @@
-import {
-	fetchAllMessages,
-	fetchLatestMessage,
-	pushMessage,
-} from '../services/messageService'
+import { fetchAllMessages, pushMessage } from '../services/messageService'
 import { customAlphabet } from 'nanoid'
 import React, { useContext, useEffect } from 'react'
 
@@ -14,7 +10,8 @@ export const useMessages = () => {
 
 export const MessagesProvider = ({ children }) => {
 	//получаем и отображаем все сообщения разово + определяем направленность
-	function getAllMessages(userName, setDisplayState) {
+	function getAllMessages(setDisplayState, uid) {
+		console.log('UIdInFunction:', uid)
 		useEffect(() => {
 			fetchAllMessages((snapshot) => {
 				const data = snapshot.val()
@@ -22,7 +19,8 @@ export const MessagesProvider = ({ children }) => {
 					const messages = Object.values(data)
 						.flat()
 						.map((message) => {
-							const isIncoming = message.userName === userName
+							const isIncoming = message.uid !== uid
+							console.log(message)
 							return {
 								...message,
 								isIncoming: isIncoming,
@@ -34,45 +32,19 @@ export const MessagesProvider = ({ children }) => {
 					setDisplayState([])
 				}
 			})
-		}, [userName])
-	}
-
-	// получаем и отображаем последнее сообщение
-	function getLastMessage(userName, setDisplayState) {
-		useEffect(() => {
-			fetchLatestMessage((snapshot) => {
-				const snapshotVal = snapshot.val()
-				if (snapshotVal !== null) {
-					const data = Object.values(snapshotVal).map((message) => {
-						const isIncoming = message.userName == userName
-						return {
-							...message,
-							isIncoming: isIncoming,
-						}
-					})
-					if (data !== null) {
-						const message = Object.values(data)[0]
-						setDisplayState((prevState) => {
-							const newState = [...prevState, message]
-							console.log('Последнее сообщение:', message)
-							return newState
-						})
-					}
-				}
-			})
-		}, [])
+		}, [uid])
 	}
 
 	// отправляем сообщение
-	function sendMessage(userName, inputState, setInputState) {
+	function sendMessage(userName, inputState, setInputState, uid) {
 		const nanoid = customAlphabet('1234567890abcdef', 12)
 		const id = nanoid()
 		const addDisplayElement = {
 			_id: id,
 			userName: userName,
+			uid: uid,
 			message: inputState,
 			displayTime: new Date().toLocaleTimeString(),
-			// fullDate: new Date().toISOString(),
 			displayDate: new Date().toLocaleDateString(),
 			isIncoming: false,
 		}
@@ -81,7 +53,7 @@ export const MessagesProvider = ({ children }) => {
 	}
 
 	return (
-		<MessagesContext.Provider value={{ getAllMessages, getLastMessage, sendMessage }}>
+		<MessagesContext.Provider value={{ getAllMessages, sendMessage }}>
 			{children}
 		</MessagesContext.Provider>
 	)
