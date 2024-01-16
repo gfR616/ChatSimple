@@ -1,5 +1,5 @@
 import { signIn, userSignOut } from '../../services/authService'
-import { setGuestName } from '../../store/task'
+import { setGuestId, setGuestName } from '../../store/task'
 import fakeNames from '../../utils/fakeNames'
 import RepoLink from '../ui/repoLink'
 import {
@@ -14,6 +14,7 @@ import {
 	InputRightElement,
 	Text,
 } from '@chakra-ui/react'
+import { customAlphabet } from 'nanoid'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
@@ -50,6 +51,9 @@ const LoginPage = () => {
 		let randomName = fakeNames[randomNumber()].name
 		dispatch(setGuestName(randomName))
 		navigate('/chat', { replace: true })
+		const nanoid = customAlphabet('1234567890abcdef', 28)
+		const guestId = nanoid()
+		dispatch(setGuestId(guestId))
 	}
 
 	const handleLogin = async () => {
