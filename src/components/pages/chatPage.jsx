@@ -14,17 +14,27 @@ const ChatPage = () => {
 	useEffect(() => {
 		initializeApp(firebaseConfig)
 	}, [])
-	// Находим userName
+	const { user } = useUsers()
+	// находим userName
 	const guestName = useSelector((state) => state.guest.guestName)
 	guestName && localStorage.setItem('guestName', guestName)
 	console.log('stored:', localStorage.getItem('guestName'))
 	let userName
 	if (!guestName && !localStorage.getItem('guestName')) {
-		const { user } = useUsers()
 		userName = user ? user.displayName : ''
 		console.log('userName:', userName)
 	} else {
 		userName = guestName || localStorage.getItem('guestName')
+	}
+
+	// находим uid
+	const guestId = useSelector((state) => state.guest.guestId)
+	guestId && localStorage.setItem('guestId', guestId)
+	let uid
+	if (!guestId && !localStorage.getItem('guestId')) {
+		uid = user && user.uid
+	} else {
+		uid = guestId || localStorage.getItem('guestId')
 	}
 
 	return (
@@ -41,7 +51,7 @@ const ChatPage = () => {
 					</GridItem>
 					<GridItem colSpan={5}>
 						<MessagesProvider>
-							<Chat userName={userName} />
+							<Chat userName={userName} uid={uid} />
 						</MessagesProvider>
 					</GridItem>
 					<GridItem colSpan={2}>
