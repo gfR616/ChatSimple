@@ -1,4 +1,11 @@
-import { collection, doc, getDoc, getFirestore, setDoc } from 'firebase/firestore'
+import {
+	collection,
+	doc,
+	getDoc,
+	getDocs,
+	getFirestore,
+	setDoc,
+} from 'firebase/firestore'
 
 const firestore = getFirestore()
 
@@ -18,7 +25,7 @@ export async function addNewUser(displayName, email, uid) {
 			console.error('Error adding document: ', error)
 		})
 }
-//запрашиваем данные из фаерстора
+//запрашиваем данные текущего юзера из фаерстора
 export const getUserData = async (uid) => {
 	const userDoc = doc(firestore, 'users', uid)
 	const userSnapshot = await getDoc(userDoc)
@@ -27,5 +34,17 @@ export const getUserData = async (uid) => {
 		return userSnapshot.data()
 	} else {
 		console.log('No such document!')
+	}
+}
+//получаем всех юзеров, получаем промис
+export const getAllUsers = async () => {
+	try {
+		const usersCollection = collection(firestore, 'users')
+		const snapshot = await getDocs(usersCollection)
+		const usersList = snapshot.docs.map((doc) => doc.data())
+		return usersList
+	} catch (error) {
+		console.error('Error fetching users: ', error)
+		throw error
 	}
 }
