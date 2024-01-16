@@ -9,6 +9,7 @@ export async function addNewUser(displayName, email, uid) {
 	await setDoc(userDoc, {
 		displayName: displayName,
 		email: email,
+		uid: uid,
 	})
 		.then((uid) => {
 			console.log('Document written with ID: ', uid)
