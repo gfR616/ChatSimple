@@ -4,52 +4,30 @@ import React from 'react'
 const Message = ({ message, user, time, isIncomingMessage }) => {
 	return (
 		<>
-			{isIncomingMessage && (
-				<Box
-					p={3}
-					pb={5}
-					m={1}
-					color="black"
-					bg="white"
-					minH="fit-content"
-					minW="fit-content"
-					w="40vh"
-					borderRadius={10}
-					position="relative"
+			<Box
+				p={3}
+				pb={5}
+				m={1}
+				color="black"
+				bg="white"
+				minH="fit-content"
+				maxW="45%"
+				borderRadius={10}
+				position="relative"
+				isTruncated={false}
+			>
+				<Text
+					as="b"
+					style={{ fontStyle: 'italic' }}
+					color={isIncomingMessage ? '#840903eb' : '#3705e9eb'}
 				>
-					<Text as="b" style={{ fontStyle: 'italic' }} color="#840903eb">
-						→ {user}
-					</Text>
-
-					<Text>{message}</Text>
-					<Text fontSize="xs" color="#2d4812f3" position="absolute" bottom={1} right={5}>
-						{time}
-					</Text>
-				</Box>
-			)}
-			{!isIncomingMessage && (
-				<Box
-					p={3}
-					pb={5}
-					m={1}
-					color="black"
-					bg="white"
-					minH="fit-content"
-					minW="fit-content"
-					w="40vh"
-					borderRadius={10}
-					position="relative"
-				>
-					<Text as="b" style={{ fontStyle: 'italic' }} color="#160384eb">
-						← {user}
-					</Text>
-
-					<Text>{message}</Text>
-					<Text fontSize="xs" color="#2d4812f3" position="absolute" bottom={1} right={5}>
-						{time}
-					</Text>
-				</Box>
-			)}
+					{isIncomingMessage ? '→' : '←'} {user}
+				</Text>
+				<Text isTruncated={false}>{message}</Text>
+				<Text fontSize="xs" color="#2d4812f3" position="absolute" bottom={1} right={5}>
+					{time}
+				</Text>
+			</Box>
 		</>
 	)
 }
