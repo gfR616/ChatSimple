@@ -1,6 +1,6 @@
 import { useUsers } from '../../hooks/useUsers'
 import { userSignOut } from '../../services/authService'
-import { Box, Button, Text } from '@chakra-ui/react'
+import { Avatar, Box, Button, Grid, GridItem, Text } from '@chakra-ui/react'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
@@ -18,26 +18,34 @@ const UserPannel = ({ userName }) => {
 	}
 
 	return (
-		<Box border="2px solid black" display="flex" justifyContent="space-between" h="4vh">
-			<Box border="1px solid black" h="35px" w="160px" backgroundImage="logo.svg"></Box>
-			<Box border="1px solid black" borderRadius={5} h="35px">
-				<Text as="b" fontSize="20px" color="#000000">
-					{userName ? userName : ''}
-				</Text>
-				{!localStorage.getItem('guestName') ? (
-					<Button colorScheme="blue" size="xs" m={1} onClick={goToUserSettings}>
-						Настройки
+		<Box border="1px solid black" h="5vh" w="100%">
+			<Grid h="100%" templateColumns="repeat(20, 1fr)" gap={1} alignItems="center">
+				<GridItem colSpan={1}>
+					<Box h="36px" w="160px" backgroundImage="logo.svg" m={1} />
+				</GridItem>
+				<GridItem colStart={18}>
+					<Avatar size="sm" name={userName ? userName : ''} />
+					<Text as="b" fontSize="15px" color="#000000" m={1}>
+						{userName ? userName : ''}
+					</Text>
+				</GridItem>
+				<GridItem>
+					{!localStorage.getItem('guestName') ? (
+						<Button colorScheme="blue" size="xs" onClick={goToUserSettings}>
+							Настройки
+						</Button>
+					) : (
+						<Button colorScheme="green" size="xs" onClick={handleRegister}>
+							Регистрация
+						</Button>
+					)}
+				</GridItem>
+				<GridItem>
+					<Button onClick={handleSignOut} colorScheme="red" size="xs">
+						Выход
 					</Button>
-				) : (
-					<Button colorScheme="green" size="xs" onClick={handleRegister}>
-						Регистрация
-					</Button>
-				)}
-
-				<Button onClick={handleSignOut} colorScheme="red" size="xs" m={1}>
-					Выход
-				</Button>
-			</Box>
+				</GridItem>
+			</Grid>
 		</Box>
 	)
 }
