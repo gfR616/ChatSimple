@@ -2,7 +2,7 @@ import { firebaseConfig } from '../../base/fireBaseConfig'
 import { MessagesProvider } from '../../hooks/useMessages'
 import { UsersProvider, useUsers } from '../../hooks/useUsers'
 import Chat from '../ui/chat/chat'
-import ContactsPannel from '../ui/contactsPannel/contactsPannel'
+import ContactsSidebar from '../ui/contactsSidebar'
 import SomePannel from '../ui/somePannel'
 import UserPannel from '../ui/userPannel'
 import { Box, Grid, GridItem } from '@chakra-ui/react'
@@ -39,33 +39,33 @@ const ChatPage = () => {
 	}
 
 	return (
-		<Box opacity={5}>
-			<Box h="100vh">
-				<Box>
-					<UsersProvider>
-						<UserPannel userName={userName} />
-					</UsersProvider>
+		<UsersProvider>
+			<MessagesProvider>
+				<Box opacity={5}>
+					<Box h="100vh">
+						<Box>
+							<UserPannel userName={userName} />
+						</Box>
+						<Grid templateColumns="repeat(9, 1fr)" alignItems="stretch">
+							<GridItem colSpan={2}>
+								<ContactsSidebar />
+							</GridItem>
+							<GridItem colSpan={5}>
+								<Chat
+									userName={userName}
+									uid={uid}
+									displayState={displayState}
+									setDisplayState={setDisplayState}
+								/>
+							</GridItem>
+							<GridItem colSpan={2}>
+								<SomePannel setDisplayState={setDisplayState} />
+							</GridItem>
+						</Grid>
+					</Box>
 				</Box>
-				<Grid templateColumns="repeat(9, 1fr)" alignItems="stretch">
-					<GridItem colSpan={2}>
-						<ContactsPannel />
-					</GridItem>
-					<GridItem colSpan={5}>
-						<MessagesProvider>
-							<Chat
-								userName={userName}
-								uid={uid}
-								displayState={displayState}
-								setDisplayState={setDisplayState}
-							/>
-						</MessagesProvider>
-					</GridItem>
-					<GridItem colSpan={2}>
-						<SomePannel setDisplayState={setDisplayState} />
-					</GridItem>
-				</Grid>
-			</Box>
-		</Box>
+			</MessagesProvider>
+		</UsersProvider>
 	)
 }
 
