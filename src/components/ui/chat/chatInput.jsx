@@ -1,11 +1,12 @@
-import { Box, Button, Grid, GridItem, Input, Textarea } from '@chakra-ui/react'
-import React, { useEffect, useRef, useState } from 'react'
+import { Box, Button, Grid, GridItem, Textarea } from '@chakra-ui/react'
+import { useRef } from 'react'
 
-const ChatInput = ({ onInputChange, inputState, onSendMessage }) => {
+const ChatInput = ({ onInputChange, inputState, onSendMessage, textAreaRef }) => {
 	return (
 		<Grid templateColumns="repeat(10, 1fr)" gap={1} m={1}>
 			<GridItem colSpan={9}>
 				<Textarea
+					ref={textAreaRef}
 					resize="none"
 					borderColor="#946d25"
 					bgColor="#c0bcbc"
@@ -14,7 +15,8 @@ const ChatInput = ({ onInputChange, inputState, onSendMessage }) => {
 					onChange={onInputChange}
 					placeholder="Написать сообщение..."
 					onKeyDown={(e) => {
-						if (e.key === 'Enter') {
+						if (e.key === 'Enter' && !e.shiftKey) {
+							e.preventDefault()
 							onSendMessage()
 						}
 					}}
