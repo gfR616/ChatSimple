@@ -8,10 +8,10 @@ import {
 } from 'firebase/firestore'
 
 const firestore = getFirestore()
-
 const usersCollection = collection(firestore, 'users')
+
 //добавляем в фаерстор
-export async function addNewUser(displayName, email, uid) {
+export const addNewUser = async (displayName, email, uid) => {
 	const userDoc = doc(usersCollection, uid)
 	await setDoc(userDoc, {
 		displayName: displayName,

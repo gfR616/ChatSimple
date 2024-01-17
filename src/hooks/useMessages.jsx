@@ -1,4 +1,4 @@
-import { fetchAllMessages, pushMessage } from '../services/messageService'
+import { fetchAllMessages, pushMessageInRTDB } from '../services/messageService'
 import { customAlphabet } from 'nanoid'
 import React, { useContext, useEffect } from 'react'
 
@@ -10,8 +10,8 @@ export const useMessages = () => {
 
 export const MessagesProvider = ({ children }) => {
 	//получаем и отображаем все сообщения + определяем направленность
-	function getAllMessages(setDisplayState, uid) {
-		console.log('UIdInFunction:', uid)
+	function getAllMessages(setDisplayState, senderUid) {
+		console.log('UIdInFunction:', senderUid)
 		useEffect(() => {
 			fetchAllMessages((snapshot) => {
 				const data = snapshot.val()
@@ -19,11 +19,15 @@ export const MessagesProvider = ({ children }) => {
 					const messages = Object.values(data)
 						.flat()
 						.map((message) => {
-							const isIncoming = message.uid !== uid
+							const isIncoming = message.senderUid !== senderUid
 							console.log(message)
+							// if (!Object.prototype.hasOwnProperty.call(message, 'recipientUid')) {
+							// 	message.recipientUid = senderUid
+							// }
 							return {
 								...message,
 								isIncoming: isIncoming,
+								recipientUid: senderUid,
 							}
 						})
 					messages ? setDisplayState(messages) : setDisplayState([])
@@ -32,23 +36,23 @@ export const MessagesProvider = ({ children }) => {
 					setDisplayState([])
 				}
 			})
-		}, [uid])
+		}, [senderUid])
 	}
 
 	// отправляем сообщение
-	function sendMessage(userName, inputState, setInputState, uid) {
+	function sendMessage(userName, inputState, setInputState, senderUid) {
 		const nanoid = customAlphabet('1234567890abcdef', 12)
 		const id = nanoid()
 		const addDisplayElement = {
 			_id: id,
 			userName: userName,
-			uid: uid,
+			senderUid: senderUid,
 			message: inputState,
 			displayTime: new Date().toLocaleTimeString(),
 			displayDate: new Date().toLocaleDateString(),
 			isIncoming: false,
 		}
-		pushMessage(addDisplayElement)
+		pushMessageInRTDB(addDisplayElement)
 		setInputState('')
 	}
 

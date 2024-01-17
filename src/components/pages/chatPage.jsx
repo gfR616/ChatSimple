@@ -31,11 +31,11 @@ const ChatPage = () => {
 	// находим uid
 	const guestId = useSelector((state) => state.guest.guestId)
 	guestId && localStorage.setItem('guestId', guestId)
-	let uid
+	let userUid
 	if (!guestId && !localStorage.getItem('guestId')) {
-		uid = user && user.uid
+		userUid = user && user.uid
 	} else {
-		uid = guestId || localStorage.getItem('guestId')
+		userUid = guestId || localStorage.getItem('guestId')
 	}
 
 	return (
@@ -53,7 +53,7 @@ const ChatPage = () => {
 							<GridItem colSpan={5}>
 								<Chat
 									userName={userName}
-									uid={uid}
+									senderUid={userUid}
 									displayState={displayState}
 									setDisplayState={setDisplayState}
 								/>

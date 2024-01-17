@@ -1,13 +1,4 @@
-import {
-	getDatabase,
-	limitToLast,
-	onValue,
-	orderByKey,
-	push,
-	query,
-	ref,
-	set,
-} from 'firebase/database'
+import { getDatabase, onValue, push, ref, set } from 'firebase/database'
 
 export const getMessagesBase = () => {
 	const db = getDatabase()
@@ -19,7 +10,7 @@ export const getMessagesBase = () => {
 	}
 }
 
-export const pushMessage = (message) => {
+export const pushMessageInRTDB = (message) => {
 	const messagesRef = getMessagesBase()
 	push(messagesRef, message)
 	console.log('Сообщение отправлено:', message)
@@ -29,13 +20,6 @@ export const fetchAllMessages = (callback) => {
 	const messagesRef = getMessagesBase()
 	onValue(messagesRef, callback)
 	console.log('Сообщения запрошены:')
-}
-// пока не используем
-export const fetchLatestMessage = (callback) => {
-	const messagesRef = getMessagesBase()
-	const latestMessageQuery = query(messagesRef, orderByKey(), limitToLast(1))
-	onValue(latestMessageQuery, callback)
-	console.log('Последнее сообщение запрошено:')
 }
 
 export const clearAllMeassages = () => {

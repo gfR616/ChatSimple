@@ -4,12 +4,12 @@ import DialogScreen from './dialogScreen'
 import { Box } from '@chakra-ui/react'
 import React, { useRef, useState } from 'react'
 
-const Chat = ({ userName, uid, setDisplayState, displayState }) => {
+const Chat = ({ userName, senderUid, setDisplayState, displayState }) => {
 	const [inputState, setInputState] = useState('')
 	const textAreaRef = useRef()
 	//инициализируем получение сообщений
 	const { getAllMessages, sendMessage } = useMessages()
-	getAllMessages(setDisplayState, uid)
+	getAllMessages(setDisplayState, senderUid)
 
 	//
 	const handleInputChange = (event) => {
@@ -18,7 +18,7 @@ const Chat = ({ userName, uid, setDisplayState, displayState }) => {
 	// отправляем сообщение
 	const handleSendMessage = () => {
 		if (inputState === '') return
-		sendMessage(userName, inputState, setInputState, uid)
+		sendMessage(userName, inputState, setInputState, senderUid)
 		textAreaRef.current.focus()
 	}
 
