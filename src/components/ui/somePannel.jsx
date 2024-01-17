@@ -16,7 +16,7 @@ const SomePannel = ({ setDisplayState }) => {
 		setDisplayState([])
 	}
 	return (
-		<Box w="100%" minH="96vh" border="1px solid black" borderRadius={5}>
+		<Box w="100%" minH="95vh" border="1px solid black" borderRadius={5}>
 			<Box border="1px solid black" borderRadius={5}>
 				SomePannel
 			</Box>
