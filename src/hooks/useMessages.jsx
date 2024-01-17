@@ -9,7 +9,7 @@ export const useMessages = () => {
 }
 
 export const MessagesProvider = ({ children }) => {
-	//получаем и отображаем все сообщения разово + определяем направленность
+	//получаем и отображаем все сообщения + определяем направленность
 	function getAllMessages(setDisplayState, uid) {
 		console.log('UIdInFunction:', uid)
 		useEffect(() => {
