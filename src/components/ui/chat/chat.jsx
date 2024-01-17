@@ -22,7 +22,7 @@ const Chat = ({ userName, uid, setDisplayState, displayState }) => {
 	}
 
 	return (
-		<Box border="1px solid black" h="96vh" borderRadius={5} bgColor="#776b93">
+		<Box border="1px solid black" h="95vh" borderRadius={5} bgColor="#776b93">
 			<Box>
 				<DialogScreen displayState={displayState} />
 			</Box>
