@@ -2,11 +2,11 @@ import { useMessages } from '../../../hooks/useMessages'
 import ChatInput from './chatInput'
 import DialogScreen from './dialogScreen'
 import { Box } from '@chakra-ui/react'
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 
 const Chat = ({ userName, uid, setDisplayState, displayState }) => {
 	const [inputState, setInputState] = useState('')
-
+	const textAreaRef = useRef()
 	//инициализируем получение сообщений
 	const { getAllMessages, sendMessage } = useMessages()
 	getAllMessages(setDisplayState, uid)
@@ -19,6 +19,7 @@ const Chat = ({ userName, uid, setDisplayState, displayState }) => {
 	const handleSendMessage = () => {
 		if (inputState === '') return
 		sendMessage(userName, inputState, setInputState, uid)
+		textAreaRef.current.focus()
 	}
 
 	return (
@@ -31,6 +32,7 @@ const Chat = ({ userName, uid, setDisplayState, displayState }) => {
 					onInputChange={handleInputChange}
 					onSendMessage={handleSendMessage}
 					inputState={inputState}
+					textAreaRef={textAreaRef}
 				/>
 			</Box>
 		</Box>
