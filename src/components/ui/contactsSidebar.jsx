@@ -22,28 +22,23 @@ const ContactsSidebar = () => {
 				<Menu>
 					<SubMenu label={collapsed ? <TfiFaceSmile size={30} /> : 'Все пользователи'}>
 						{users &&
-							users.map((user) => (
-								<MenuItem key={user.uid} border="1px solid black">
-									{user.displayName}
-								</MenuItem>
-							))}
+							users.map((user) => <MenuItem key={user.uid}>{user.displayName}</MenuItem>)}
 					</SubMenu>
 					<SubMenu
 						label={collapsed ? <TfiComment size={30} /> : 'Мои контакты'}
 					></SubMenu>
 				</Menu>
-			</Sidebar>
-			<Box style={{ marginBottom: 16 }}>
 				<Button
 					checked={collapsed}
 					colorScheme="blackAlpha"
 					onClick={() => setCollapsed(!collapsed)}
 					size="md"
-					m={1}
+					ml={4}
+					mt="78vh"
 				>
 					{collapsed ? <ArrowRightIcon /> : <ArrowLeftIcon />}
 				</Button>
-			</Box>
+			</Sidebar>
 		</Box>
 	)
 }
