@@ -4,7 +4,7 @@ import React from 'react'
 const RepoLink = () => {
 	return (
 		<Link
-			color="#fffefe"
+			color="#000000"
 			href="https://github.com/gfR616/ChatSimple"
 			position="absolute"
 			right={10}
