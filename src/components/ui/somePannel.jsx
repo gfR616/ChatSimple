@@ -1,6 +1,6 @@
 import { clearAllMeassages } from '../../services/messageService'
 import { fetchUsers, getAllUsers, printUsers } from '../../services/userService'
-import { Box, Button } from '@chakra-ui/react'
+import { Box, Button, Link } from '@chakra-ui/react'
 import React from 'react'
 
 const SomePannel = ({ setDisplayState }) => {
@@ -32,6 +32,12 @@ const SomePannel = ({ setDisplayState }) => {
 			<Button colorScheme="yellow" onClick={handleClearScreen}>
 				Clear
 			</Button>
+			<br></br>
+			Для удобства добавляю ссылку на этот чат, пользуйтесь на здоровье.
+			<br />
+			<Link href="https://gfr616.github.io/ChatSimple/" color="coral" target="_blank">
+				https://gfr616.github.io/ChatSimple/
+			</Link>
 		</Box>
 	)
 }

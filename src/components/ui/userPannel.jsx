@@ -20,12 +20,12 @@ const UserPannel = ({ userName }) => {
 	return (
 		<Box border="1px solid black" h="5vh" w="100%">
 			<Grid h="100%" templateColumns="repeat(20, 1fr)" gap={1} alignItems="center">
-				<GridItem colSpan={1}>
+				<GridItem>
 					<Box h="36px" w="160px" backgroundImage="logo.svg" m={1} />
 				</GridItem>
-				<GridItem colStart={18}>
+				<GridItem colStart={18} display="flex">
 					<Avatar size="sm" name={userName ? userName : ''} />
-					<Text as="b" fontSize="15px" color="#000000" m={1}>
+					<Text as="b" fontSize="15px" color="#000000" m="5px" whiteSpace="nowrap">
 						{userName ? userName : ''}
 					</Text>
 				</GridItem>

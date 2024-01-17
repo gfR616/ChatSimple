@@ -2,6 +2,12 @@ import { Box, Text } from '@chakra-ui/react'
 import React from 'react'
 
 const Message = ({ message, user, time, isIncomingMessage }) => {
+	const formattedMessage = message.split('\n').map((line, i) => (
+		<React.Fragment key={i}>
+			{line}
+			<br />
+		</React.Fragment>
+	))
 	return (
 		<>
 			<Box
@@ -25,7 +31,7 @@ const Message = ({ message, user, time, isIncomingMessage }) => {
 				>
 					{user}
 				</Text>
-				<Text isTruncated={false}>{message}</Text>
+				<Text isTruncated={false}>{formattedMessage}</Text>
 				<Text fontSize="xs" color="#2d4812f3" position="absolute" bottom={1} right={5}>
 					{time}
 				</Text>
