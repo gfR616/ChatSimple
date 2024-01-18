@@ -38,5 +38,16 @@ export const getChatHistory = async (senderUid, recipientUid) => {
 		return docSnap.data()
 	} else {
 		console.log('history not found')
+		return docSnap.data()
 	}
+}
+
+//инициализируем переписку
+export const initialHistory = async (senderUid, recipientUid) => {
+	const messageDoc = doc(historyCollection, `${senderUid}_${recipientUid}`)
+	await setDoc(messageDoc, {
+		users: [senderUid, recipientUid],
+		messages: [],
+	})
+	
 }
