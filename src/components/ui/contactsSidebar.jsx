@@ -1,5 +1,5 @@
 import { useUsers } from '../../hooks/useUsers'
-import { getChatHistory } from '../../services/historyService'
+import { getChatHistory, initialHistory } from '../../services/historyService'
 import { clearAllMeassages } from '../../services/messageService'
 import { getAllUsers } from '../../services/userService'
 import { setRecipientUid } from '../../store/task'
@@ -15,6 +15,7 @@ const ContactsSidebar = ({ setDisplayState }) => {
 	const [collapsed, setCollapsed] = useState(true)
 	const { user } = useUsers()
 	const senderUid = user && user.uid
+	console.log('senderUid', senderUid)
 	const [users, setUsers] = useState()
 
 	useEffect(() => {
@@ -25,13 +26,23 @@ const ContactsSidebar = ({ setDisplayState }) => {
 		handleFetchUsers()
 	}, [])
 
-	const handleOpenChat = (uid) => {
+	const handleOpenChat = async (uid) => {
 		clearAllMeassages()
 		dispatch(setRecipientUid(uid))
-		console.log('чат открыт!', uid)
-		getChatHistory(senderUid, uid).then((chatHistory) => {
-			console.log('История чата:', chatHistory)
-		})
+		console.log('чат иницииорван!', senderUid, uid)
+
+		try {
+			const chatHistory = await getChatHistory(senderUid, uid)
+			if (!chatHistory) {
+				initialHistory(senderUid, uid)
+				setDisplayState([])
+				console.log('чат создан, истории еще нет')
+			} else {
+				setDisplayState(chatHistory.messages)
+			}
+		} catch (error) {
+			console.error('Error fetching chat history:', error)
+		}
 	}
 	return (
 		<Box maxH="95vh" overflow="hidden">
