@@ -1,10 +1,10 @@
-import guestReducer from './task'
+import allReducer from './task'
 import { configureStore } from '@reduxjs/toolkit'
 
 function createStore() {
 	return configureStore({
 		reducer: {
-			guest: guestReducer,
+			all: allReducer,
 		},
 	})
 }

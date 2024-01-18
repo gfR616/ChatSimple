@@ -1,8 +1,8 @@
-import guestSlice from './task'
+import allReducer from './task'
 import { combineReducers } from '@reduxjs/toolkit'
 
 const rootReducer = combineReducers({
-	guest: guestSlice,
+	all: allReducer,
 })
 
 export default rootReducer
