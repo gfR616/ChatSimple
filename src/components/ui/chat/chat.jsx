@@ -3,12 +3,16 @@ import ChatInput from './chatInput'
 import DialogScreen from './dialogScreen'
 import { Box } from '@chakra-ui/react'
 import React, { useRef, useState } from 'react'
+import { useSelector } from 'react-redux'
 
 const Chat = ({ userName, senderUid, setDisplayState, displayState }) => {
 	const [inputState, setInputState] = useState('')
+	const recipientUid = useSelector((state) => state.all.setRecipientUid)
+	console.log('recipientUid', recipientUid)
 	const textAreaRef = useRef()
 	//инициализируем получение сообщений
 	const { getAllMessages, sendMessage } = useMessages()
+
 	getAllMessages(setDisplayState, senderUid)
 
 	//
@@ -17,8 +21,8 @@ const Chat = ({ userName, senderUid, setDisplayState, displayState }) => {
 	}
 	// отправляем сообщение
 	const handleSendMessage = () => {
-		if (inputState === '') return
-		sendMessage(userName, inputState, setInputState, senderUid)
+		if (inputState === '' || !recipientUid) return
+		sendMessage(userName, inputState, setInputState, senderUid, recipientUid)
 		textAreaRef.current.focus()
 	}
 
