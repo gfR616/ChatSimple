@@ -7,8 +7,8 @@ import { useSelector } from 'react-redux'
 
 const Chat = ({ userName, senderUid, setDisplayState, displayState }) => {
 	const [inputState, setInputState] = useState('')
-	const recipientUid = useSelector((state) => state.all.setRecipientUid)
-	console.log('recipientUid', recipientUid)
+	const recipientUid = useSelector((state) => state.all.recipientUid)
+	recipientUid && console.log('recipientUid', recipientUid)
 	const textAreaRef = useRef()
 	//инициализируем получение сообщений
 	const { getAllMessages, sendMessage } = useMessages()
@@ -21,8 +21,9 @@ const Chat = ({ userName, senderUid, setDisplayState, displayState }) => {
 	}
 	// отправляем сообщение
 	const handleSendMessage = () => {
-		if (inputState === '' || !recipientUid) return
-		sendMessage(userName, inputState, setInputState, senderUid, recipientUid)
+		if (inputState === '') return
+		recipientUid &&
+			sendMessage(userName, inputState, setInputState, senderUid, recipientUid)
 		textAreaRef.current.focus()
 	}
 
