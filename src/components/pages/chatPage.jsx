@@ -16,6 +16,7 @@ const ChatPage = () => {
 	}, [])
 	const { user } = useUsers()
 	const [displayState, setDisplayState] = useState([])
+	console.log('displayState', displayState)
 	// находим userName
 	const guestName = useSelector((state) => state.all.setGuestName)
 	guestName && localStorage.setItem('guestName', guestName)
