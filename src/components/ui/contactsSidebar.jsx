@@ -1,13 +1,22 @@
+import { useUsers } from '../../hooks/useUsers'
+import { getChatHistory } from '../../services/historyService'
+import { clearAllMeassages } from '../../services/messageService'
 import { getAllUsers } from '../../services/userService'
+import { setRecipientUid } from '../../store/task'
 import { ArrowLeftIcon, ArrowRightIcon } from '@chakra-ui/icons'
 import { Box, Button, Grid, GridItem, Text } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import { TfiComment, TfiFaceSmile } from 'react-icons/tfi'
 import { Menu, MenuItem, Sidebar, SubMenu } from 'react-pro-sidebar'
+import { useDispatch } from 'react-redux'
 
-const ContactsSidebar = () => {
+const ContactsSidebar = ({ setDisplayState }) => {
+	const dispatch = useDispatch()
 	const [collapsed, setCollapsed] = useState(true)
+	const { user } = useUsers()
+	const senderUid = user && user.uid
 	const [users, setUsers] = useState()
+
 	useEffect(() => {
 		const handleFetchUsers = async () => {
 			const allUsers = await getAllUsers()
@@ -15,8 +24,15 @@ const ContactsSidebar = () => {
 		}
 		handleFetchUsers()
 	}, [])
-	console.log('Юзеры запрошены:', users)
-	
+
+	const handleOpenChat = (uid) => {
+		clearAllMeassages()
+		dispatch(setRecipientUid(uid))
+		console.log('чат открыт!', uid)
+		getChatHistory(senderUid, uid).then((chatHistory) => {
+			console.log('История чата:', chatHistory)
+		})
+	}
 	return (
 		<Box maxH="95vh" overflow="hidden">
 			<Sidebar collapsed={collapsed}>
@@ -27,9 +43,13 @@ const ContactsSidebar = () => {
 								label={collapsed ? <TfiFaceSmile size={30} /> : 'Все пользователи'}
 							>
 								{users &&
-									users.map((user) => (
-										<MenuItem key={user.uid} onClick={}>{user.displayName}</MenuItem>
-									))}
+									users.map((user) => {
+										return (
+											<MenuItem key={user.uid} onClick={() => handleOpenChat(user.uid)}>
+												{user.displayName}
+											</MenuItem>
+										)
+									})}
 							</SubMenu>
 							<SubMenu
 								label={collapsed ? <TfiComment size={30} /> : 'Мои контакты'}
