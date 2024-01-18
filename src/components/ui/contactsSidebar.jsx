@@ -16,6 +16,7 @@ const ContactsSidebar = () => {
 		handleFetchUsers()
 	}, [])
 	console.log('Юзеры запрошены:', users)
+	
 	return (
 		<Box maxH="95vh" overflow="hidden">
 			<Sidebar collapsed={collapsed}>
@@ -27,7 +28,7 @@ const ContactsSidebar = () => {
 							>
 								{users &&
 									users.map((user) => (
-										<MenuItem key={user.uid}>{user.displayName}</MenuItem>
+										<MenuItem key={user.uid} onClick={}>{user.displayName}</MenuItem>
 									))}
 							</SubMenu>
 							<SubMenu
