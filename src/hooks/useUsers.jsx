@@ -7,7 +7,7 @@ const UsersContext = React.createContext()
 export const useUsers = () => {
 	return useContext(UsersContext)
 }
-
+//получаем пользователя и его данные
 export const UsersProvider = ({ children }) => {
 	const [user, setUser] = useState(null)
 
