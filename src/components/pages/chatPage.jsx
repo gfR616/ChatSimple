@@ -17,7 +17,7 @@ const ChatPage = () => {
 	const { user } = useUsers()
 	const [displayState, setDisplayState] = useState([])
 	// находим userName
-	const guestName = useSelector((state) => state.guest.guestName)
+	const guestName = useSelector((state) => state.all.setGuestName)
 	guestName && localStorage.setItem('guestName', guestName)
 	console.log('stored:', localStorage.getItem('guestName'))
 	let userName
@@ -29,7 +29,7 @@ const ChatPage = () => {
 	}
 
 	// находим uid
-	const guestId = useSelector((state) => state.guest.guestId)
+	const guestId = useSelector((state) => state.all.setGuestId)
 	guestId && localStorage.setItem('guestId', guestId)
 	let userUid
 	if (!guestId && !localStorage.getItem('guestId')) {
@@ -48,7 +48,7 @@ const ChatPage = () => {
 						</Box>
 						<Grid templateColumns="repeat(9, 1fr)" alignItems="stretch">
 							<GridItem colSpan={2}>
-								<ContactsSidebar />
+								<ContactsSidebar setDisplayState={setDisplayState} />
 							</GridItem>
 							<GridItem colSpan={5}>
 								<Chat
