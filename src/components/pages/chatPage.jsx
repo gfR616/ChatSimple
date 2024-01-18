@@ -18,7 +18,7 @@ const ChatPage = () => {
 	const [displayState, setDisplayState] = useState([])
 	console.log('displayState', displayState)
 	// находим userName
-	const guestName = useSelector((state) => state.all.setGuestName)
+	const guestName = useSelector((state) => state.all.guestName)
 	guestName && localStorage.setItem('guestName', guestName)
 	console.log('stored:', localStorage.getItem('guestName'))
 	let userName
@@ -30,7 +30,7 @@ const ChatPage = () => {
 	}
 
 	// находим uid
-	const guestId = useSelector((state) => state.all.setGuestId)
+	const guestId = useSelector((state) => state.all.guestId)
 	guestId && localStorage.setItem('guestId', guestId)
 	let userUid
 	if (!guestId && !localStorage.getItem('guestId')) {
