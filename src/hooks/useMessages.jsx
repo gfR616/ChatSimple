@@ -1,3 +1,4 @@
+import { getChatHistory, pushMessageInStore } from '../services/historyService'
 import { fetchAllMessages, pushMessageInRTDB } from '../services/messageService'
 import { customAlphabet } from 'nanoid'
 import React, { useContext, useEffect } from 'react'
@@ -10,8 +11,8 @@ export const useMessages = () => {
 
 export const MessagesProvider = ({ children }) => {
 	//получаем и отображаем все сообщения + определяем направленность
+
 	function getAllMessages(setDisplayState, senderUid) {
-		console.log('UIdInFunction:', senderUid)
 		useEffect(() => {
 			fetchAllMessages((snapshot) => {
 				const data = snapshot.val()
@@ -20,18 +21,16 @@ export const MessagesProvider = ({ children }) => {
 						.flat()
 						.map((message) => {
 							const isIncoming = message.senderUid !== senderUid
-							console.log(message)
-							// if (!Object.prototype.hasOwnProperty.call(message, 'recipientUid')) {
-							// 	message.recipientUid = senderUid
-							// }
+							if (!Object.prototype.hasOwnProperty.call(message, 'recipientUid')) {
+								message.recipientUid = senderUid
+							}
 							return {
 								...message,
 								isIncoming: isIncoming,
-								recipientUid: senderUid,
+								// recipientUid: senderUid,
 							}
 						})
 					messages ? setDisplayState(messages) : setDisplayState([])
-					console.log('Все сообщения получены:', messages)
 				} else {
 					setDisplayState([])
 				}
@@ -40,7 +39,7 @@ export const MessagesProvider = ({ children }) => {
 	}
 
 	// отправляем сообщение
-	function sendMessage(userName, inputState, setInputState, senderUid) {
+	function sendMessage(userName, inputState, setInputState, senderUid, recipientUid) {
 		const nanoid = customAlphabet('1234567890abcdef', 12)
 		const id = nanoid()
 		const addDisplayElement = {
@@ -53,6 +52,7 @@ export const MessagesProvider = ({ children }) => {
 			isIncoming: false,
 		}
 		pushMessageInRTDB(addDisplayElement)
+		pushMessageInStore(addDisplayElement, senderUid, recipientUid)
 		setInputState('')
 	}
 
