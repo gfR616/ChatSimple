@@ -31,7 +31,7 @@ const ContactsSidebar = ({ senderUid }) => {
 		try {
 			const senderKeys = await getKeys(senderUid)
 			const recipientKeys = await getKeys(uid)
-			const commonKey = senderKeys.find((key) => recipientKeys.includes(key))
+			const commonKey = await senderKeys.find((key) => recipientKeys.includes(key))
 			if (commonKey) {
 				const chatHistory = await getChatHistory(commonKey)
 				console.log('ТУТ', chatHistory.messages)
@@ -39,8 +39,17 @@ const ContactsSidebar = ({ senderUid }) => {
 				console.log('чат создан, истории загружена')
 				dispatch(setCommonKey(commonKey))
 			} else {
-				initialHistory(senderUid, uid)
-				dispatch(setDisplayState([]))
+				await initialHistory(senderUid, uid)
+				const senderKeys = await getKeys(senderUid)
+				const recipientKeys = await getKeys(uid)
+				const commonKey = await senderKeys.find((key) => recipientKeys.includes(key))
+				if (commonKey) {
+					const chatHistory = await getChatHistory(commonKey)
+					console.log('ТУТ', chatHistory.messages)
+					pushMessageInRTDB(chatHistory.messages)
+					console.log('чат создан, истории загружена')
+					dispatch(setCommonKey(commonKey))
+				}
 				console.log('чат создан, истории еще нет')
 			}
 		} catch (error) {
