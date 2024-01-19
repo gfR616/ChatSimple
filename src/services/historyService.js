@@ -1,3 +1,4 @@
+import { addKeysToUsers } from './userService'
 import {
 	arrayUnion,
 	collection,
@@ -7,13 +8,14 @@ import {
 	setDoc,
 	updateDoc,
 } from 'firebase/firestore'
+import { v4 } from 'uuid'
 
 const firestore = getFirestore()
 const historyCollection = collection(firestore, 'history')
 
-//добавляем в фаерстор
-export const pushMessageInStore = async (message, senderUid, recipientUid) => {
-	const messageDoc = doc(historyCollection, `${senderUid}_${recipientUid}`)
+//добавляем месседж в фаерстор
+export const pushMessageInStore = async (message, senderUid, recipientUid, commonKey) => {
+	const messageDoc = doc(historyCollection, commonKey)
 	const docSnap = await getDoc(messageDoc)
 	if (docSnap.exists()) {
 		await updateDoc(messageDoc, {
@@ -28,10 +30,9 @@ export const pushMessageInStore = async (message, senderUid, recipientUid) => {
 	}
 }
 
-//получаем из фаерстора
-export const getChatHistory = async (senderUid, recipientUid) => {
-	const messageDoc = doc(historyCollection, `${senderUid}_${recipientUid}`)
-
+//получаем из хистори фаерстора
+export const getChatHistory = async (commonKey) => {
+	const messageDoc = doc(historyCollection, commonKey)
 	const docSnap = await getDoc(messageDoc)
 	if (docSnap.exists()) {
 		console.log('Chat history: ', docSnap.data())
@@ -42,11 +43,13 @@ export const getChatHistory = async (senderUid, recipientUid) => {
 	}
 }
 
-//инициализируем переписку
+//инициализируем переписку/добавляем ключики
 export const initialHistory = async (senderUid, recipientUid) => {
-	const messageDoc = doc(historyCollection, `${senderUid}_${recipientUid}`)
+	const key = v4()
+	const messageDoc = doc(historyCollection, key)
 	await setDoc(messageDoc, {
 		users: [senderUid, recipientUid],
 		messages: [],
 	})
+	await addKeysToUsers(senderUid, recipientUid, key)
 }
