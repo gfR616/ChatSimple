@@ -3,7 +3,7 @@ import { fetchUsers, getAllUsers, printUsers } from '../../services/userService'
 import { Box, Button, Link } from '@chakra-ui/react'
 import React from 'react'
 
-const SomePannel = ({ setDisplayState }) => {
+const SomePannel = () => {
 	const playSound = () => {
 		const audio = new Audio('message.mp3')
 		audio.addEventListener('canplaythrough', (event) => {
@@ -13,7 +13,6 @@ const SomePannel = ({ setDisplayState }) => {
 	// удаляем все сообщения
 	const handleClearScreen = () => {
 		clearAllMeassages()
-		setDisplayState([])
 	}
 	return (
 		<Box w="100%" minH="95vh" border="1px solid black" borderRadius={5}>

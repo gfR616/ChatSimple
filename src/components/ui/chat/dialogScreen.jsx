@@ -1,9 +1,11 @@
 import Message from './message'
 import { Box } from '@chakra-ui/react'
 import React, { useEffect, useRef } from 'react'
+import { useSelector } from 'react-redux'
 
-const DialogScreen = ({ displayState }) => {
+const DialogScreen = () => {
 	const boxRef = useRef()
+	const displayState = useSelector((state) => state.displayState)
 
 	useEffect(() => {
 		if (boxRef.current) {
@@ -21,21 +23,22 @@ const DialogScreen = ({ displayState }) => {
 			overflow="auto"
 			opacity="0.95"
 		>
-			{displayState.map((messageObj) => (
-				<Box
-					key={messageObj._id}
-					display="flex"
-					justifyContent={messageObj.isIncoming ? 'flex-start' : 'flex-end'}
-				>
-					<Message
-						isIncomingMessage={messageObj.isIncoming}
-						message={messageObj.message}
-						user={messageObj.userName}
-						time={messageObj.displayTime}
-						date={messageObj.displayDate}
-					/>
-				</Box>
-			))}
+			{displayState &&
+				displayState.map((messageObj) => (
+					<Box
+						key={messageObj._id}
+						display="flex"
+						justifyContent={messageObj.isIncoming ? 'flex-start' : 'flex-end'}
+					>
+						<Message
+							isIncomingMessage={messageObj.isIncoming}
+							message={messageObj.message}
+							user={messageObj.userName}
+							time={messageObj.displayTime}
+							date={messageObj.displayDate}
+						/>
+					</Box>
+				))}
 		</Box>
 	)
 }

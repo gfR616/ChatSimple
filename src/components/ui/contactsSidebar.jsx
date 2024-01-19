@@ -2,7 +2,7 @@ import { useUsers } from '../../hooks/useUsers'
 import { getChatHistory, initialHistory } from '../../services/historyService'
 import { clearAllMeassages } from '../../services/messageService'
 import { getAllUsers } from '../../services/userService'
-import { setRecipientUid } from '../../store/task'
+import { setDisplayState, setRecipientUid } from '../../store/task'
 import { ArrowLeftIcon, ArrowRightIcon } from '@chakra-ui/icons'
 import { Box, Button, Grid, GridItem, Text } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
@@ -10,7 +10,7 @@ import { TfiComment, TfiFaceSmile } from 'react-icons/tfi'
 import { Menu, MenuItem, Sidebar, SubMenu } from 'react-pro-sidebar'
 import { useDispatch } from 'react-redux'
 
-const ContactsSidebar = ({ setDisplayState }) => {
+const ContactsSidebar = () => {
 	const dispatch = useDispatch()
 	const [collapsed, setCollapsed] = useState(true)
 	const { user } = useUsers()
@@ -35,10 +35,10 @@ const ContactsSidebar = ({ setDisplayState }) => {
 			const chatHistory = await getChatHistory(senderUid, uid)
 			if (!chatHistory) {
 				initialHistory(senderUid, uid)
-				setDisplayState([])
+				dispatch(setDisplayState([]))
 				console.log('чат создан, истории еще нет')
 			} else {
-				setDisplayState(chatHistory.messages)
+				dispatch(setDisplayState(chatHistory.messages))
 			}
 		} catch (error) {
 			console.error('Error fetching chat history:', error)

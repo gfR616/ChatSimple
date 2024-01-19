@@ -15,9 +15,7 @@ const ChatPage = () => {
 		initializeApp(firebaseConfig)
 	}, [])
 	const { user } = useUsers()
-	const [displayState, setDisplayState] = useState([])
-	console.log('displayState', displayState)
-	// находим userName
+
 	const guestName = useSelector((state) => state.all.guestName)
 	guestName && localStorage.setItem('guestName', guestName)
 	console.log('stored:', localStorage.getItem('guestName'))
@@ -49,18 +47,13 @@ const ChatPage = () => {
 						</Box>
 						<Grid templateColumns="repeat(9, 1fr)" alignItems="stretch">
 							<GridItem colSpan={2}>
-								<ContactsSidebar setDisplayState={setDisplayState} />
+								<ContactsSidebar />
 							</GridItem>
 							<GridItem colSpan={5}>
-								<Chat
-									userName={userName}
-									senderUid={userUid}
-									displayState={displayState}
-									setDisplayState={setDisplayState}
-								/>
+								<Chat userName={userName} senderUid={userUid} />
 							</GridItem>
 							<GridItem colSpan={2}>
-								<SomePannel setDisplayState={setDisplayState} />
+								<SomePannel />
 							</GridItem>
 						</Grid>
 					</Box>

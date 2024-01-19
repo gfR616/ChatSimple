@@ -1,5 +1,6 @@
 import { getChatHistory, pushMessageInStore } from '../services/historyService'
 import { fetchAllMessages, pushMessageInRTDB } from '../services/messageService'
+import { setDisplayState } from '../store/task'
 import { customAlphabet } from 'nanoid'
 import React, { useContext, useEffect } from 'react'
 
@@ -12,7 +13,7 @@ export const useMessages = () => {
 export const MessagesProvider = ({ children }) => {
 	//получаем и отображаем все сообщения + определяем направленность
 
-	function getAllMessages(setDisplayState, senderUid) {
+	function getAllMessages(dispatch, senderUid) {
 		useEffect(() => {
 			fetchAllMessages((snapshot) => {
 				const data = snapshot.val()
@@ -30,9 +31,9 @@ export const MessagesProvider = ({ children }) => {
 								// recipientUid: senderUid,
 							}
 						})
-					messages ? setDisplayState(messages) : setDisplayState([])
+					messages ? dispatch(setDisplayState(messages)) : dispatch(setDisplayState([]))
 				} else {
-					setDisplayState([])
+					dispatch(setDisplayState([]))
 				}
 			})
 		}, [senderUid])
