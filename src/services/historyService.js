@@ -49,5 +49,4 @@ export const initialHistory = async (senderUid, recipientUid) => {
 		users: [senderUid, recipientUid],
 		messages: [],
 	})
-	
 }
