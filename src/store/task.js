@@ -2,7 +2,13 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const allSlice = createSlice({
 	name: 'all',
-	initialState: { guestName: '', guestId: '', displayState: [], recipientUid: '' },
+	initialState: {
+		guestName: '',
+		guestId: '',
+		displayState: [],
+		recipientUid: '',
+		commonKey: '',
+	},
 	reducers: {
 		setGuestName: (state, action) => {
 			state.guestName = action.payload
@@ -20,9 +26,18 @@ const allSlice = createSlice({
 			state.recipientUid = action.payload
 			console.log('ЗАСТОРИЛ recipientUid', state.recipientUid)
 		},
+		setCommonKey: (state, action) => {
+			state.commonKey = action.payload
+			console.log('ЗАСТОРИЛ commonKey', state.commonKey)
+		},
 	},
 })
 
-export const { setGuestName, setGuestId, setDisplayState, setRecipientUid } =
-	allSlice.actions
+export const {
+	setGuestName,
+	setGuestId,
+	setDisplayState,
+	setRecipientUid,
+	setCommonKey,
+} = allSlice.actions
 export default allSlice.reducer
