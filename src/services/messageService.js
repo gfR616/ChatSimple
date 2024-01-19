@@ -16,6 +16,10 @@ export const pushMessageInRTDB = (message) => {
 	console.log('Сообщение отправлено:', message)
 }
 
+// export const pushHistoryInRTDB = (messages) => {
+// 	const messagesRef = getMessagesBase()
+// }
+
 export const fetchAllMessages = (callback) => {
 	const messagesRef = getMessagesBase()
 	onValue(messagesRef, callback)
