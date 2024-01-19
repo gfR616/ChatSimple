@@ -5,8 +5,7 @@ import { useSelector } from 'react-redux'
 
 const DialogScreen = () => {
 	const boxRef = useRef()
-	const displayState = useSelector((state) => state.displayState)
-
+	const displayState = useSelector((state) => state.all.displayState)
 	useEffect(() => {
 		if (boxRef.current) {
 			boxRef.current.scrollTop = boxRef.current.scrollHeight
