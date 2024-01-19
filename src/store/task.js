@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const allSlice = createSlice({
 	name: 'all',
-	initialState: { guestName: '', guestId: '', setDisplayState: '', setRecipientUid: '' },
+	initialState: { guestName: '', guestId: '', displayState: '', recipientUid: '' },
 	reducers: {
 		setGuestName: (state, action) => {
 			state.guestName = action.payload
