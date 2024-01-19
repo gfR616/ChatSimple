@@ -1,5 +1,6 @@
 import { getChatHistory, initialHistory } from '../../services/historyService'
 import { clearAllMeassages, pushMessageInRTDB } from '../../services/messageService'
+import { createNewRoom } from '../../services/roomService'
 import { getAllUsers, getKeys } from '../../services/userService'
 import { setCommonKey, setDisplayState, setRecipientUid } from '../../store/task'
 import { ArrowLeftIcon, ArrowRightIcon } from '@chakra-ui/icons'
@@ -23,38 +24,12 @@ const ContactsSidebar = ({ senderUid }) => {
 		handleFetchUsers()
 	}, [])
 
-	const handleOpenChat = async (uid) => {
-		clearAllMeassages()
-		dispatch(setRecipientUid(uid))
-		console.log('чат иницииорван!', senderUid, uid)
-
-		try {
-			const senderKeys = await getKeys(senderUid)
-			const recipientKeys = await getKeys(uid)
-			const commonKey = await senderKeys.find((key) => recipientKeys.includes(key))
-			if (commonKey) {
-				const chatHistory = await getChatHistory(commonKey)
-				console.log('ТУТ', chatHistory.messages)
-				pushMessageInRTDB(chatHistory.messages)
-				console.log('чат создан, истории загружена')
-				dispatch(setCommonKey(commonKey))
-			} else {
-				await initialHistory(senderUid, uid)
-				const senderKeys = await getKeys(senderUid)
-				const recipientKeys = await getKeys(uid)
-				const commonKey = await senderKeys.find((key) => recipientKeys.includes(key))
-				if (commonKey) {
-					const chatHistory = await getChatHistory(commonKey)
-					console.log('ТУТ', chatHistory.messages)
-					pushMessageInRTDB(chatHistory.messages)
-					console.log('чат создан, истории загружена')
-					dispatch(setCommonKey(commonKey))
-				}
-				console.log('чат создан, истории еще нет')
-			}
-		} catch (error) {
-			console.error('Ошибка при открытии чата:', error)
-		}
+	const handleOpenChat = async (recipientUid) => {
+		dispatch(setRecipientUid(recipientUid))
+		console.log('чат иницииорван!', senderUid, recipientUid)
+		const newRoom = createNewRoom()
+		console.log('ROOOOOOOOOOOOOOOOOM', newRoom)
+		
 	}
 	return (
 		<Box maxH="95vh" overflow="hidden">
