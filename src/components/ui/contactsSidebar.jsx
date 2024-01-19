@@ -29,7 +29,6 @@ const ContactsSidebar = ({ senderUid }) => {
 		console.log('чат иницииорван!', senderUid, recipientUid)
 		const newRoom = createNewRoom()
 		console.log('ROOOOOOOOOOOOOOOOOM', newRoom)
-		
 	}
 	return (
 		<Box maxH="95vh" overflow="hidden">
