@@ -15,9 +15,7 @@ const Chat = ({ userName, senderUid }) => {
 	//инициализируем получение сообщений
 	const { getAllMessages, sendMessage } = useMessages()
 
-	getAllMessages((messages) => {
-		dispatch(setDisplayState(messages))
-	}, senderUid)
+	getAllMessages(dispatch, senderUid)
 
 	//
 	const handleInputChange = (event) => {
