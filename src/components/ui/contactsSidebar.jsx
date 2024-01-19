@@ -1,8 +1,7 @@
-import { useUsers } from '../../hooks/useUsers'
 import { getChatHistory, initialHistory } from '../../services/historyService'
-import { clearAllMeassages } from '../../services/messageService'
-import { getAllUsers } from '../../services/userService'
-import { setDisplayState, setRecipientUid } from '../../store/task'
+import { clearAllMeassages, pushMessageInRTDB } from '../../services/messageService'
+import { getAllUsers, getKeys } from '../../services/userService'
+import { setCommonKey, setDisplayState, setRecipientUid } from '../../store/task'
 import { ArrowLeftIcon, ArrowRightIcon } from '@chakra-ui/icons'
 import { Box, Button, Grid, GridItem, Text } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
@@ -13,7 +12,6 @@ import { useDispatch } from 'react-redux'
 const ContactsSidebar = ({ senderUid }) => {
 	const dispatch = useDispatch()
 	const [collapsed, setCollapsed] = useState(true)
-	const { user } = useUsers()
 	console.log('senderUid', senderUid)
 	const [users, setUsers] = useState()
 
@@ -31,16 +29,22 @@ const ContactsSidebar = ({ senderUid }) => {
 		console.log('чат иницииорван!', senderUid, uid)
 
 		try {
-			const chatHistory = await getChatHistory(senderUid, uid)
-			if (!chatHistory) {
+			const senderKeys = await getKeys(senderUid)
+			const recipientKeys = await getKeys(uid)
+			const commonKey = senderKeys.find((key) => recipientKeys.includes(key))
+			if (commonKey) {
+				const chatHistory = await getChatHistory(commonKey)
+				console.log('ТУТ', chatHistory.messages)
+				pushMessageInRTDB(chatHistory.messages)
+				console.log('чат создан, истории загружена')
+				dispatch(setCommonKey(commonKey))
+			} else {
 				initialHistory(senderUid, uid)
 				dispatch(setDisplayState([]))
 				console.log('чат создан, истории еще нет')
-			} else {
-				dispatch(setDisplayState(chatHistory.messages))
 			}
 		} catch (error) {
-			console.error('Error fetching chat history:', error)
+			console.error('Ошибка при открытии чата:', error)
 		}
 	}
 	return (
