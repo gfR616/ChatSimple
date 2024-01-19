@@ -1,4 +1,4 @@
-import { getChatHistory, pushMessageInStore } from '../services/historyService'
+import { pushMessageInStore } from '../services/historyService'
 import { fetchAllMessages, pushMessageInRTDB } from '../services/messageService'
 import { setDisplayState } from '../store/task'
 import { customAlphabet } from 'nanoid'
@@ -36,12 +36,19 @@ export const MessagesProvider = ({ children }) => {
 					dispatch(setDisplayState([]))
 				}
 			})
-		}, [senderUid])
+		}, [])
 	}
 
 	// отправляем сообщение
-	function sendMessage(userName, inputState, setInputState, senderUid, recipientUid) {
-		const nanoid = customAlphabet('1234567890abcdef', 12)
+	function sendMessage(
+		userName,
+		inputState,
+		setInputState,
+		senderUid,
+		recipientUid,
+		commonKey,
+	) {
+		const nanoid = customAlphabet('1234567890abcdef', 20)
 		const id = nanoid()
 		const addDisplayElement = {
 			_id: id,
@@ -53,7 +60,7 @@ export const MessagesProvider = ({ children }) => {
 			isIncoming: false,
 		}
 		pushMessageInRTDB(addDisplayElement)
-		pushMessageInStore(addDisplayElement, senderUid, recipientUid)
+		pushMessageInStore(addDisplayElement, senderUid, recipientUid, commonKey)
 		setInputState('')
 	}
 
