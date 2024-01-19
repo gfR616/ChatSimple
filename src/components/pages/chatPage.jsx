@@ -13,6 +13,7 @@ import { useSelector } from 'react-redux'
 const ChatPage = () => {
 	useEffect(() => {
 		initializeApp(firebaseConfig)
+		console.log('base go')
 	}, [])
 	const { user } = useUsers()
 
