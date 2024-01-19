@@ -7,7 +7,7 @@ import SomePannel from '../ui/somePannel'
 import UserPannel from '../ui/userPannel'
 import { Box, Grid, GridItem } from '@chakra-ui/react'
 import { initializeApp } from 'firebase/app'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 
 const ChatPage = () => {
@@ -18,11 +18,9 @@ const ChatPage = () => {
 
 	const guestName = useSelector((state) => state.all.guestName)
 	guestName && localStorage.setItem('guestName', guestName)
-	console.log('stored:', localStorage.getItem('guestName'))
 	let userName
 	if (!guestName && !localStorage.getItem('guestName')) {
 		userName = user ? user.displayName : ''
-		console.log('userName:', userName)
 	} else {
 		userName = guestName || localStorage.getItem('guestName')
 	}
@@ -47,7 +45,7 @@ const ChatPage = () => {
 						</Box>
 						<Grid templateColumns="repeat(9, 1fr)" alignItems="stretch">
 							<GridItem colSpan={2}>
-								<ContactsSidebar />
+								<ContactsSidebar senderUid={userUid} />
 							</GridItem>
 							<GridItem colSpan={5}>
 								<Chat userName={userName} senderUid={userUid} />

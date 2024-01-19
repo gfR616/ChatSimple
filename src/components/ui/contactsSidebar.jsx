@@ -10,11 +10,10 @@ import { TfiComment, TfiFaceSmile } from 'react-icons/tfi'
 import { Menu, MenuItem, Sidebar, SubMenu } from 'react-pro-sidebar'
 import { useDispatch } from 'react-redux'
 
-const ContactsSidebar = () => {
+const ContactsSidebar = ({ senderUid }) => {
 	const dispatch = useDispatch()
 	const [collapsed, setCollapsed] = useState(true)
 	const { user } = useUsers()
-	const senderUid = user && user.uid
 	console.log('senderUid', senderUid)
 	const [users, setUsers] = useState()
 
