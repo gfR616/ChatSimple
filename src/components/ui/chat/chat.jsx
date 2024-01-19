@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux'
 const Chat = ({ userName, senderUid }) => {
 	const [inputState, setInputState] = useState('')
 	const recipientUid = useSelector((state) => state.all.recipientUid)
+	const commonKey = useSelector((state) => state.all.commonKey)
 	recipientUid && console.log('recipientUid', recipientUid)
 	const textAreaRef = useRef()
 	const dispatch = useDispatch()
@@ -25,7 +26,8 @@ const Chat = ({ userName, senderUid }) => {
 	const handleSendMessage = () => {
 		if (inputState === '') return
 		recipientUid &&
-			sendMessage(userName, inputState, setInputState, senderUid, recipientUid)
+			commonKey &&
+			sendMessage(userName, inputState, setInputState, senderUid, recipientUid, commonKey)
 		textAreaRef.current.focus()
 	}
 
