@@ -7,11 +7,11 @@ import { useDispatch } from 'react-redux'
 
 const InitializeContext = React.createContext()
 
-export const useMessages = () => {
+export const useInitialChat = () => {
 	return useContext(InitializeContext)
 }
 export const InitialChatProvider = ({ children }) => {
-	const dispatch = useDispatch
+	const dispatch = useDispatch()
 
 	async function InitialChat(senderUid, recipientUid) {
 		try {
@@ -19,12 +19,10 @@ export const InitialChatProvider = ({ children }) => {
 			const recipientKeys = await getKeys(recipientUid)
 			const commonKey = await senderKeys.find((key) => recipientKeys.includes(key))
 			if (commonKey) {
-				const newRoom = createNewRoom()
 				const chatHistory = await getChatHistory(commonKey)
+				console.log('chatHistory', chatHistory)
+				const newRoom = createNewRoom(chatHistory)
 				console.log('ROOOOOOOOOOOOOOOOOM', newRoom)
-
-				// pushMessageInRTDB(chatHistory.messages)
-
 				console.log('Чат создан, история загружена!')
 				dispatch(setCommonKey(commonKey))
 			} else {
@@ -35,9 +33,9 @@ export const InitialChatProvider = ({ children }) => {
 				const commonKey = await senderKeys.find((key) => recipientKeys.includes(key))
 				if (commonKey) {
 					const chatHistory = await getChatHistory(commonKey)
-
-					// pushMessageInRTDB(chatHistory.messages)
-
+					console.log('chatHistory', chatHistory)
+					const newRoom = createNewRoom(chatHistory)
+					console.log('ROOOOOOOOOOOOOOOOOM', newRoom)
 					console.log('Чат создан, история загружена!')
 					dispatch(setCommonKey(commonKey))
 				}

@@ -1,3 +1,4 @@
+import { useInitialChat } from '../../hooks/useInitialChat'
 import { getChatHistory, initialHistory } from '../../services/historyService'
 import { clearAllMeassages, pushMessageInRTDB } from '../../services/messageService'
 import { createNewRoom } from '../../services/roomService'
@@ -24,11 +25,12 @@ const ContactsSidebar = ({ senderUid }) => {
 		handleFetchUsers()
 	}, [])
 
+	const { InitialChat } = useInitialChat()
+
 	const handleOpenChat = async (recipientUid) => {
 		dispatch(setRecipientUid(recipientUid))
 		console.log('чат иницииорван!', senderUid, recipientUid)
-		const newRoom = createNewRoom()
-		console.log('ROOOOOOOOOOOOOOOOOM', newRoom)
+		InitialChat(senderUid, recipientUid)
 	}
 	return (
 		<Box maxH="95vh" overflow="hidden">

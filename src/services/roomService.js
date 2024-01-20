@@ -19,7 +19,7 @@ export const createNewRoom = async (messages) => {
 	const nanoid = customAlphabet('1234567890abcdef', 15)
 	const newChatRoomId = nanoid()
 	const newRoomRef = push(chatRoomsRef)
-	await set(newRoomRef, { messages })
+	await set(newRoomRef, messages)
 	console.log('Создан новый рум!', newChatRoomId)
 	return newChatRoomId
 }
