@@ -1,4 +1,13 @@
-import { child, get, getDatabase, onValue, once, push, ref, set } from 'firebase/database'
+import {
+	child,
+	get,
+	getDatabase,
+	onValue,
+	push,
+	ref,
+	set,
+	update,
+} from 'firebase/database'
 import { customAlphabet } from 'nanoid'
 
 // //инициализируем базу
@@ -21,21 +30,20 @@ export const createNewRoom = async (key) => {
 	console.log('Создан новый рум!', key)
 	return key
 }
-//добавляем в рум месседжи
-export const addMessageToRoom = async (commonKey, message) => {
+//добавляем в рум месседжи из стора
+export const addMessagesToRoom = async (commonKey, message) => {
 	const db = getDatabase()
-	const messagesRef = ref(db, `base/rooms/${commonKey}`)
-	// Проверяем, существует ли такой рум
-	const snapshot = await get(messagesRef)
-	const data = snapshot.val()
-	if (data && data[message._id]) {
-		console.log('Сообщение с таким ID уже существует')
-		return
-	}
-	// Добавляем сообщение, если не существует
-	const messageRef = ref(db, `base/rooms/${commonKey}/${message._id}`)
+	const messageRef = ref(db, `base/rooms/${commonKey}`)
 	await set(messageRef, message)
 	console.log('Сообщение добавлено в рум!', commonKey, message)
+}
+
+//отправляем сообщения
+export const sendMessageToRoom = async (commonKey, message) => {
+	const db = getDatabase()
+	const messageRef = ref(db, `base/rooms/${commonKey}/${message._id}`)
+	await set(messageRef, message)
+	console.log('Сообщение отправлено в рум!', commonKey, message)
 }
 
 //забираем все из рума

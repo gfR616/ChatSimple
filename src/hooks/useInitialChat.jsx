@@ -1,5 +1,5 @@
 import { getChatHistory, initialHistory } from '../services/historyService'
-import { addMessageToRoom } from '../services/roomService'
+import { addMessagesToRoom } from '../services/roomService'
 import { getKeys } from '../services/userService'
 import { setCommonKey, setDisplayState } from '../store/task'
 import React, { useContext } from 'react'
@@ -31,14 +31,8 @@ export const InitialChatProvider = ({ children }) => {
 			} else if (commonKey) {
 				const chatHistory = await getChatHistory(commonKey)
 				dispatch(setCommonKey(commonKey))
-				console.log(
-					'ХИСТОРИЯ',
-					Array.isArray(chatHistory),
-					chatHistory,
-					chatHistory.length,
-				)
 				chatHistory !== null && chatHistory !== undefined
-					? await addMessageToRoom(commonKey, chatHistory)
+					? await addMessagesToRoom(commonKey, chatHistory)
 					: dispatch(setDisplayState([]))
 			}
 		} catch (error) {

@@ -19,16 +19,12 @@ export const pushMessageInStore = async (message, senderUid, recipientUid, commo
 	const docSnap = await getDoc(messageDoc)
 	if (docSnap.exists()) {
 		await updateDoc(messageDoc, {
-			messages: {
-				...docSnap.data().messages,
-				[message._id]: message,
-			},
+			...docSnap.data().messages,
+			[message._id]: message,
 		})
 	} else {
 		await setDoc(messageDoc, {
-			messages: {
-				[message._id]: message,
-			},
+			[message._id]: message,
 		})
 	}
 }
@@ -38,8 +34,9 @@ export const getChatHistory = async (commonKey) => {
 	const messageDoc = doc(historyCollection, commonKey)
 	const docSnap = await getDoc(messageDoc)
 	const history = docSnap.data()
+	console.log(history)
 	if (docSnap.exists()) {
-		console.log('Chat history: ', docSnap.data())
+		console.log('Chat history: ', history)
 		return history
 	} else {
 		console.log('history not found')
@@ -53,8 +50,6 @@ export const initialHistory = async (senderUid, recipientUid) => {
 	const key = nanoid()
 	console.log('key', key)
 	const messageDoc = doc(historyCollection, key)
-	await setDoc(messageDoc, {
-		messages: {},
-	})
+	await setDoc(messageDoc, {})
 	await addKeysToUsers(senderUid, recipientUid, key)
 }

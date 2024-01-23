@@ -1,5 +1,5 @@
 import { pushMessageInStore } from '../services/historyService'
-import { addMessageToRoom, getMessagesFromRoom } from '../services/roomService'
+import { getMessagesFromRoom, sendMessageToRoom } from '../services/roomService'
 import { setDisplayState } from '../store/task'
 import { customAlphabet } from 'nanoid'
 import React, { useContext, useEffect } from 'react'
@@ -50,7 +50,7 @@ export const MessagesProvider = ({ children }) => {
 			isIncoming: false,
 		}
 		console.log('commonKey, addDisplayElement', commonKey, addDisplayElement)
-		await addMessageToRoom(commonKey, addDisplayElement)
+		await sendMessageToRoom(commonKey, addDisplayElement)
 		await pushMessageInStore(addDisplayElement, senderUid, recipientUid, commonKey)
 		await setInputState('')
 		console.log('Cообщение отправлено', addDisplayElement)
