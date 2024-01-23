@@ -12,10 +12,7 @@ const DialogScreen = () => {
 		}
 	}, [displayState])
 
-	let messages = Object.values(displayState?.[0] ?? {})
 
-	console.log('DialogScreen МЕССЕДЖЕССС', messages)
-	console.log('DialogScreen ДИСПЛЕЙСТЕЙТ', displayState)
 	return (
 		<Box
 			ref={boxRef}
@@ -27,8 +24,8 @@ const DialogScreen = () => {
 			overflow="auto"
 			opacity="0.95"
 		>
-			{!!messages.length &&
-				messages.map((messageObj) => {
+			{displayState &&
+				displayState.map((messageObj) => {
 					return (
 						<Box
 							key={messageObj._id}

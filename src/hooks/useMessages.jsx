@@ -16,22 +16,21 @@ export const MessagesProvider = ({ children }) => {
 
 	//получаем и отображаем все сообщения
 	function getAllMessages(commonKey) {
-		console.log('комон ки в ХУКЕ getAllMessages', commonKey)
-		useEffect(() => {
-			if (commonKey) {
-				getMessagesFromRoom(commonKey, (snapshot) => {
-					const data = snapshot.val()
-					console.log('ДАТА', data)
-					let messages = Object.values(data)
-					console.log('messages', messages)
-					dispatch(setDisplayState(messages))
-				})
-			}
-		}, [])
+		console.log('коomon ki in HOOK getAllMessages', commonKey)
+		if (commonKey) {
+			getMessagesFromRoom(commonKey, (snapshot) => {
+				const data = snapshot.val()
+				console.log('DATA', data)
+				let messages = data ? Object.values(data) : []
+				console.log('messages', messages)
+				dispatch(setDisplayState(messages))
+			})
+		}
 	}
 
 	// отправляем сообщение
 	async function sendMessage(userName, inputState, setInputState, senderUid, commonKey) {
+		console.log(userName, inputState, senderUid, commonKey)
 		const nanoid = customAlphabet('1234567890abcdef', 30)
 		const id = nanoid()
 		const addDisplayElement = {
@@ -42,10 +41,11 @@ export const MessagesProvider = ({ children }) => {
 			displayTime: new Date().toLocaleTimeString(),
 			displayDate: new Date().toLocaleDateString(),
 			isIncoming: false,
+			commonKey: commonKey,
 		}
 		console.log('commonKey, addDisplayElement', commonKey, addDisplayElement)
 		await sendMessageToRoom(commonKey, addDisplayElement)
-		await pushMessageInStore(addDisplayElement, commonKey)
+		await pushMessageInStore(commonKey, addDisplayElement)
 		await setInputState('')
 		console.log('Cообщение отправлено', addDisplayElement)
 	}
