@@ -1,6 +1,6 @@
 import { signIn, userSignOut } from '../../services/authService'
 import { setGuestId, setGuestName } from '../../store/task'
-import fakeNames from '../../utils/fakeNames'
+// import fakeNames from '../../utils/fakeNames'
 import RepoLink from '../ui/repoLink'
 import {
 	Box,
@@ -48,8 +48,8 @@ const LoginPage = () => {
 		const randomNumber = () => {
 			return Math.floor(Math.random() * 50) + 1
 		}
-		let randomName = fakeNames[randomNumber()].name
-		dispatch(setGuestName(randomName))
+		// let randomName = fakeNames[randomNumber()].name
+		// dispatch(setGuestName(randomName))
 		navigate('/chat', { replace: true })
 		const nanoid = customAlphabet('1234567890abcdef', 28)
 		const guestId = nanoid()
