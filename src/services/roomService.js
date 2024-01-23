@@ -1,49 +1,49 @@
-import { doc, getDatabase, onValue, push, ref, set } from 'firebase/database'
+import { child, get, getDatabase, onValue, once, push, ref, set } from 'firebase/database'
 import { customAlphabet } from 'nanoid'
 
-//инициализируем базу
-export const getMessagesBase = () => {
+// //инициализируем базу
+// export const getMessagesBase = () => {
+// 	const db = getDatabase()
+// 	if (db) {
+// 		const messagesRef = ref(db, 'base/rooms')
+// 		return messagesRef
+// 	} else {
+// 		console.log('Ошибка при инициализации базы')
+// 	}
+// }
+
+// создаем рум
+export const createNewRoom = async (key) => {
 	const db = getDatabase()
-	if (db) {
-		const messagesRef = ref(db, 'base/rooms')
-		return messagesRef
-	} else {
-		console.log('Ошибка при инициализации базы')
+	const messagesRef = ref(db, `base/rooms`)
+	const newRoomRef = child(messagesRef, key)
+	await set(newRoomRef, { messages: [] })
+	console.log('Создан новый рум!', key)
+	return key
+}
+//добавляем в рум месседжи
+export const addMessageToRoom = async (commonKey, message) => {
+	const db = getDatabase()
+	const messagesRef = ref(db, `base/rooms/${commonKey}`)
+	// Проверяем, существует ли такой рум
+	const snapshot = await get(messagesRef)
+	const data = snapshot.val()
+	if (data && data[message._id]) {
+		console.log('Сообщение с таким ID уже существует')
+		return
 	}
+	// Добавляем сообщение, если не существует
+	const messageRef = ref(db, `base/rooms/${commonKey}/${message._id}`)
+	await set(messageRef, message)
+	console.log('Сообщение добавлено в рум!', commonKey, message)
 }
 
-//создаем рум
-export const createNewRoom = async (messages) => {
-	const db = getDatabase()
-	const chatRoomsRef = ref(db, 'base/rooms')
-	const nanoid = customAlphabet('1234567890abcdef', 15)
-	const newChatRoomId = nanoid()
-	const newRoomRef = push(chatRoomsRef)
-	await set(newRoomRef, messages)
-	console.log('Создан новый рум!', newChatRoomId)
-	return newChatRoomId
-}
-//добавляем в рум меседжи
-export const addMessageToRoom = (roomId, message) => {
-	const db = getDatabase()
-	const messagesRef = db.ref(`chatRooms/${roomId}/messages`)
-	messagesRef.push(message)
-	console.log('Сообщения добавлены в рум!', roomId, message)
-}
 //забираем все из рума
-export const getMessagesFromRoom = (roomId) => {
-	return new Promise((resolve, reject) => {
-		const db = getDatabase()
-		const messagesRef = db.ref(`chatRooms/${roomId}/messages`)
-		messagesRef.once(
-			'value',
-			(snapshot) => {
-				resolve(snapshot.val())
-				console.log('Сообщения получены из рума!', roomId)
-			},
-			reject,
-		)
-	})
+export const getMessagesFromRoom = (commonKey, callback) => {
+	const db = getDatabase()
+	const messagesRef = ref(db, `base/rooms/${commonKey}`)
+	onValue(messagesRef, callback)
+	console.log('Сообщения запрошены')
 }
 //чистим рум
 export const clearRoom = (roomId) => {

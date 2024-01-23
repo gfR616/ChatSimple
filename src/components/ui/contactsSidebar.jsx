@@ -1,11 +1,8 @@
 import { useInitialChat } from '../../hooks/useInitialChat'
-import { getChatHistory, initialHistory } from '../../services/historyService'
-import { clearAllMeassages, pushMessageInRTDB } from '../../services/messageService'
-import { createNewRoom } from '../../services/roomService'
-import { getAllUsers, getKeys } from '../../services/userService'
-import { setCommonKey, setDisplayState, setRecipientUid } from '../../store/task'
+import { getAllUsers } from '../../services/userService'
+import { setRecipientUid } from '../../store/task'
 import { ArrowLeftIcon, ArrowRightIcon } from '@chakra-ui/icons'
-import { Box, Button, Grid, GridItem, Text } from '@chakra-ui/react'
+import { Box, Button, Grid, GridItem } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import { TfiComment, TfiFaceSmile } from 'react-icons/tfi'
 import { Menu, MenuItem, Sidebar, SubMenu } from 'react-pro-sidebar'
@@ -29,7 +26,6 @@ const ContactsSidebar = ({ senderUid }) => {
 
 	const handleOpenChat = async (recipientUid) => {
 		dispatch(setRecipientUid(recipientUid))
-		console.log('чат иницииорван!', senderUid, recipientUid)
 		InitialChat(senderUid, recipientUid)
 	}
 	return (

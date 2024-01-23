@@ -2,6 +2,7 @@ import { Box, Text } from '@chakra-ui/react'
 import React from 'react'
 
 const Message = ({ message, user, time, isIncomingMessage }) => {
+	console.log('FF!!!!!!!', message)
 	const formattedMessage = message.split('\n').map((line, i) => (
 		<React.Fragment key={i}>
 			{line}

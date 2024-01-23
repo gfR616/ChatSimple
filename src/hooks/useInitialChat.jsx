@@ -1,7 +1,7 @@
 import { getChatHistory, initialHistory } from '../services/historyService'
-import { createNewRoom } from '../services/roomService'
+import { addMessageToRoom } from '../services/roomService'
 import { getKeys } from '../services/userService'
-import { setCommonKey } from '../store/task'
+import { setCommonKey, setDisplayState } from '../store/task'
 import React, { useContext } from 'react'
 import { useDispatch } from 'react-redux'
 
@@ -18,28 +18,28 @@ export const InitialChatProvider = ({ children }) => {
 			const senderKeys = await getKeys(senderUid)
 			const recipientKeys = await getKeys(recipientUid)
 			const commonKey = await senderKeys.find((key) => recipientKeys.includes(key))
-			if (commonKey) {
-				const chatHistory = await getChatHistory(commonKey)
-				console.log('chatHistory', chatHistory)
-				const newRoom = createNewRoom(chatHistory)
-				console.log('ROOOOOOOOOOOOOOOOOM', newRoom)
-				console.log('Чат создан, история загружена!')
-				dispatch(setCommonKey(commonKey))
-			} else {
+			console.log('commonKey', commonKey)
+
+			if (!commonKey) {
 				await initialHistory(senderUid, recipientUid)
 				console.log('История инициализирована!')
 				const senderKeys = await getKeys(senderUid)
 				const recipientKeys = await getKeys(recipientUid)
 				const commonKey = await senderKeys.find((key) => recipientKeys.includes(key))
-				if (commonKey) {
-					const chatHistory = await getChatHistory(commonKey)
-					console.log('chatHistory', chatHistory)
-					const newRoom = createNewRoom(chatHistory)
-					console.log('ROOOOOOOOOOOOOOOOOM', newRoom)
-					console.log('Чат создан, история загружена!')
-					dispatch(setCommonKey(commonKey))
-				}
+				dispatch(setCommonKey(commonKey))
 				console.log('чат создан, истории еще нет')
+			} else if (commonKey) {
+				const chatHistory = await getChatHistory(commonKey)
+				dispatch(setCommonKey(commonKey))
+				console.log(
+					'ХИСТОРИЯ',
+					Array.isArray(chatHistory),
+					chatHistory,
+					chatHistory.length,
+				)
+				chatHistory !== null && chatHistory !== undefined
+					? await addMessageToRoom(commonKey, chatHistory)
+					: dispatch(setDisplayState([]))
 			}
 		} catch (error) {
 			console.error('Ошибка при открытии чата:', error)

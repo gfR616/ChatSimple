@@ -10,11 +10,11 @@ export const getMessagesBase = () => {
 	}
 }
 
-export const pushMessageInRTDB = (message) => {
-	const messagesRef = getMessagesBase()
-	push(messagesRef, message)
-	console.log('Сообщение отправлено:', message)
-}
+// export const pushMessageInRTDB = (message) => {
+// 	const messagesRef = getMessagesBase()
+// 	push(messagesRef, message)
+// 	console.log('Сообщение отправлено:', message)
+// }
 
 // export const pushHistoryInRTDB = (messages) => {
 // 	const messagesRef = getMessagesBase()

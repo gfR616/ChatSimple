@@ -63,8 +63,8 @@ export const addKeysToUsers = async (senderUid, recipientUid, key) => {
 	})
 }
 //получаем ключи
-export const getKeys = async (senderUid) => {
-	const userDoc = doc(firestore, 'users', senderUid)
+export const getKeys = async (uid) => {
+	const userDoc = doc(firestore, 'users', uid)
 	const userSnapshot = await getDoc(userDoc)
 	if (userSnapshot.exists()) {
 		const userData = userSnapshot.data()

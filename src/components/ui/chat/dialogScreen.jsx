@@ -11,6 +11,11 @@ const DialogScreen = () => {
 			boxRef.current.scrollTop = boxRef.current.scrollHeight
 		}
 	}, [displayState])
+
+	let messages = Object.values(displayState?.[0] ?? {})
+
+	console.log('МЕССЕДЖЕССС', messages)
+	console.log('ДИСПЛЕЙСТЕЙТ', displayState)
 	return (
 		<Box
 			ref={boxRef}
@@ -22,22 +27,24 @@ const DialogScreen = () => {
 			overflow="auto"
 			opacity="0.95"
 		>
-			{displayState &&
-				displayState.map((messageObj) => (
-					<Box
-						key={messageObj._id}
-						display="flex"
-						justifyContent={messageObj.isIncoming ? 'flex-start' : 'flex-end'}
-					>
-						<Message
-							isIncomingMessage={messageObj.isIncoming}
-							message={messageObj.message}
-							user={messageObj.userName}
-							time={messageObj.displayTime}
-							date={messageObj.displayDate}
-						/>
-					</Box>
-				))}
+			{!!messages.length &&
+				messages.map((messageObj) => {
+					return (
+						<Box
+							key={messageObj._id}
+							display="flex"
+							justifyContent={messageObj.isIncoming ? 'flex-start' : 'flex-end'}
+						>
+							<Message
+								isIncomingMessage={messageObj.isIncoming}
+								message={messageObj.message}
+								user={messageObj.userName}
+								time={messageObj.displayTime}
+								date={messageObj.displayDate}
+							/>
+						</Box>
+					)
+				})}
 		</Box>
 	)
 }

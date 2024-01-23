@@ -1,5 +1,5 @@
 import { pushMessageInStore } from '../services/historyService'
-import { fetchAllMessages, pushMessageInRTDB } from '../services/messageService'
+import { addMessageToRoom, getMessagesFromRoom } from '../services/roomService'
 import { setDisplayState } from '../store/task'
 import { customAlphabet } from 'nanoid'
 import React, { useContext, useEffect } from 'react'
@@ -11,36 +11,26 @@ export const useMessages = () => {
 }
 
 export const MessagesProvider = ({ children }) => {
-	//получаем и отображаем все сообщения + определяем направленность
+	//получаем и отображаем все сообщения
 
-	function getAllMessages(dispatch, senderUid) {
+	function getAllMessages(dispatch, commonKey) {
 		useEffect(() => {
-			fetchAllMessages((snapshot) => {
-				const data = snapshot.val()
-				if (data !== null) {
-					const messages = Object.values(data)
-						.flat()
-						.map((message) => {
-							const isIncoming = message.senderUid !== senderUid
-							if (!Object.prototype.hasOwnProperty.call(message, 'recipientUid')) {
-								message.recipientUid = senderUid
-							}
-							return {
-								...message,
-								isIncoming: isIncoming,
-								// recipientUid: senderUid,
-							}
-						})
-					messages ? dispatch(setDisplayState(messages)) : dispatch(setDisplayState([]))
-				} else {
-					dispatch(setDisplayState([]))
-				}
-			})
-		}, [])
+			getMessagesFromRoom(
+				commonKey,
+				(snapshot) => {
+					const data = snapshot.val()
+					console.log('ДАТА', data)
+					let messages = Object.values(data ?? [])
+					console.log('messages', messages)
+					dispatch(setDisplayState(messages))
+				},
+				[],
+			)
+		})
 	}
 
 	// отправляем сообщение
-	function sendMessage(
+	async function sendMessage(
 		userName,
 		inputState,
 		setInputState,
@@ -48,7 +38,7 @@ export const MessagesProvider = ({ children }) => {
 		recipientUid,
 		commonKey,
 	) {
-		const nanoid = customAlphabet('1234567890abcdef', 20)
+		const nanoid = customAlphabet('1234567890abcdef', 30)
 		const id = nanoid()
 		const addDisplayElement = {
 			_id: id,
@@ -59,9 +49,11 @@ export const MessagesProvider = ({ children }) => {
 			displayDate: new Date().toLocaleDateString(),
 			isIncoming: false,
 		}
-		pushMessageInRTDB(addDisplayElement)
-		pushMessageInStore(addDisplayElement, senderUid, recipientUid, commonKey)
-		setInputState('')
+		console.log('commonKey, addDisplayElement', commonKey, addDisplayElement)
+		await addMessageToRoom(commonKey, addDisplayElement)
+		await pushMessageInStore(addDisplayElement, senderUid, recipientUid, commonKey)
+		await setInputState('')
+		console.log('Cообщение отправлено', addDisplayElement)
 	}
 
 	return (

@@ -8,7 +8,7 @@ import {
 	setDoc,
 	updateDoc,
 } from 'firebase/firestore'
-import { v4 } from 'uuid'
+import { customAlphabet } from 'nanoid'
 
 const firestore = getFirestore()
 const historyCollection = collection(firestore, 'history')
@@ -19,13 +19,16 @@ export const pushMessageInStore = async (message, senderUid, recipientUid, commo
 	const docSnap = await getDoc(messageDoc)
 	if (docSnap.exists()) {
 		await updateDoc(messageDoc, {
-			users: arrayUnion(senderUid, recipientUid),
-			messages: arrayUnion(message),
+			messages: {
+				...docSnap.data().messages,
+				[message._id]: message,
+			},
 		})
 	} else {
 		await setDoc(messageDoc, {
-			users: [senderUid, recipientUid],
-			messages: [message],
+			messages: {
+				[message._id]: message,
+			},
 		})
 	}
 }
@@ -34,22 +37,24 @@ export const pushMessageInStore = async (message, senderUid, recipientUid, commo
 export const getChatHistory = async (commonKey) => {
 	const messageDoc = doc(historyCollection, commonKey)
 	const docSnap = await getDoc(messageDoc)
+	const history = docSnap.data()
 	if (docSnap.exists()) {
 		console.log('Chat history: ', docSnap.data())
-		return docSnap.data()
+		return history
 	} else {
 		console.log('history not found')
-		return docSnap.data()
+		return []
 	}
 }
 
 //инициализируем переписку/добавляем ключики
 export const initialHistory = async (senderUid, recipientUid) => {
-	const key = v4()
+	const nanoid = customAlphabet('1234567890abcdef', 28)
+	const key = nanoid()
+	console.log('key', key)
 	const messageDoc = doc(historyCollection, key)
 	await setDoc(messageDoc, {
-		users: [senderUid, recipientUid],
-		messages: [],
+		messages: {},
 	})
 	await addKeysToUsers(senderUid, recipientUid, key)
 }

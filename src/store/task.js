@@ -8,6 +8,7 @@ const allSlice = createSlice({
 		displayState: [],
 		recipientUid: '',
 		commonKey: '',
+		roomId: '',
 	},
 	reducers: {
 		setGuestName: (state, action) => {
@@ -30,6 +31,10 @@ const allSlice = createSlice({
 			state.commonKey = action.payload
 			console.log('ЗАСТОРИЛ commonKey', state.commonKey)
 		},
+		setRoomId: (state, action) => {
+			state.roomId = action.payload
+			console.log('ЗАСТОРИЛ roomId', state.roomId)
+		},
 	},
 })
 
@@ -39,5 +44,6 @@ export const {
 	setDisplayState,
 	setRecipientUid,
 	setCommonKey,
+	setRoomId,
 } = allSlice.actions
 export default allSlice.reducer
