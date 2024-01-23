@@ -21,10 +21,8 @@ export const MessagesProvider = ({ children }) => {
 		if (commonKey) {
 			getMessagesFromRoom(commonKey, (snapshot) => {
 				const data = snapshot.val()
-				console.log('DATA', data)
 				let messages = data ? Object.values(data) : []
 				messages.sort((a, b) => new Date(a.isoDate) - new Date(b.isoDate))
-				console.log('messages', messages)
 				dispatch(setDisplayState(messages))
 			})
 		}
