@@ -1,6 +1,4 @@
-import { useUsers } from '../../hooks/useUsers'
 import { userSignOut } from '../../services/authService'
-import { clearAllMeassages } from '../../services/messageService'
 import { Avatar, Box, Button, Grid, GridItem, Text } from '@chakra-ui/react'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -13,7 +11,6 @@ const UserPannel = ({ userName }) => {
 	const handleSignOut = () => {
 		userSignOut()
 		navigate('/auth', { replace: true })
-		clearAllMeassages()
 	}
 	const handleRegister = () => {
 		navigate('/register', { replace: true })
