@@ -4,7 +4,7 @@ import { setRecipientUid } from '../../store/task'
 import { ArrowLeftIcon, ArrowRightIcon } from '@chakra-ui/icons'
 import { Box, Button, Grid, GridItem } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
-import { TfiComment, TfiFaceSmile } from 'react-icons/tfi'
+import { TfiComment, TfiFaceSmile, TfiIdBadge } from 'react-icons/tfi'
 import { Menu, MenuItem, Sidebar, SubMenu } from 'react-pro-sidebar'
 import { useDispatch } from 'react-redux'
 
@@ -36,6 +36,18 @@ const ContactsSidebar = ({ senderUid }) => {
 						<Menu>
 							<SubMenu
 								label={collapsed ? <TfiFaceSmile size={30} /> : 'Все пользователи'}
+							>
+								{users &&
+									users.map((user) => {
+										return (
+											<MenuItem key={user.uid} onClick={() => handleOpenChat(user.uid)}>
+												{user.displayName}
+											</MenuItem>
+										)
+									})}
+							</SubMenu>
+							<SubMenu
+								label={collapsed ? <TfiIdBadge size={30} /> : 'Фейковые пользователи'}
 							>
 								{users &&
 									users.map((user) => {
