@@ -14,8 +14,8 @@ const DialogScreen = () => {
 
 	let messages = Object.values(displayState?.[0] ?? {})
 
-	console.log('МЕССЕДЖЕССС', messages)
-	console.log('ДИСПЛЕЙСТЕЙТ', displayState)
+	console.log('DialogScreen МЕССЕДЖЕССС', messages)
+	console.log('DialogScreen ДИСПЛЕЙСТЕЙТ', displayState)
 	return (
 		<Box
 			ref={boxRef}

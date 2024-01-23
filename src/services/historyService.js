@@ -14,7 +14,7 @@ const firestore = getFirestore()
 const historyCollection = collection(firestore, 'history')
 
 //добавляем месседж в фаерстор
-export const pushMessageInStore = async (message, senderUid, recipientUid, commonKey) => {
+export const pushMessageInStore = async (message, commonKey) => {
 	const messageDoc = doc(historyCollection, commonKey)
 	const docSnap = await getDoc(messageDoc)
 	if (docSnap.exists()) {
@@ -34,7 +34,6 @@ export const getChatHistory = async (commonKey) => {
 	const messageDoc = doc(historyCollection, commonKey)
 	const docSnap = await getDoc(messageDoc)
 	const history = docSnap.data()
-	console.log(history)
 	if (docSnap.exists()) {
 		console.log('Chat history: ', history)
 		return history

@@ -10,17 +10,6 @@ import {
 } from 'firebase/database'
 import { customAlphabet } from 'nanoid'
 
-// //инициализируем базу
-// export const getMessagesBase = () => {
-// 	const db = getDatabase()
-// 	if (db) {
-// 		const messagesRef = ref(db, 'base/rooms')
-// 		return messagesRef
-// 	} else {
-// 		console.log('Ошибка при инициализации базы')
-// 	}
-// }
-
 // создаем рум
 export const createNewRoom = async (key) => {
 	const db = getDatabase()
@@ -48,10 +37,11 @@ export const sendMessageToRoom = async (commonKey, message) => {
 
 //забираем все из рума
 export const getMessagesFromRoom = (commonKey, callback) => {
+	console.log('комон ки в getMessagesFromRoom', commonKey)
 	const db = getDatabase()
 	const messagesRef = ref(db, `base/rooms/${commonKey}`)
 	onValue(messagesRef, callback)
-	console.log('Сообщения запрошены')
+	console.log('Сообщения запрошены забираем все из рума')
 }
 //чистим рум
 export const clearRoom = (roomId) => {

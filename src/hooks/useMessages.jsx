@@ -3,6 +3,7 @@ import { getMessagesFromRoom, sendMessageToRoom } from '../services/roomService'
 import { setDisplayState } from '../store/task'
 import { customAlphabet } from 'nanoid'
 import React, { useContext, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
 const MessagesContext = React.createContext()
 
@@ -11,33 +12,26 @@ export const useMessages = () => {
 }
 
 export const MessagesProvider = ({ children }) => {
-	//получаем и отображаем все сообщения
+	const dispatch = useDispatch()
 
-	function getAllMessages(dispatch, commonKey) {
+	//получаем и отображаем все сообщения
+	function getAllMessages(commonKey) {
+		console.log('комон ки в ХУКЕ getAllMessages', commonKey)
 		useEffect(() => {
-			getMessagesFromRoom(
-				commonKey,
-				(snapshot) => {
+			if (commonKey) {
+				getMessagesFromRoom(commonKey, (snapshot) => {
 					const data = snapshot.val()
 					console.log('ДАТА', data)
-					let messages = Object.values(data ?? [])
+					let messages = Object.values(data)
 					console.log('messages', messages)
 					dispatch(setDisplayState(messages))
-				},
-				[],
-			)
-		})
+				})
+			}
+		}, [])
 	}
 
 	// отправляем сообщение
-	async function sendMessage(
-		userName,
-		inputState,
-		setInputState,
-		senderUid,
-		recipientUid,
-		commonKey,
-	) {
+	async function sendMessage(userName, inputState, setInputState, senderUid, commonKey) {
 		const nanoid = customAlphabet('1234567890abcdef', 30)
 		const id = nanoid()
 		const addDisplayElement = {
@@ -51,7 +45,7 @@ export const MessagesProvider = ({ children }) => {
 		}
 		console.log('commonKey, addDisplayElement', commonKey, addDisplayElement)
 		await sendMessageToRoom(commonKey, addDisplayElement)
-		await pushMessageInStore(addDisplayElement, senderUid, recipientUid, commonKey)
+		await pushMessageInStore(addDisplayElement, commonKey)
 		await setInputState('')
 		console.log('Cообщение отправлено', addDisplayElement)
 	}

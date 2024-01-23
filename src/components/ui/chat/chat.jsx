@@ -12,11 +12,10 @@ const Chat = ({ userName, senderUid }) => {
 	const commonKey = useSelector((state) => state.all.commonKey)
 	recipientUid && console.log('commonKeycommonKeycommonKeycommonKey', commonKey)
 	const textAreaRef = useRef()
-	const dispatch = useDispatch()
 	//инициализируем получение сообщений
 	const { getAllMessages, sendMessage } = useMessages()
 
-	getAllMessages(dispatch, senderUid, commonKey)
+	getAllMessages(commonKey)
 
 	//
 	const handleInputChange = (event) => {
@@ -25,9 +24,10 @@ const Chat = ({ userName, senderUid }) => {
 	// отправляем сообщение
 	const handleSendMessage = () => {
 		if (inputState === '') return
-		recipientUid && commonKey
-		sendMessage(userName, inputState, setInputState, senderUid, recipientUid, commonKey)
-		textAreaRef.current.focus()
+		if (recipientUid && commonKey) {
+			sendMessage(userName, inputState, setInputState, senderUid, recipientUid, commonKey)
+			textAreaRef.current.focus()
+		}
 	}
 
 	return (
