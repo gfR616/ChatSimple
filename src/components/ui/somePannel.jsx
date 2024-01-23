@@ -1,5 +1,4 @@
-import { clearAllMeassages } from '../../services/messageService'
-import { fetchUsers, getAllUsers, printUsers } from '../../services/userService'
+import { getFakeUsers } from '../../utils/fakeUsersGenerator'
 import { Box, Button, Link } from '@chakra-ui/react'
 import React from 'react'
 
@@ -10,10 +9,7 @@ const SomePannel = () => {
 			audio.play()
 		})
 	}
-	// удаляем все сообщения
-	const handleClearScreen = () => {
-		clearAllMeassages()
-	}
+
 	return (
 		<Box w="100%" minH="95vh" border="1px solid black" borderRadius={5}>
 			<Box border="1px solid black" borderRadius={5}>
@@ -26,17 +22,24 @@ const SomePannel = () => {
 			<Button colorScheme="red" onClick={playSound}>
 				MessageSound
 			</Button>
-			<br></br>А эта кнопка удаляет все сообщения из базы.<br></br> Не жми, подумой!
-			<br></br>
-			<Button colorScheme="yellow" onClick={handleClearScreen}>
-				Clear
-			</Button>
 			<br></br>
 			Для удобства добавляю ссылку на этот чат, пользуйтесь на здоровье.
 			<br />
 			<Link href="https://gfr616.github.io/ChatSimple/" color="coral" target="_blank">
 				https://gfr616.github.io/ChatSimple/
 			</Link>
+			<br />
+			Можешь нажать:
+			<br />
+			<Button
+				isDisabled
+				colorScheme="messenger"
+				title="обойдешься"
+				onClick={() => getFakeUsers(10)}
+			>
+				Добавить фейк юзерс{' '}
+			</Button>
+			<input></input>
 		</Box>
 	)
 }
