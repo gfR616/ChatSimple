@@ -15,6 +15,7 @@ export const MessagesProvider = ({ children }) => {
 	const dispatch = useDispatch()
 
 	//получаем и отображаем все сообщения
+
 	function getAllMessages(commonKey) {
 		console.log('коomon ki in HOOK getAllMessages', commonKey)
 		if (commonKey) {
@@ -22,6 +23,7 @@ export const MessagesProvider = ({ children }) => {
 				const data = snapshot.val()
 				console.log('DATA', data)
 				let messages = data ? Object.values(data) : []
+				messages.sort((a, b) => new Date(a.isoDate) - new Date(b.isoDate))
 				console.log('messages', messages)
 				dispatch(setDisplayState(messages))
 			})
@@ -40,6 +42,7 @@ export const MessagesProvider = ({ children }) => {
 			message: inputState,
 			displayTime: new Date().toLocaleTimeString(),
 			displayDate: new Date().toLocaleDateString(),
+			isoDate: new Date().toISOString(),
 			isIncoming: false,
 			commonKey: commonKey,
 		}
