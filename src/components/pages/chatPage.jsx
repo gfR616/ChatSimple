@@ -1,4 +1,5 @@
 import { firebaseConfig } from '../../base/fireBaseConfig'
+import { ChatsProvider } from '../../hooks/useChats'
 import { InitialChatProvider } from '../../hooks/useInitialChat'
 import { MessagesProvider } from '../../hooks/useMessages'
 import { UsersProvider, useUsers } from '../../hooks/useUsers'
@@ -39,28 +40,30 @@ const ChatPage = () => {
 
 	return (
 		<UsersProvider>
-			<MessagesProvider>
-				<InitialChatProvider>
-					<Box opacity={5}>
-						<Box h="100vh">
-							<Box>
-								<UserPannel userName={userName} />
+			<ChatsProvider>
+				<MessagesProvider>
+					<InitialChatProvider>
+						<Box opacity={5}>
+							<Box h="100vh">
+								<Box>
+									<UserPannel userName={userName} />
+								</Box>
+								<Grid templateColumns="repeat(9, 1fr)" alignItems="stretch">
+									<GridItem colSpan={2}>
+										<ChatsBar senderUid={userUid} />
+									</GridItem>
+									<GridItem colSpan={5}>
+										<Chat userName={userName} senderUid={userUid} />
+									</GridItem>
+									<GridItem colSpan={2}>
+										<SomePannel />
+									</GridItem>
+								</Grid>
 							</Box>
-							<Grid templateColumns="repeat(9, 1fr)" alignItems="stretch">
-								<GridItem colSpan={2}>
-									<ChatsBar senderUid={userUid} />
-								</GridItem>
-								<GridItem colSpan={5}>
-									<Chat userName={userName} senderUid={userUid} />
-								</GridItem>
-								<GridItem colSpan={2}>
-									<SomePannel />
-								</GridItem>
-							</Grid>
 						</Box>
-					</Box>
-				</InitialChatProvider>
-			</MessagesProvider>
+					</InitialChatProvider>
+				</MessagesProvider>
+			</ChatsProvider>
 		</UsersProvider>
 	)
 }
