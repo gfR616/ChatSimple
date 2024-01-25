@@ -1,12 +1,16 @@
 import { addKeysToUsers } from './userService'
 import {
+	FieldPath,
 	arrayUnion,
 	collection,
 	doc,
 	getDoc,
+	getDocs,
 	getFirestore,
+	query,
 	setDoc,
 	updateDoc,
+	where,
 } from 'firebase/firestore'
 import { customAlphabet } from 'nanoid'
 
@@ -51,4 +55,25 @@ export const initialHistory = async (senderUid, recipientUid) => {
 	const messageDoc = doc(historyCollection, key)
 	await setDoc(messageDoc, {})
 	await addKeysToUsers(senderUid, recipientUid, key)
+}
+
+//получаем всю хисторию по совпадению
+export const getAllUserHistory = async (userChats) => {
+	try {
+		const messages = []
+		// Для каждого ключа в userChats выполним отдельный запрос
+		for (const chat of userChats) {
+			const q = query(historyCollection, where('__name__', '==', chat))
+			const querySnapshot = await getDocs(q)
+			// Добавим данные из каждого документа в массив messages
+			querySnapshot.forEach((doc) => {
+				Object.values(doc.data()).forEach((message) => {
+					messages.push(message)
+				})
+			})
+		}
+		return messages
+	} catch (error) {
+		console.log('Не удалось получить совпадении в хистории', error)
+	}
 }
