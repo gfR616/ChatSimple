@@ -1,3 +1,4 @@
+import { UseChats } from '../../../hooks/useChats'
 import { useInitialChat } from '../../../hooks/useInitialChat'
 import { getAllUsers } from '../../../services/userService'
 import { setRecipientUid } from '../../../store/task'
@@ -14,6 +15,7 @@ const ChatsBar = ({ senderUid }) => {
 	const [collapsed, setCollapsed] = useState(true)
 	console.log('senderUid', senderUid)
 	const [users, setUsers] = useState()
+	const [openChat, setOpenChat] = useState([])
 
 	useEffect(() => {
 		const handleFetchUsers = async () => {
@@ -34,9 +36,13 @@ const ChatsBar = ({ senderUid }) => {
 		<Box h="95vh" bgColor="green.100" border="1px black solid" borderRadius={5}>
 			<Box h="8vh" border="1px black solid" borderRadius={5} p={1}>
 				<Text>Поиск по всем пользоваетлям:</Text>
-				<SearchWithDropdown />
+				<SearchWithDropdown
+					onOpenChat={handleOpenChat}
+					senderUid={senderUid}
+					setOpenChat={setOpenChat}
+				/>
 			</Box>
-			<ChatsList />
+			<ChatsList senderUid={senderUid} />
 		</Box>
 	)
 }
