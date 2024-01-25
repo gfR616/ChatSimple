@@ -3,7 +3,7 @@ import { InitialChatProvider } from '../../hooks/useInitialChat'
 import { MessagesProvider } from '../../hooks/useMessages'
 import { UsersProvider, useUsers } from '../../hooks/useUsers'
 import Chat from '../ui/chat/chat'
-import ContactsSidebar from '../ui/sidebar/contactsSidebar'
+import ChatsBar from '../ui/chatsBar/chatsBar'
 import SomePannel from '../ui/somePannel'
 import UserPannel from '../ui/userPannel'
 import { Box, Grid, GridItem } from '@chakra-ui/react'
@@ -48,7 +48,7 @@ const ChatPage = () => {
 							</Box>
 							<Grid templateColumns="repeat(9, 1fr)" alignItems="stretch">
 								<GridItem colSpan={2}>
-									<ContactsSidebar senderUid={userUid} />
+									<ChatsBar senderUid={userUid} />
 								</GridItem>
 								<GridItem colSpan={5}>
 									<Chat userName={userName} senderUid={userUid} />
