@@ -3,10 +3,15 @@ import { useEffect, useState } from 'react'
 import { TfiComment, TfiFaceSmile, TfiIdBadge } from 'react-icons/tfi'
 import AsyncSelect from 'react-select/async'
 
-export const SearchWithDropdown = () => {
+export const SearchWithDropdown = ({ onOpenChat, setOpenChat }) => {
 	const handleFetchUsers = async (inputValue, callback) => {
 		try {
-			const users = await getAllUsers()
+			let users = await getAllUsers()
+			if (inputValue) {
+				users = users.filter((user) =>
+					user.displayName.toLowerCase().includes(inputValue.toLowerCase()),
+				)
+			}
 			const formattedUsers = users.map((user) => ({
 				value: user.uid,
 				label: user.displayName,
@@ -21,6 +26,10 @@ export const SearchWithDropdown = () => {
 	const handleChange = (option) => {
 		setSelectedOption(option)
 		console.log(`Option selected:`, option)
+		if (option) {
+			onOpenChat(option.value)
+			setOpenChat(option.value)
+		}
 	}
 
 	return (
