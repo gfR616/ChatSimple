@@ -4,8 +4,8 @@ import { InitialChatProvider } from '../../hooks/useInitialChat'
 import { MessagesProvider } from '../../hooks/useMessages'
 import { UsersProvider, useUsers } from '../../hooks/useUsers'
 import Chat from '../ui/chat/chat'
+import AllUsersPannel from '../ui/chatsBar/allUsersPannel/allUsersPannel'
 import ChatsBar from '../ui/chatsBar/chatsBar'
-import SomePannel from '../ui/somePannel'
 import UserPannel from '../ui/userPannel'
 import { Box, Grid, GridItem } from '@chakra-ui/react'
 import { initializeApp } from 'firebase/app'
@@ -56,7 +56,7 @@ const ChatPage = () => {
 										<Chat userName={userName} senderUid={userUid} />
 									</GridItem>
 									<GridItem colSpan={2}>
-										<SomePannel />
+										<AllUsersPannel />
 									</GridItem>
 								</Grid>
 							</Box>
