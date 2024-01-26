@@ -12,16 +12,12 @@ const DialogScreen = () => {
 		}
 	}, [displayState])
 
-	let messages = Object.values(displayState ?? [])
-
-	console.log('DialogScreen МЕССЕДЖЕССС', messages)
-	console.log('DialogScreen ДИСПЛЕЙСТЕЙТ', displayState)
 	return (
 		<Box
 			ref={boxRef}
 			bg="#9ab092"
 			color="white"
-			h="88vh"
+			h="84vh"
 			p={3}
 			borderRadius={5}
 			overflow="auto"
