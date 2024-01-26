@@ -31,10 +31,11 @@ export const UsersProvider = ({ children }) => {
 
 	useEffect(() => {
 		getUser()
+		getUsers()
 	}, [])
 
 	return (
-		<UsersContext.Provider value={{ user, getUser, users }}>
+		<UsersContext.Provider value={{ user, getUser, users, getUsers }}>
 			{children}
 		</UsersContext.Provider>
 	)
