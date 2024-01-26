@@ -2,30 +2,31 @@ import { UseChats } from '../../../hooks/useChats'
 import { useInitialChat } from '../../../hooks/useInitialChat'
 import { getAllUsers } from '../../../services/userService'
 import { setRecipientUid } from '../../../store/task'
-import SearchWithDropdown from './SerchWithDropdawn'
-import ChatsList from './chatsList/chatsList'
+import ChatsList from './chatsList'
 import { ArrowLeftIcon, ArrowRightIcon } from '@chakra-ui/icons'
 import { Box, Button, Menu, Text } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
-import { TfiComment, TfiFaceSmile, TfiIdBadge } from 'react-icons/tfi'
+// import { TfiComment, TfiFaceSmile, TfiIdBadge } from 'react-icons/tfi'
 import { useDispatch } from 'react-redux'
 
 const ChatsBar = ({ senderUid }) => {
 	const dispatch = useDispatch()
-	const [collapsed, setCollapsed] = useState(true)
-	console.log('senderUid', senderUid)
-	const [users, setUsers] = useState()
-	const [openChat, setOpenChat] = useState([])
+	const { getAllUserChats } = UseChats()
+	const { InitialChat } = useInitialChat()
+	const [userChatList, setUserChatList] = useState()
+	const [isEmptyInput, setisEmptyInput] = useState()
+	console.log('усер чат лист', userChatList)
 
 	useEffect(() => {
-		const handleFetchUsers = async () => {
-			const allUsers = await getAllUsers()
-			setUsers(allUsers)
+		const fetchUserChats = async () => {
+			if (senderUid) {
+				const chats = await getAllUserChats(senderUid)
+				setUserChatList(chats)
+				setisEmptyInput(chats)
+			}
 		}
-		handleFetchUsers()
-	}, [])
-
-	const { InitialChat } = useInitialChat()
+		fetchUserChats()
+	}, [senderUid, getAllUserChats])
 
 	const handleOpenChat = async (recipientUid) => {
 		console.log(senderUid, recipientUid)
@@ -33,16 +34,8 @@ const ChatsBar = ({ senderUid }) => {
 		InitialChat(senderUid, recipientUid)
 	}
 	return (
-		<Box h="95vh" bgColor="green.100" border="1px black solid" borderRadius={5}>
-			<Box h="8vh" border="1px black solid" borderRadius={5} p={1}>
-				<Text>Поиск по всем пользоваетлям:</Text>
-				<SearchWithDropdown
-					onOpenChat={handleOpenChat}
-					senderUid={senderUid}
-					setOpenChat={setOpenChat}
-				/>
-			</Box>
-			<ChatsList senderUid={senderUid} />
+		<Box h="95vh" bgColor="gray.100" border="1px black solid" borderRadius={5}>
+			<ChatsList userChatList={userChatList} />
 		</Box>
 	)
 }
