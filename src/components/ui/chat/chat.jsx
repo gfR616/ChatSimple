@@ -51,6 +51,9 @@ const Chat = ({ userName, senderUid }) => {
 
 	return (
 		<Box border="1px solid black" h="95vh" borderRadius={5} bgColor="#776b93">
+			<Box w="100%" h="4vh" bgColor="white" border="1px solid black" borderRadius={5}>
+				{recipientName ? `Чат с ${recipientName}` : 'Выберите кому написать'}
+			</Box>
 			<Box>
 				<DialogScreen />
 			</Box>
