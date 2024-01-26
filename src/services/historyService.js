@@ -58,22 +58,20 @@ export const initialHistory = async (senderUid, recipientUid) => {
 }
 
 //получаем всю хисторию по совпадению
-export const getAllUserHistory = async (userChats) => {
-	try {
-		const messages = []
-		// Для каждого ключа в userChats выполним отдельный запрос
-		for (const chat of userChats) {
-			const q = query(historyCollection, where('__name__', '==', chat))
-			const querySnapshot = await getDocs(q)
-			// Добавим данные из каждого документа в массив messages
-			querySnapshot.forEach((doc) => {
-				Object.values(doc.data()).forEach((message) => {
-					messages.push(message)
-				})
-			})
-		}
-		return messages
-	} catch (error) {
-		console.log('Не удалось получить совпадении в хистории', error)
+export async function getAllUserHistory(userChats) {
+	const messages = []
+	for (const chat of userChats) {
+		const q = query(historyCollection, where('__name__', '==', chat))
+		const querySnapshot = await getDocs(q)
+		querySnapshot.forEach((doc) => {
+			const chatMessages = Object.values(doc.data())
+			const latestMessage = chatMessages.reduce((latest, message) => {
+				let latestTimestamp = latest && new Date(latest.isoDate)
+				let messageTimestamp = message && new Date(message.isoDate)
+				return messageTimestamp > latestTimestamp ? message : latest
+			}, null)
+			messages.push({ chat, latestMessage })
+		})
 	}
+	return messages
 }
