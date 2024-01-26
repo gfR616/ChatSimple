@@ -42,28 +42,3 @@ export const SearchWithDropdown = ({ onOpenChat, setOpenChat }) => {
 }
 
 export default SearchWithDropdown
-
-/* <GridItem>
-							<SearchWithDropdown users={users} />
-							<Menu>
-								<Box></Box>
-								<SubMenu
-									label={collapsed ? <TfiFaceSmile size={30} /> : 'Все пользователи'}
-									style={{ overflow: 'auto', maxHeight: '200px' }}
-								>
-									{users &&
-										users.map((user) => {
-											return (
-												<MenuItem key={user.uid} onClick={() => handleOpenChat(user.uid)}>
-													{user.displayName}
-												</MenuItem>
-											)
-										})}
-								</SubMenu>
-								<SubMenu
-									label={collapsed ? <TfiComment size={30} /> : 'Мои контакты'}
-								></SubMenu>
-							</Menu>
-						</GridItem>
-						<GridItem rowEnd={3}></GridItem>
-					</Grid> */
