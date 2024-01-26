@@ -1,5 +1,5 @@
 import { userStatusListener } from '../services/authService'
-import { getUserData } from '../services/userService'
+import { getAllUsers, getUserData } from '../services/userService'
 import React, { useContext, useEffect, useState } from 'react'
 
 const UsersContext = React.createContext()
@@ -7,9 +7,11 @@ const UsersContext = React.createContext()
 export const useUsers = () => {
 	return useContext(UsersContext)
 }
+
 //получаем пользователя и его данные
 export const UsersProvider = ({ children }) => {
 	const [user, setUser] = useState(null)
+	const [users, setUsers] = useState(null)
 
 	const getUser = async () => {
 		const userData = userStatusListener(async (currentUser) => {
@@ -22,12 +24,18 @@ export const UsersProvider = ({ children }) => {
 		})
 		return () => userData()
 	}
+	const getUsers = async () => {
+		const allUsers = await getAllUsers()
+		setUsers(allUsers)
+	}
 
 	useEffect(() => {
 		getUser()
 	}, [])
 
 	return (
-		<UsersContext.Provider value={{ user, getUser }}>{children}</UsersContext.Provider>
+		<UsersContext.Provider value={{ user, getUser, users }}>
+			{children}
+		</UsersContext.Provider>
 	)
 }
