@@ -38,7 +38,7 @@ const DialogScreen = () => {
 							<Message
 								isIncomingMessage={messageObj.isIncoming}
 								message={messageObj.message}
-								user={messageObj.userName}
+								user={messageObj.senderName}
 								time={messageObj.displayTime}
 								date={messageObj.displayDate}
 							/>
