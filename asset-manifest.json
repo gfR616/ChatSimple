@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/ChatSimple/static/css/main.0461b70b.css",
-    "main.js": "/ChatSimple/static/js/main.2f1b3059.js",
+    "main.js": "/ChatSimple/static/js/main.ff9ef76d.js",
     "index.html": "/ChatSimple/index.html",
     "main.0461b70b.css.map": "/ChatSimple/static/css/main.0461b70b.css.map",
-    "main.2f1b3059.js.map": "/ChatSimple/static/js/main.2f1b3059.js.map"
+    "main.ff9ef76d.js.map": "/ChatSimple/static/js/main.ff9ef76d.js.map"
   },
   "entrypoints": [
     "static/css/main.0461b70b.css",
-    "static/js/main.2f1b3059.js"
+    "static/js/main.ff9ef76d.js"
   ]
 }
