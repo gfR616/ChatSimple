@@ -22,13 +22,13 @@ const ChatsBar = ({ senderUid }) => {
 			const allUsers = await getAllUsers()
 			setUsers(allUsers)
 		}
-
 		handleFetchUsers()
 	}, [])
 
 	const { InitialChat } = useInitialChat()
 
 	const handleOpenChat = async (recipientUid) => {
+		console.log(senderUid, recipientUid)
 		dispatch(setRecipientUid(recipientUid))
 		InitialChat(senderUid, recipientUid)
 	}
