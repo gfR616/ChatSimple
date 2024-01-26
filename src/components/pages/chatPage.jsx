@@ -3,8 +3,8 @@ import { ChatsProvider } from '../../hooks/useChats'
 import { InitialChatProvider } from '../../hooks/useInitialChat'
 import { MessagesProvider } from '../../hooks/useMessages'
 import { UsersProvider, useUsers } from '../../hooks/useUsers'
+import AllUsersBar from '../ui/allUsersBar/allUsersBar'
 import Chat from '../ui/chat/chat'
-import AllUsersPannel from '../ui/chatsBar/allUsersPannel/allUsersPannel'
 import ChatsBar from '../ui/chatsBar/chatsBar'
 import UserPannel from '../ui/userPannel'
 import { Box, Grid, GridItem } from '@chakra-ui/react'
@@ -56,7 +56,7 @@ const ChatPage = () => {
 										<Chat userName={userName} senderUid={userUid} />
 									</GridItem>
 									<GridItem colSpan={2}>
-										<AllUsersPannel />
+										<AllUsersBar senderUid={userUid} />
 									</GridItem>
 								</Grid>
 							</Box>
