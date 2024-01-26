@@ -1,5 +1,6 @@
 import { pushMessageInStore } from '../services/historyService'
 import { getMessagesFromRoom, sendMessageToRoom } from '../services/roomService'
+import { getUserData } from '../services/userService'
 import { setDisplayState } from '../store/task'
 import { customAlphabet } from 'nanoid'
 import React, { useContext, useEffect } from 'react'
@@ -15,7 +16,6 @@ export const MessagesProvider = ({ children }) => {
 	const dispatch = useDispatch()
 
 	//получаем и отображаем все сообщения
-
 	function getAllMessages(commonKey) {
 		console.log('коomon ki in HOOK getAllMessages', commonKey)
 		if (commonKey) {
@@ -29,20 +29,29 @@ export const MessagesProvider = ({ children }) => {
 	}
 
 	// отправляем сообщение
-	async function sendMessage(userName, inputState, setInputState, senderUid, commonKey) {
-		console.log(userName, inputState, senderUid, commonKey)
+	async function sendMessage(
+		userName,
+		inputState,
+		setInputState,
+		senderUid,
+		commonKey,
+		recipientUid,
+		recipientName,
+	) {
+		console.log(userName, inputState, senderUid, commonKey, recipientUid, recipientName)
 		const nanoid = customAlphabet('1234567890abcdef', 30)
 		const id = nanoid()
 		const addDisplayElement = {
 			_id: id,
-			userName: userName,
+			senderName: userName,
 			senderUid: senderUid,
 			message: inputState,
 			displayTime: new Date().toLocaleTimeString(),
 			displayDate: new Date().toLocaleDateString(),
 			isoDate: new Date().toISOString(),
-			isIncoming: false,
 			commonKey: commonKey,
+			recipientUid: recipientUid,
+			recipientName: recipientName,
 		}
 		console.log('commonKey, addDisplayElement', commonKey, addDisplayElement)
 		await sendMessageToRoom(commonKey, addDisplayElement)
