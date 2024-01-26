@@ -44,17 +44,17 @@ const LoginPage = () => {
 		navigate('/register')
 	}
 	//быть гостем
-	const beGuest = () => {
-		const randomNumber = () => {
-			return Math.floor(Math.random() * 50) + 1
-		}
-		// let randomName = fakeNames[randomNumber()].name
-		// dispatch(setGuestName(randomName))
-		navigate('/chat', { replace: true })
-		const nanoid = customAlphabet('1234567890abcdef', 28)
-		const guestId = nanoid()
-		dispatch(setGuestId(guestId))
-	}
+	// const beGuest = () => {
+	// 	const randomNumber = () => {
+	// 		return Math.floor(Math.random() * 50) + 1
+	// 	}
+	// let randomName = fakeNames[randomNumber()].name
+	// dispatch(setGuestName(randomName))
+	// 	navigate('/chat', { replace: true })
+	// 	const nanoid = customAlphabet('1234567890abcdef', 28)
+	// 	const guestId = nanoid()
+	// 	dispatch(setGuestId(guestId))
+	// }
 
 	const handleLogin = async () => {
 		try {
@@ -140,9 +140,9 @@ const LoginPage = () => {
 								</Button>
 							</GridItem>
 							<GridItem>
-								<Button w="110px" h="40px" onClick={beGuest}>
+								{/* <Button w="110px" h="40px" onClick={beGuest}>
 									be a guest
-								</Button>
+								</Button> */}
 							</GridItem>
 							<GridItem colStart={5}>
 								<Button
