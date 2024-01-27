@@ -3,6 +3,7 @@ import { getUserData } from '../../../services/userService'
 import { setDisplayState } from '../../../store/task'
 import ChatInput from './chatInput'
 import DialogScreen from './dialogScreen'
+import RecipientNamePannel from './recipientNamePannel'
 import { Box } from '@chakra-ui/react'
 import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -51,9 +52,7 @@ const Chat = ({ userName, senderUid }) => {
 
 	return (
 		<Box border="1px solid black" h="95vh" borderRadius={5} bgColor="#776b93">
-			<Box w="100%" h="4vh" bgColor="white" border="1px solid black" borderRadius={5}>
-				{recipientName ? `Чат с ${recipientName}` : 'Выберите кому написать'}
-			</Box>
+			<RecipientNamePannel />
 			<Box>
 				<DialogScreen />
 			</Box>
