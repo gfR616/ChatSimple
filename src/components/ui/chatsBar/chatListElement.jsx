@@ -14,7 +14,7 @@ const ChatListElement = ({ latestMessage, chatDisplayName }) => {
 	const handleOpenChat = async (senderUid, recipientUid) => {
 		InitialChat(senderUid, recipientUid)
 		dispatch(setRecipientUid(recipientUid))
-		dispatch(setDisplayChatName('New chat name'))
+		dispatch(setDisplayChatName(chatDisplayName))
 	}
 
 	return (
