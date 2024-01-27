@@ -1,19 +1,24 @@
 import { UseChats } from '../../../hooks/useChats'
+import { useUsers } from '../../../hooks/useUsers'
 import ChatListElement from './chatListElement'
 import { Box, Input } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 
-export const ChatsList = ({ userChatList }) => {
+export const ChatsList = ({ userChatList, senderUid }) => {
 	const [searchQuery, setSearchQuery] = useState('')
+	const { user } = useUsers()
 
 	const handleInputChange = (event) => {
 		setSearchQuery(event.target.value)
 	}
 	const filteredChats = userChatList
 		? userChatList.filter((el) => {
-				return el.latestMessage.recipientName
-					.toLowerCase()
-					.includes(searchQuery.toLowerCase())
+				return (
+					el.latestMessage.recipientName
+						.toLowerCase()
+						.includes(searchQuery.toLowerCase()) &&
+					el.latestMessage.recipientName !== user.displayName
+				)
 			})
 		: []
 
