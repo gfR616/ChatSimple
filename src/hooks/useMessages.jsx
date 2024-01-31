@@ -38,6 +38,7 @@ export const MessagesProvider = ({ children }) => {
 		recipientUid,
 		recipientName,
 	) {
+		await setInputState('')
 		console.log(userName, inputState, senderUid, commonKey, recipientUid, recipientName)
 		const nanoid = customAlphabet('1234567890abcdef', 30)
 		const id = nanoid()
@@ -56,7 +57,7 @@ export const MessagesProvider = ({ children }) => {
 		console.log('commonKey, addDisplayElement', commonKey, addDisplayElement)
 		await sendMessageToRoom(commonKey, addDisplayElement)
 		await pushMessageInStore(commonKey, addDisplayElement)
-		await setInputState('')
+
 		console.log('Cообщение отправлено', addDisplayElement)
 	}
 
