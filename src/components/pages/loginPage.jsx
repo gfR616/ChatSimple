@@ -54,7 +54,13 @@ const LoginPage = () => {
 	}
 
 	return (
-		<Box backgroundImage="bg.webp" bgSize="cover" w="100vw" h="100vh" overflow="hidden">
+		<Box
+			backgroundImage="chatBg.webp"
+			bgSize="cover"
+			w="100vw"
+			h="100vh"
+			overflow="hidden"
+		>
 			<Box
 				borderRadius="5px"
 				border="1px solid black"
