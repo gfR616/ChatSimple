@@ -24,7 +24,7 @@ const UserPannel = ({ userName }) => {
 				</GridItem>
 				<GridItem colStart={19} display="flex">
 					<Avatar size="sm" name={userName ? userName : ''} />
-					<Text as="b" fontSize="15px" color="#574d4d" m="5px" whiteSpace="nowrap">
+					<Text as="b" fontSize="15px" color="#ffffff" m="5px" whiteSpace="nowrap">
 						{userName ? userName : ''}
 					</Text>
 				</GridItem>
@@ -40,7 +40,7 @@ const UserPannel = ({ userName }) => {
 					)}
 				</GridItem> */}
 				<GridItem colStart={20}>
-					<Button onClick={handleSignOut} colorScheme="red" size="xs">
+					<Button onClick={handleSignOut} colorScheme="gray" size="xs">
 						Выход
 					</Button>
 				</GridItem>

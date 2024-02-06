@@ -52,21 +52,34 @@ const Chat = ({ userName, senderUid }) => {
 	}
 
 	return (
-		<Box
-			h="95vh"
-			backgroundImage="chatBg.webp"
-			backgroundSize="cover"
-			backgroundPosition="center"
-		>
-			<RecipientNamePannel />
-			<DialogScreen />
-			<ChatInput
-				onInputChange={handleInputChange}
-				onSendMessage={handleSendMessage}
-				inputState={inputState}
-				textAreaRef={textAreaRef}
-			/>
-		</Box>
+		<>
+			{chatDisplayName ? (
+				<Box
+					h="95vh"
+					backgroundImage="chatBg.webp"
+					backgroundSize="cover"
+					backgroundPosition="center"
+				>
+					<RecipientNamePannel />
+					<DialogScreen />
+					<ChatInput
+						onInputChange={handleInputChange}
+						onSendMessage={handleSendMessage}
+						inputState={inputState}
+						textAreaRef={textAreaRef}
+					/>
+				</Box>
+			) : (
+				<Box
+					h="95vh"
+					backgroundImage="chatBg.webp"
+					backgroundSize="cover"
+					backgroundPosition="center"
+				>
+					<RecipientNamePannel />
+				</Box>
+			)}
+		</>
 	)
 }
 

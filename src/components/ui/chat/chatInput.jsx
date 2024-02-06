@@ -3,7 +3,7 @@ import { Box, Button, Grid, GridItem, Textarea } from '@chakra-ui/react'
 const ChatInput = ({ onInputChange, inputState, onSendMessage, textAreaRef }) => {
 	return (
 		<Box
-			bgColor="gray.400"
+			bgColor="gray.300"
 			w="100%"
 			h="7vh"
 			border="1px gray solid"
@@ -34,11 +34,12 @@ const ChatInput = ({ onInputChange, inputState, onSendMessage, textAreaRef }) =>
 					<Button
 						minH="6vh"
 						w="100%"
-						colorScheme="blue"
+						backgroundColor="gray.500"
+						color="white"
 						onClick={onSendMessage}
 						borderRadius={10}
 					>
-						Send
+						Отправить
 					</Button>
 				</GridItem>
 			</Grid>
