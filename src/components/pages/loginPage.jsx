@@ -43,18 +43,6 @@ const LoginPage = () => {
 	const goRegisterPage = () => {
 		navigate('/register')
 	}
-	//быть гостем
-	// const beGuest = () => {
-	// 	const randomNumber = () => {
-	// 		return Math.floor(Math.random() * 50) + 1
-	// 	}
-	// let randomName = fakeNames[randomNumber()].name
-	// dispatch(setGuestName(randomName))
-	// 	navigate('/chat', { replace: true })
-	// 	const nanoid = customAlphabet('1234567890abcdef', 28)
-	// 	const guestId = nanoid()
-	// 	dispatch(setGuestId(guestId))
-	// }
 
 	const handleLogin = async () => {
 		try {
@@ -66,13 +54,7 @@ const LoginPage = () => {
 	}
 
 	return (
-		<Box
-			// backgroundImage="loginBg.webp"
-			bgSize="cover"
-			w="100vw"
-			h="100vh"
-			overflow="hidden"
-		>
+		<Box backgroundImage="bg.webp" bgSize="cover" w="100vw" h="100vh" overflow="hidden">
 			<Box
 				borderRadius="5px"
 				border="1px solid black"
@@ -81,8 +63,8 @@ const LoginPage = () => {
 				margin="auto"
 				mt="100px"
 				overflow="hidden"
-				bgColor="#2b312d"
-				opacity={0.9}
+				bgColor="#1a1725"
+				// opacity={0.9}
 			>
 				<Box mt={3} mr={3} textAlign="center">
 					<Text color="#f4f4f4fa" as="b" textAlign="center">

@@ -66,13 +66,7 @@ const RegistrationPage = () => {
 		setChekApprove(!chekApprove)
 	}
 	return (
-		<Box
-			// backgroundImage="loginBg.webp"
-			bgSize="cover"
-			w="100vw"
-			h="100vh"
-			overflow="hidden"
-		>
+		<Box backgroundImage="bg.webp" bgSize="cover" w="100vw" h="100vh" overflow="hidden">
 			<Box
 				borderRadius="5px"
 				border="1px solid black"
@@ -81,8 +75,7 @@ const RegistrationPage = () => {
 				margin="auto"
 				mt="100px"
 				overflow="hidden"
-				bgColor="#2b312d"
-				opacity={0.9}
+				bgColor="#1a1725"
 			>
 				<Box mt={3} mr={3} textAlign="center">
 					<Text color="#f4f4f4fa" as="b" textAlign="center">

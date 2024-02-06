@@ -17,7 +17,7 @@ function App() {
 						<Route exact path="/auth" element={<LoginPage />} />
 						<Route path="/register" element={<RegistrationPage />} />
 						<Route exact path="/chat" element={<ChatPage />} />
-						<Route exact path="/userSettings" element={<UserSettingsPage />} />
+						{/* <Route exact path="/userSettings" element={<UserSettingsPage />} /> */}
 						<Route path="/" element={<Navigate to="/auth" />} />
 					</Routes>
 				</Router>

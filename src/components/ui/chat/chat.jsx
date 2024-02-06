@@ -51,7 +51,7 @@ const Chat = ({ userName, senderUid }) => {
 	}
 
 	return (
-		<Box border="1px solid black" h="95vh" borderRadius={5} bgColor="#776b93">
+		<Box border="1px solid black" h="95vh" borderRadius={5} bgColor="#b2acc1">
 			<RecipientNamePannel />
 			<Box>
 				<DialogScreen />

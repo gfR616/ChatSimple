@@ -19,6 +19,7 @@ const ChatListElement = ({ latestMessage, chatDisplayName }) => {
 
 	return (
 		<Box
+			p={2}
 			h="10vh"
 			border="1px black solid"
 			borderRadius={5}

@@ -17,18 +17,18 @@ const UserPannel = ({ userName }) => {
 	}
 
 	return (
-		<Box border="1px solid black" h="5vh" w="100%">
+		<Box border="1px solid black" bg="#acacb0" h="5vh" w="100%">
 			<Grid h="100%" templateColumns="repeat(20, 1fr)" gap={1} alignItems="center">
 				<GridItem>
 					<Box h="36px" w="160px" backgroundImage="logo.svg" m={1} />
 				</GridItem>
-				<GridItem colStart={18} display="flex">
+				<GridItem colStart={19} display="flex">
 					<Avatar size="sm" name={userName ? userName : ''} />
-					<Text as="b" fontSize="15px" color="#000000" m="5px" whiteSpace="nowrap">
+					<Text as="b" fontSize="15px" color="#574d4d" m="5px" whiteSpace="nowrap">
 						{userName ? userName : ''}
 					</Text>
 				</GridItem>
-				<GridItem>
+				{/* <GridItem>
 					{!localStorage.getItem('guestName') ? (
 						<Button colorScheme="blue" size="xs" onClick={goToUserSettings}>
 							Настройки
@@ -38,8 +38,8 @@ const UserPannel = ({ userName }) => {
 							Регистрация
 						</Button>
 					)}
-				</GridItem>
-				<GridItem>
+				</GridItem> */}
+				<GridItem colStart={20}>
 					<Button onClick={handleSignOut} colorScheme="red" size="xs">
 						Выход
 					</Button>
