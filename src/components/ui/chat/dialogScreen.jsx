@@ -23,16 +23,7 @@ const DialogScreen = () => {
 	})
 
 	return (
-		<Box
-			ref={boxRef}
-			bg="#9ab092"
-			color="white"
-			h="84vh"
-			p={3}
-			borderRadius={5}
-			overflow="auto"
-			opacity="0.95"
-		>
+		<Box ref={boxRef} color="white" h="84vh" p={3} overflow="auto" opacity="0.90">
 			{filteredDisplayState &&
 				filteredDisplayState.map((messageObj) => {
 					console.log('messageObj', messageObj)

@@ -19,7 +19,7 @@ const ChatsBar = ({ senderUid }) => {
 	}, [senderUid, getAllUserChats])
 
 	return (
-		<Box h="95vh" bgColor="gray.100" border="1px black solid" borderRadius={5}>
+		<Box h="95vh" bgColor="gray.100" border="1px gray solid">
 			{userChatList && <ChatsList userChatList={userChatList} senderUid={senderUid} />}
 		</Box>
 	)

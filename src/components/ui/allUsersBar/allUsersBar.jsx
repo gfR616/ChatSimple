@@ -1,5 +1,4 @@
 import { useUsers } from '../../../hooks/useUsers.jsx'
-import { setRecipientUid } from '../../../store/task.js'
 import AllUsersList from './allUsersList.jsx'
 import { Box } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
@@ -13,7 +12,7 @@ const AllUsersBar = ({ senderUid }) => {
 	}, [users])
 
 	return (
-		<Box w="100%" h="95vh" bgColor="gray.100" border="1px solid black" borderRadius={5}>
+		<Box w="100%" h="95vh" bgColor="gray.100" border="1px solid gray">
 			<AllUsersList displayedUsers={displayedUsers} senderUid={senderUid} />
 		</Box>
 	)

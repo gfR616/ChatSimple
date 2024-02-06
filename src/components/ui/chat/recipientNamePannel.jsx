@@ -6,11 +6,39 @@ const RecipientNamePannel = () => {
 	const chatDisplayName = useSelector((state) => state.all.displayChatName)
 
 	return (
-		<Box w="100%" h="4vh" p={1} border="1px solid black" borderRadius={5}>
-			<Text>
-				{chatDisplayName ? `Чат с ${chatDisplayName}` : 'Выберите кому написать'}
-			</Text>
-		</Box>
+		<>
+			{chatDisplayName ? (
+				<Box
+					w="100%"
+					h="4vh"
+					p={1}
+					border="1px solid gray"
+					borderBottomRadius={5}
+					bg="gray.200"
+				>
+					Чат с <b>{chatDisplayName}</b>
+				</Box>
+			) : (
+				<Box
+					w="100%"
+					h="95vh"
+					p={1}
+					display="flex"
+					alignItems="center"
+					justifyContent="center"
+				>
+					<Text
+						textAlign="center"
+						bg="#dfdfdfe7"
+						borderRadius={25}
+						p={3}
+						fontWeight="semibold"
+					>
+						Выберите, кому хотели бы написать
+					</Text>
+				</Box>
+			)}
+		</>
 	)
 }
 export default RecipientNamePannel

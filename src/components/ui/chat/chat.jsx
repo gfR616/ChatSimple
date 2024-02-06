@@ -9,6 +9,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 const Chat = ({ userName, senderUid }) => {
+	const chatDisplayName = useSelector((state) => state.all.displayChatName)
 	const [inputState, setInputState] = useState('')
 	const [recipientName, setResipientName] = useState('')
 	const recipientUid = useSelector((state) => state.all.recipientUid)
@@ -51,19 +52,20 @@ const Chat = ({ userName, senderUid }) => {
 	}
 
 	return (
-		<Box border="1px solid black" h="95vh" borderRadius={5} bgColor="#b2acc1">
+		<Box
+			h="95vh"
+			backgroundImage="chatBg.webp"
+			backgroundSize="cover"
+			backgroundPosition="center"
+		>
 			<RecipientNamePannel />
-			<Box>
-				<DialogScreen />
-			</Box>
-			<Box>
-				<ChatInput
-					onInputChange={handleInputChange}
-					onSendMessage={handleSendMessage}
-					inputState={inputState}
-					textAreaRef={textAreaRef}
-				/>
-			</Box>
+			<DialogScreen />
+			<ChatInput
+				onInputChange={handleInputChange}
+				onSendMessage={handleSendMessage}
+				inputState={inputState}
+				textAreaRef={textAreaRef}
+			/>
 		</Box>
 	)
 }

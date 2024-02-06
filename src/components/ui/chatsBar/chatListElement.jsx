@@ -21,18 +21,27 @@ const ChatListElement = ({ latestMessage, chatDisplayName }) => {
 		<Box
 			p={2}
 			h="10vh"
-			border="1px black solid"
-			borderRadius={5}
-			bgColor="blue.100"
+			border="1px gray solid"
+			borderRadius={10}
+			bgColor="gray.200"
 			onClick={() =>
 				handleOpenChat(latestMessage.senderUid ?? '', latestMessage.recipientUid ?? '')
 			}
 		>
-			<Text as="b" style={{ fontStyle: 'italic' }} color={'#172c69eb'}>
+			<Text as="b" color={'#000000eb'}>
 				{chatDisplayName}
 			</Text>
-			<Text isTruncated={true}>{latestMessage.message}</Text>
-			<Text fontSize="xs" color="#2d4812f3">
+			<Text
+				p={1}
+				pr={2}
+				isTruncated={false}
+				overflow="hidden"
+				whiteSpace="nowrap"
+				textOverflow="ellipsis"
+			>
+				{latestMessage.message}
+			</Text>
+			<Text fontSize="xs" color="#2d4812f3" align="end">
 				{latestMessage.displayDate}
 				<span> </span>
 				{latestMessage.displayTime}

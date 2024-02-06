@@ -17,7 +17,7 @@ const UserPannel = ({ userName }) => {
 	}
 
 	return (
-		<Box border="1px solid black" bg="#acacb0" h="5vh" w="100%">
+		<Box bg="gray.500" h="5vh" w="100%">
 			<Grid h="100%" templateColumns="repeat(20, 1fr)" gap={1} alignItems="center">
 				<GridItem>
 					<Box h="36px" w="160px" backgroundImage="logo.svg" m={1} />

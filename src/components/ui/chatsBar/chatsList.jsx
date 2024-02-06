@@ -36,22 +36,32 @@ export const ChatsList = ({ userChatList, senderUid }) => {
 	}, [])
 
 	return (
-		<Box border="1px black solid" h="94.8vh" borderRadius={2} overflow="auto">
+		<Box border="1px gray solid" h="94.8vh" overflow="auto">
 			{userChatList && (
-				<Input
-					onChange={handleInputChange}
-					placeholder={'Поиск по чатам'}
-					value={searchQuery}
-				/>
+				<>
+					<Box p={1} m={1}>
+						<Input
+							borderRadius={10}
+							borderColor="gray"
+							onChange={handleInputChange}
+							placeholder={'Поиск по активным чатам'}
+							value={searchQuery}
+						/>
+					</Box>
+				</>
 			)}
 			{filteredChats.map((chatItem, index) => {
 				console.log('ЧАТИ ИТЕМ', chatItem)
 				return (
-					<ChatListElement
-						key={index}
-						latestMessage={chatItem.latestMessage}
-						chatDisplayName={chatItem.displayName}
-					/>
+					<>
+						<Box p={1} ml={1} mr={1}>
+							<ChatListElement
+								key={index}
+								latestMessage={chatItem.latestMessage}
+								chatDisplayName={chatItem.displayName}
+							/>
+						</Box>
+					</>
 				)
 			})}
 		</Box>

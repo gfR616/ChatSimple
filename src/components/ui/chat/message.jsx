@@ -22,7 +22,7 @@ const Message = ({ message, user, time, isIncomingMessage }) => {
 				borderRadius={10}
 				position="relative"
 				isTruncated={false}
-				border="1px black solid"
+				border="1px gray solid"
 			>
 				<Text
 					as="b"

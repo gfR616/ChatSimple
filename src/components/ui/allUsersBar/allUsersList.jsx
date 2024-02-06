@@ -19,17 +19,29 @@ export const AllUsersList = ({ displayedUsers, senderUid }) => {
 		: []
 
 	return (
-		<Box border="1px black solid" h="94.9vh" borderRadius={5} overflow="auto">
+		<Box border="1px gray solid" h="94.9vh" overflow="auto">
 			{displayedUsers && (
-				<Input
-					onChange={handleInputChange}
-					placeholder={'Поиск по всем пользователям'}
-					value={searchQuery}
-				/>
+				<>
+					<Box p={1} m={1}>
+						<Input
+							borderRadius={10}
+							borderColor="gray"
+							onChange={handleInputChange}
+							placeholder={'Поиск по всем пользователям'}
+							value={searchQuery}
+						/>
+					</Box>
+				</>
 			)}
 			{filteredUsers &&
 				filteredUsers.map((user) => {
-					return <AllUsersListElement key={user.uid} user={user} senderUid={senderUid} />
+					return (
+						<>
+							<Box p={1} ml={1} mr={1}>
+								<AllUsersListElement key={user.uid} user={user} senderUid={senderUid} />
+							</Box>
+						</>
+					)
 				})}
 		</Box>
 	)
