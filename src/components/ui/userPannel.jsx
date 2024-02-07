@@ -17,7 +17,13 @@ const UserPannel = ({ userName }) => {
 	}
 
 	return (
-		<Box bg="gray.500" h="5vh" w="100%">
+		<Box
+			backgroundImage="linear-gradient(to right,  #1c5f90, gray.500, #994f4f)"
+			h="5vh"
+			w="100%"
+			borderBottom="1px black solid"
+			mix-blend-mode="normal"
+		>
 			<Grid h="100%" templateColumns="repeat(20, 1fr)" gap={1} alignItems="center">
 				<GridItem>
 					<Box h="36px" w="160px" backgroundImage="logo.svg" m={1} />
@@ -40,7 +46,7 @@ const UserPannel = ({ userName }) => {
 					)}
 				</GridItem> */}
 				<GridItem colStart={20}>
-					<Button onClick={handleSignOut} colorScheme="gray" size="xs">
+					<Button onClick={handleSignOut} colorScheme="BlackAlpha" size="xs">
 						Выход
 					</Button>
 				</GridItem>

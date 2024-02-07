@@ -1,6 +1,6 @@
 import { useUsers } from '../../../hooks/useUsers'
 import ChatListElement from './chatListElement'
-import { Box, Input } from '@chakra-ui/react'
+import { Box, Input, Text } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 
 // import { useDispatch } from 'react-redux'
@@ -36,16 +36,26 @@ export const ChatsList = ({ userChatList, setUserChatList }) => {
 	}, [])
 
 	return (
-		<Box border="1px gray solid" h="94.8vh" overflow="auto">
+		<Box h="94.8vh" overflow="auto">
 			{userChatList && (
 				<>
-					<Box p={1} m={1}>
+					<Text as="b" fontSize={15} p={1} color="black">
+						Чаты
+					</Text>
+
+					<Box p={1}>
 						<Input
+							fontSize={14}
 							borderRadius={10}
-							borderColor="gray"
+							borderColor="black"
 							onChange={handleInputChange}
 							placeholder={'Поиск по активным чатам'}
 							value={searchQuery}
+							sx={{
+								'&::placeholder': {
+									color: 'black',
+								},
+							}}
 						/>
 					</Box>
 				</>

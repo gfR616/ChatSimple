@@ -23,27 +23,20 @@ const ChatListElement = ({ latestMessage, chatDisplayName }) => {
 			h="10vh"
 			border="1px gray solid"
 			borderRadius={10}
-			bgColor="gray.200"
+			bgColor="#7fc19c"
 			onClick={() =>
 				handleOpenChat(latestMessage.senderUid ?? '', latestMessage.recipientUid ?? '')
 			}
 			position="relative"
+			_hover={{
+				cursor: 'pointer',
+				backgroundColor: 'gray.100',
+			}}
+			opacity="0.9"
 		>
-			<Text as="b" color={'#000000eb'}>
+			<Text as="b" color={'#000000'}>
 				{chatDisplayName}
 			</Text>
-			<Tooltip label="Удалить чат" hasArrow borderRadius={5}>
-				<Button
-					position="absolute"
-					top={2}
-					right={2}
-					color="black"
-					size="xs"
-					variant="ghost"
-				>
-					x
-				</Button>
-			</Tooltip>
 			<Text
 				p={1}
 				pr={2}

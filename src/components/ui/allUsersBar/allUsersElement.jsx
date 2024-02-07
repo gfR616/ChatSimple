@@ -15,13 +15,19 @@ const AllUsersListElement = ({ user, senderUid }) => {
 	return (
 		<Box
 			p={1}
-			h="5vh"
+			m={-1}
+			h="4vh"
 			border="1px gray solid"
 			borderRadius={10}
-			bgColor="gray.200"
+			bgColor="#e6d0a7"
 			onClick={() => handleOpenChat(senderUid ?? '', user.uid ?? '')}
+			_hover={{
+				cursor: 'pointer',
+				backgroundColor: 'gray.100',
+			}}
+			opacity="0.9"
 		>
-			<Text p={1} color="#040505eb" fontSize={12}>
+			<Text p={1} color="#040505" fontSize={12}>
 				{user && user.displayName}
 			</Text>
 		</Box>

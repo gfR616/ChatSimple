@@ -18,7 +18,11 @@ const ChatsBar = ({ senderUid }) => {
 	}, [senderUid, getAllUserChats])
 
 	return (
-		<Box h="95vh" bgColor="gray.100" border="1px gray solid">
+		<Box
+			h="95vh"
+			backgroundImage="linear-gradient(135deg, #1c5f90,  gray.500, #527d60 )"
+			border="1px gray solid"
+		>
 			{userChatList && (
 				<ChatsList
 					userChatList={userChatList}

@@ -1,6 +1,6 @@
 import { useUsers } from '../../../hooks/useUsers'
 import AllUsersListElement from './allUsersElement'
-import { Box, Input } from '@chakra-ui/react'
+import { Box, Input, Text } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 
 export const AllUsersList = ({ displayedUsers, senderUid }) => {
@@ -22,13 +22,23 @@ export const AllUsersList = ({ displayedUsers, senderUid }) => {
 		<Box border="1px gray solid" h="94.9vh" overflow="auto">
 			{displayedUsers && (
 				<>
-					<Box p={1} m={1}>
+					<Text as="b" fontSize={15} p={1} color="#000000">
+						Пользователи
+					</Text>
+					<Box p={1}>
 						<Input
+							fontSize={14}
 							borderRadius={10}
-							borderColor="gray"
+							borderColor="black"
 							onChange={handleInputChange}
 							placeholder={'Поиск по всем пользователям'}
+							sx={{
+								'&::placeholder': {
+									color: 'black',
+								},
+							}}
 							value={searchQuery}
+							color="black"
 						/>
 					</Box>
 				</>

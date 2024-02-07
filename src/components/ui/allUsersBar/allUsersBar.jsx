@@ -12,7 +12,11 @@ const AllUsersBar = ({ senderUid }) => {
 	}, [users])
 
 	return (
-		<Box w="100%" h="95vh" bgColor="#f1f1f1" border="1px solid gray">
+		<Box
+			w="100%"
+			h="95vh"
+			backgroundImage="linear-gradient(45deg, #5b6a75,  gray.500, #895e4c )"
+		>
 			<AllUsersList displayedUsers={displayedUsers} senderUid={senderUid} />
 		</Box>
 	)
