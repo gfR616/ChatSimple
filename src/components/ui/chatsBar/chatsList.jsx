@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react'
 
 // import { useDispatch } from 'react-redux'
 
-export const ChatsList = ({ userChatList, senderUid }) => {
+export const ChatsList = ({ userChatList, setUserChatList }) => {
 	const [searchQuery, setSearchQuery] = useState('')
 	const { user } = useUsers()
 	const handleInputChange = (event) => {
@@ -57,6 +57,7 @@ export const ChatsList = ({ userChatList, senderUid }) => {
 						<Box p={1} ml={1} mr={1}>
 							<ChatListElement
 								key={index}
+								setUserChatList={setUserChatList}
 								latestMessage={chatItem.latestMessage}
 								chatDisplayName={chatItem.displayName}
 							/>

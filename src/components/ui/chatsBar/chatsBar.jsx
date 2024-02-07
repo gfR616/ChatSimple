@@ -1,6 +1,5 @@
 import { UseChats } from '../../../hooks/useChats'
 import ChatsList from './chatsList'
-import { ArrowLeftIcon, ArrowRightIcon } from '@chakra-ui/icons'
 import { Box } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 
@@ -20,7 +19,13 @@ const ChatsBar = ({ senderUid }) => {
 
 	return (
 		<Box h="95vh" bgColor="gray.100" border="1px gray solid">
-			{userChatList && <ChatsList userChatList={userChatList} senderUid={senderUid} />}
+			{userChatList && (
+				<ChatsList
+					userChatList={userChatList}
+					setUserChatList={setUserChatList}
+					senderUid={senderUid}
+				/>
+			)}
 		</Box>
 	)
 }

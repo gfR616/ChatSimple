@@ -14,14 +14,14 @@ const AllUsersListElement = ({ user, senderUid }) => {
 	}
 	return (
 		<Box
-			p={2}
-			h="10vh"
+			p={1}
+			h="5vh"
 			border="1px gray solid"
 			borderRadius={10}
 			bgColor="gray.200"
 			onClick={() => handleOpenChat(senderUid ?? '', user.uid ?? '')}
 		>
-			<Text as="b" p={4} color="#040505eb">
+			<Text p={1} color="#040505eb" fontSize={12}>
 				{user && user.displayName}
 			</Text>
 		</Box>

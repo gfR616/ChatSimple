@@ -48,11 +48,11 @@ const ChatPage = () => {
 								<Box>
 									<UserPannel userName={userName} />
 								</Box>
-								<Grid templateColumns="repeat(9, 1fr)" alignItems="stretch">
+								<Grid templateColumns="repeat(15, 1fr)" alignItems="stretch">
 									<GridItem colSpan={2}>
 										<ChatsBar senderUid={userUid} />
 									</GridItem>
-									<GridItem colSpan={5}>
+									<GridItem colSpan={11}>
 										<Chat userName={userName} senderUid={userUid} />
 									</GridItem>
 									<GridItem colSpan={2}>

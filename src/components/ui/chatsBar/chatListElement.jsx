@@ -1,6 +1,6 @@
 import { useInitialChat } from '../../../hooks/useInitialChat'
 import { setDisplayChatName, setRecipientUid } from '../../../store/task'
-import { Box, Text } from '@chakra-ui/react'
+import { Box, Button, Text, Tooltip } from '@chakra-ui/react'
 import React from 'react'
 import { useDispatch } from 'react-redux'
 
@@ -27,10 +27,23 @@ const ChatListElement = ({ latestMessage, chatDisplayName }) => {
 			onClick={() =>
 				handleOpenChat(latestMessage.senderUid ?? '', latestMessage.recipientUid ?? '')
 			}
+			position="relative"
 		>
 			<Text as="b" color={'#000000eb'}>
 				{chatDisplayName}
 			</Text>
+			<Tooltip label="Удалить чат" hasArrow borderRadius={5}>
+				<Button
+					position="absolute"
+					top={2}
+					right={2}
+					color="black"
+					size="xs"
+					variant="ghost"
+				>
+					x
+				</Button>
+			</Tooltip>
 			<Text
 				p={1}
 				pr={2}
